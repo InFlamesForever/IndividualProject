@@ -1,0 +1,57 @@
+Work over the summer -
+	Writing out the plan for what the game is going to be about
+
+07/10/15 -
+	Meeting with supervisor at 11am
+	Some reading of materials suggested by supervisor
+	- AI Game Programming Wisodom 1
+
+08/10/15 -
+	Creation of Initial Report document
+	Reading of materials suggested by supervisor
+
+09/10/15 -
+	Reading of papers on Proceedural terrain generation
+
+10/10/15 -
+	Reading of papers on Proceedural terrain generation
+	Writing project goals
+
+11/10/15 -
+	Reading of papers on Proceedural terrain generation
+	Writing background reading section
+
+12/10/15 -
+	Reading of papers on AI in games
+	Writing background reading section
+
+13/10/15 -
+	Reading of papers on AI in games
+	Writing background reading section
+
+14/10/15 -
+	Finish background reading section
+	Writing project goals
+	Start project plan writing
+
+15/10/15 -
+	Finish project goals section
+	Finish project plan
+
+16/10/15 -
+	Finish final touches and hand in inital report
+
+19/10/15 -
+	Started writing formal requirements for the game
+
+21/10/15 -
+	Create initial designs and finish requirements
+
+22/10/15 -
+	Finish inital designs
+
+23/10/15 -
+	Start creating designs for the characters in the game
+
+24/10/15 -
+	NPC character design
