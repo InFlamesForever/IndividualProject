@@ -13,8 +13,15 @@ include_directories(${SDL2_INCLUDE_DIR}
         ${SDL2_IMAGE_INCLUDE_DIR}
         ${SDL2_TTF_INCLUDE_DIR})
 
-set(SOURCE_FILES characters/CApp.cpp)
-add_executable(IndividualProject ${SOURCE_FILES})
+file(GLOB SOURCES
+        characters/*.cpp
+        characters/*.h
+        tutorials/*.h
+        tutorials/*.cpp
+)
+
+set(SOURCE_FILES ${SOURCES} Timer.h Timer.cpp Timer.h)
+add_executable(IndividualProject ${SOURCE_FILES} ../tutorialStuff/26_motion/26_motion.cpp)
 
 target_link_libraries(IndividualProject ${SDL2_LIBRARY}
         ${SDL2_IMAGE_LIBRARIES}
