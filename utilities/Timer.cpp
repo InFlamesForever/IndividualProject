@@ -1,4 +1,3 @@
-#include <SDL_timer.h>
 #include "Timer.h"
 
 Timer::Timer() {

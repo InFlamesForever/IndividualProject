@@ -2,7 +2,8 @@
 #define INDIVIDUALPROJECT_TIMER_H
 
 
-#include <SDL_stdinc.h>
+//Using SDL, SDL_image, standard IO, and, strings
+#include <SDL.h>
 
 /*
  * Last Updated 05/12/15
