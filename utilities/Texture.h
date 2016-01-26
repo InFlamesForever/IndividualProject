@@ -65,6 +65,8 @@ public:
 
     Uint32 getPixel32(unsigned int x, unsigned int y);
 
+    SDL_Texture* getTexture();
+
 private:
     //The actual hardware texture
     SDL_Texture *mTexture;

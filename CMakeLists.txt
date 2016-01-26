@@ -20,7 +20,7 @@ file(GLOB SOURCES
         utilities/*.h
 )
 
-set(SOURCE_FILES ${SOURCES} )
+set(SOURCE_FILES ${SOURCES} utilities/TextureInfo.cpp utilities/TextureInfo.h)
 add_executable(IndividualProject ${SOURCE_FILES} main.cpp)
 
 target_link_libraries(IndividualProject ${SDL2_LIBRARY}

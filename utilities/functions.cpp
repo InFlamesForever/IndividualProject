@@ -57,16 +57,6 @@ bool init() {
     return true;
 }
 
-bool loadMedia() {
-    //Load dot texture
-    if (!gDotTexture.loadFromFile("textures/characters/dot.bmp")) {
-        cout << "Failed to load dot texture!" << endl;
-        return false;
-    }
-
-    return true;
-}
-
 void close() {
     //Free loaded images
     gDotTexture.free();

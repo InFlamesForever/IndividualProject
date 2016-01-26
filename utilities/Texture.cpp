@@ -231,3 +231,7 @@ Uint32 Texture::getPixel32(unsigned int x, unsigned int y) {
     //Get the pixel requested
     return pixels[(y * (mPitch / 4)) + x];
 }
+
+SDL_Texture *Texture::getTexture() {
+    return mTexture;
+}
