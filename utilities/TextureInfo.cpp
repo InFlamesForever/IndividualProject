@@ -4,11 +4,11 @@
 
 #include "TextureInfo.h"
 
-void TextureInfo::setUp(Texture* const& tex, int x, int y, int z) {
+void TextureInfo::setUp(Texture* const& tex, int x, int y) {
     texture = tex;
     this->x = x;
     this->y = y;
-    this->z = z;
+
 }
 
 Texture* TextureInfo::getTexture() {
@@ -21,8 +21,4 @@ int TextureInfo::getX() {
 
 int TextureInfo::getY() {
     return y;
-}
-
-int TextureInfo::getZ() {
-    return z;
 }

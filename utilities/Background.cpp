@@ -1,96 +1,97 @@
-//
-// Created by richard on 28/12/15.
-//
-
 #include "Background.h"
 
 Background::Background() {
-    double t = -0.5; // tilt angle - try different values
-    for(int i = 0; i < numTilesWidth; i++) {
-        double X = i * 16 - SCREEN_WIDTH/2 ;
-        double Y = 0 - SCREEN_HEIGHT/2 ;
-        double a = (SCREEN_HEIGHT / (SCREEN_HEIGHT + Y * sin(t)));
-        int u = (int) (a * X + SCREEN_WIDTH / 2);
-        int v = (int) (a * Y * cos(t) + SCREEN_HEIGHT / 2);
-        background[i][0].setUp(&gGrass_LushLightTexture, u, v, 0);
+    terrain.reserve(3000);
+    SDL_SetRenderTarget(gRenderer, tileTexture);
 
-        Y = 1*16 - SCREEN_HEIGHT/2 ;
-        a = (SCREEN_HEIGHT / (SCREEN_HEIGHT + Y * sin(t)));
-        u = (int) (a * X + SCREEN_WIDTH / 2);
-        v = (int) (a * Y * cos(t) + SCREEN_HEIGHT / 2);
-        background[i][1].setUp(&gGrass_LushLightTexture, u, v, 0);
+    //Cleans the screen to make sure the background is correct
+    SDL_RenderCopy(gRenderer, gStone_Gray_VeryDarkTexture.getTexture(), NULL,
+                   NULL);
+    int i = 0;
+    int j = 0;
 
-        Y = 2*16 - SCREEN_HEIGHT/2 ;
-        a = (SCREEN_HEIGHT / (SCREEN_HEIGHT + Y * sin(t)));
-        u = (int) (a * X + SCREEN_WIDTH / 2);
-        v = (int) (a * Y * cos(t) + SCREEN_HEIGHT / 2);
-        background[i][2].setUp(&gGrass_LushLightTexture, u, v, 0);
+    //Initialize moveXTo0 and moveYTo0
+    int x = 0;
+    int y = 0;
+    convert2Dto25D(&x, &y);
+    moveXTo0 = x;
+    moveYTo0 = y;
 
-        Y = 3*16 - SCREEN_HEIGHT/2 ;
-        a = (SCREEN_HEIGHT / (SCREEN_HEIGHT + Y * sin(t)));
-        u = (int) (a * X + SCREEN_WIDTH / 2);
-        v = (int) (a * Y * cos(t) + SCREEN_HEIGHT / 2);
-        background[i][3].setUp(&gGrass_DryTexture, u, v, 0);
 
-        Y = 4*16 - SCREEN_HEIGHT/2 ;
-        a = (SCREEN_HEIGHT / (SCREEN_HEIGHT + Y * sin(t)));
-        u = (int) (a * X + SCREEN_WIDTH / 2);
-        v = (int) (a * Y * cos(t) + SCREEN_HEIGHT / 2);
-        background[i][4].setUp(&gDirt_DirtTexture, u, v, 0);
+    while(j >= 0) {
+        //Creates 2D Coordinates
+        x = i * BLOCK_WIDTH;
+        y = j * BLOCK_WIDTH;
 
-        Y = 5*16 - SCREEN_HEIGHT/2 ;
-        a = (SCREEN_HEIGHT / (SCREEN_HEIGHT + Y * sin(t)));
-        u = (int) (a * X + SCREEN_WIDTH / 2);
-        v = (int) (a * Y * cos(t) + SCREEN_HEIGHT / 2);
-        background[i][5].setUp(&gDirt_DirtTexture, u, v, 0);
+        convert2Dto25D(&x, &y);
 
-        Y = 6*16 - SCREEN_HEIGHT/2 ;
-        a = (SCREEN_HEIGHT / (SCREEN_HEIGHT + Y * sin(t)));
-        u = (int) (a * X + SCREEN_WIDTH / 2);
-        v = (int) (a * Y * cos(t) + SCREEN_HEIGHT / 2);
-        background[i][6].setUp(&gSand_DarkTexture, u, v, 0);
+        if (x + BLOCK_WIDTH > -15 && y < SCREEN_HEIGHT) {
+            TextureInfo temp;
+            if (i % 2 == 0)
+                temp.setUp(&gWater_SeaTexture, x, y);
+            else
+                temp.setUp(&gGrass_LushLightTexture, x, y);
 
-        Y = 7*16 - SCREEN_HEIGHT/2 ;
-        a = (SCREEN_HEIGHT / (SCREEN_HEIGHT + Y * sin(t)));
-        u = (int) (a * X + SCREEN_WIDTH / 2);
-        v = (int) (a * Y * cos(t) + SCREEN_HEIGHT / 2);
-        background[i][7].setUp(&gSand_DarkTexture, u, v, 0);
+            terrain.push_back(temp);
+        }
 
-        Y = 8*16 - SCREEN_HEIGHT/2 ;
-        a = (SCREEN_HEIGHT / (SCREEN_HEIGHT + Y * sin(t)));
-        u = (int) (a * X + SCREEN_WIDTH / 2);
-        v = (int) (a * Y * cos(t) + SCREEN_HEIGHT / 2);
-        background[i][8].setUp(&gSand_LightTexture, u, v, 0);
-
-        Y = 9*16 - SCREEN_HEIGHT/2 ;
-        a = (SCREEN_HEIGHT / (SCREEN_HEIGHT + Y * sin(t)));
-        u = (int) (a * X + SCREEN_WIDTH / 2);
-        v = (int) (a * Y * cos(t) + SCREEN_HEIGHT / 2);
-        background[i][9].setUp(&gSand_LightTexture, u, v, 0);
-        
-        for(int j = 10; j < numTilesHeight; j++){
-            Y = j*16 - SCREEN_HEIGHT/2 ;
-            a = (SCREEN_HEIGHT / (SCREEN_HEIGHT + Y * sin(t)));
-            u = (int) (a * X + SCREEN_WIDTH / 2);
-            v = (int) (a * Y * cos(t) + SCREEN_HEIGHT / 2);
-            background[i][j].setUp(&gWater_SeaTexture, u, v, 0);
-            
+        i++;
+        if(x + BLOCK_WIDTH> SCREEN_WIDTH){
+            i = 0;
+            j++;
+        }
+        if(y > SCREEN_HEIGHT){
+            j = -1;
         }
     }
+
+    SDL_Rect dst;
+    j = 1;
+    int lastY = 0;
+    int nextY = 0;
+    for(i = 0; i < terrain.size() - 1; i++){
+        int width  = terrain[i+1].getX() - terrain[i].getX();
+        width > 0 ? dst.w = width : dst.w = BLOCK_WIDTH;
+
+        if(lastY != terrain[i].getY()){
+            j++;
+            int u = 0;
+            int v = j * BLOCK_WIDTH;
+
+            convert2Dto25D(&u, &v);
+            nextY = v;
+
+            lastY = terrain[i].getY();
+        }
+
+        int h = nextY - terrain[i].getY();
+        h > 0 ? dst.h = h : dst.h = BLOCK_WIDTH;
+        dst.x = terrain[i].getX();
+        dst.y = terrain[i].getY();
+
+        SDL_RenderCopy(gRenderer, terrain[i].getTexture()->getTexture(), NULL,
+                       &dst);
+    }
+
+    dst.x = terrain[terrain.size() - 1].getX();
+    dst.y = terrain[terrain.size() - 1].getY();
+    SDL_RenderCopy(gRenderer, terrain[terrain.size() - 1].getTexture()->getTexture(), NULL,
+                   &dst);
+
+
+    SDL_SetRenderTarget(gRenderer, NULL);
 }
 
 void Background::render() {
-    for(int i = 0; i < numTilesWidth; i++){
-        for(int j = 0; j< numTilesHeight; j++){
-            int x = background[i][j].getX();
-            int y = background[i][j].getY();
+    SDL_RenderCopy(gRenderer, tileTexture, NULL, NULL);
+}
 
-            SDL_Rect dst;
-            dst.x = 0;
-            dst.y = 0;
-            dst.w = 16;
-            dst.h = 16+j;
-            background[i][j].getTexture()->render(x,y, &dst) ;
-        }
-    }
+void Background::convert2Dto25D(int *x, int *y) {
+    double t = -1; // tilt angle
+    double X = *x - SCREEN_WIDTH / 2;
+    double Y = *y - SCREEN_HEIGHT / 2;
+    double a = (SCREEN_HEIGHT / (SCREEN_HEIGHT + Y * sin(t)));
+
+    *x = (int) (a * X + SCREEN_WIDTH / 2) - moveXTo0;
+    *y = (int) (a * Y * cos(t) + SCREEN_HEIGHT / 2) - moveYTo0;
 }

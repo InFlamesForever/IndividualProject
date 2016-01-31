@@ -20,7 +20,7 @@ bool init() {
         }
 
         //Create window
-        gWindow = SDL_CreateWindow("SDL Tutorial", SDL_WINDOWPOS_UNDEFINED,
+        gWindow = SDL_CreateWindow("Individual Project Game", SDL_WINDOWPOS_UNDEFINED,
                                    SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH,
                                    SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
         if (gWindow == NULL) {

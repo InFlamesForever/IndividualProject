@@ -7,10 +7,11 @@
 
 
 #include "Texture.h"
+#include "constants.h"
 
 class TextureInfo {
 public:
-    void setUp(Texture* const& tex, int x, int y, int z);
+    void setUp(Texture* const& tex, int x, int y);
 
     Texture* getTexture();
 
@@ -18,14 +19,13 @@ public:
 
     int getY();
 
-    int getZ();
-
 
 private:
     Texture *texture;
+
+    //2.5d Coords
     int x;
     int y;
-    int z;
 };
 
 

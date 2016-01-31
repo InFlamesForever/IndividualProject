@@ -67,6 +67,8 @@ public:
 
     SDL_Texture* getTexture();
 
+    void setTexture(SDL_Texture* text);
+
 private:
     //The actual hardware texture
     SDL_Texture *mTexture;

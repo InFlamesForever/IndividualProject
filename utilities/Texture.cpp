@@ -235,3 +235,9 @@ Uint32 Texture::getPixel32(unsigned int x, unsigned int y) {
 SDL_Texture *Texture::getTexture() {
     return mTexture;
 }
+
+
+void Texture::setTexture(SDL_Texture *text) {
+    mTexture = text;
+
+}
