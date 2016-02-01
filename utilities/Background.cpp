@@ -56,7 +56,7 @@ Background::Background() {
 }
 
 void Background::render() {
-    SDL_RenderCopy(gRenderer, tileTexture, NULL, NULL);
+    tileTexture.render(0,0);
 }
 
 void Background::convert2Dto25D(int *x, int *y) {
@@ -77,7 +77,7 @@ Background::~Background() {
 }
 
 void Background::composeTerrainToTexture() {
-    SDL_SetRenderTarget(gRenderer, tileTexture);
+    tileTexture.setAsRenderTarget();
 
     //Cleans the screen to make sure the background to make sure nothing is held
     // from previous renders

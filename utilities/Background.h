@@ -58,10 +58,7 @@ private:
     int moveYTo0 = 0;
 
     //------------change to be texture class in future--------------------------
-    SDL_Texture* tileTexture =
-            SDL_CreateTexture(gRenderer, SDL_PIXELFORMAT_RGBA8888,
-                              SDL_TEXTUREACCESS_TARGET, SCREEN_WIDTH,
-                              SCREEN_HEIGHT);
+    Texture tileTexture;
 };
 
 
