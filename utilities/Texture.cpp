@@ -2,9 +2,10 @@
 
 Texture::Texture() {
     //Initialize
-    mTexture = NULL;
-    mWidth = 0;
-    mHeight = 0;
+    mTexture = SDL_CreateTexture(gRenderer, SDL_PIXELFORMAT_RGBA8888,
+                                 SDL_TEXTUREACCESS_TARGET, SCREEN_WIDTH,
+                                 SCREEN_HEIGHT);
+    SDL_QueryTexture(mTexture, NULL, NULL, &mWidth, &mHeight);
     mPixels = NULL;
     mPitch = 0;
 }
