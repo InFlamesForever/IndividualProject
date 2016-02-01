@@ -2,10 +2,12 @@
 #define INDIVIDUALPROJECT_CONSTANTS_H
 
 //Screen dimension constants
-const int SCREEN_WIDTH = 1920;
-const int SCREEN_HEIGHT = 1080;
+const int SCREEN_WIDTH = 1280;
+const int SCREEN_HEIGHT = 720;
 
-const int BLOCK_WIDTH = 16;
+const int BLOCK_WIDTH = 10;
+
+const int NUM_TEXTURES = 24;
 
 
 #endif //INDIVIDUALPROJECT_CONSTANTS_H
