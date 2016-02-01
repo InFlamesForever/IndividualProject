@@ -12,6 +12,9 @@
 
 class Update {
 public:
+
+    ~Update();
+
     void handleEventUpdate(SDL_Event e);
 
     void moveUpdate(float timeStep);

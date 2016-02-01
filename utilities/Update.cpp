@@ -20,3 +20,6 @@ void Update::renderUpdate() {
     dot.render();
 
 }
+
+Update::~Update() {
+}
