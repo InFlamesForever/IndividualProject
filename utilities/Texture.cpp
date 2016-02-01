@@ -172,22 +172,20 @@ int Texture::getHeight() {
 }
 
 bool Texture::lockTexture() {
-    bool success = true;
-
     //Texture is already locked
     if (mPixels != NULL) {
         cout << "Texture is already locked!" << endl;
-        success = false;
+        return false;
     }
         //Lock texture
     else {
         if (SDL_LockTexture(mTexture, NULL, &mPixels, &mPitch) != 0) {
             cout << "Unable to lock texture! %s" << SDL_GetError() << endl;
-            success = false;
+            return false;
         }
     }
 
-    return success;
+    return true;
 }
 
 bool Texture::unlockTexture() {
