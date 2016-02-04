@@ -5,7 +5,7 @@
 const int SCREEN_WIDTH = 1280;
 const int SCREEN_HEIGHT = 720;
 
-const int BLOCK_WIDTH = 10;
+const int BLOCK_WIDTH = 16;
 
 const int NUM_TEXTURES = 24;
 
