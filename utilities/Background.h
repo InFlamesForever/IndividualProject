@@ -23,7 +23,10 @@ public:
     //Compiles all of the textures for the terrain to reduce rendering
     void composeTerrainToTexture();
 
-    void moveUpdate();
+    void getTerrain();
+
+    //Moves the terrain
+    bool move(float timeStep, int xShift, int yShift);
 
     void render();
 
@@ -35,6 +38,9 @@ private:
 
     static int const terrainSize = 1000;
     TextureInfo **terrain = new TextureInfo*[terrainSize];
+
+    int numOfTilesHeight;
+    int numOfTilesWidth;
 
     //Stores where the terrain on the screen the player sees starts on the whole
     //terrain grid
@@ -59,6 +65,18 @@ private:
 
     //------------change to be texture class in future--------------------------
     Texture tileTexture;
+
+    //Speed multiplier for movement
+    static int const moveConst = 3;
+
+    //Holds the distance moved for a single block
+    float movedSoFar = 0;
+
+    //Holds the offset for the on screen map during movement
+    int moveBackgroundY = 0;
+    int moveBackgroundX = 0;
+
+    void renderTile(int terX, int terY, int renX, int renY);
 };
 
 
