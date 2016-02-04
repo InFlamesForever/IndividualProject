@@ -9,6 +9,7 @@
 #include <SDL_events.h>
 #include "Dot.h"
 #include "Background.h"
+#include "constants.h"
 
 class Update {
 public:
@@ -25,6 +26,9 @@ private:
     //The dot that will be moving around on the screen
     Dot dot;
     Background background;
+    enum MoveType {UP, DOWN, LEFT, RIGHT};
+    MoveType move = DOWN;
+    bool isMoving = false;
 };
 
 
