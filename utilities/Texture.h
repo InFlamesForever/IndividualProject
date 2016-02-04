@@ -66,9 +66,8 @@ public:
 
     Uint32 getPixel32(unsigned int x, unsigned int y);
 
-    SDL_Texture* getTexture();
-
-    void setTexture(SDL_Texture* text);
+    //WARNING: Will reset the current render target!
+    void clearTexture();
 
 private:
     //The actual hardware texture

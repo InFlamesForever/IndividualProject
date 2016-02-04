@@ -231,12 +231,8 @@ Uint32 Texture::getPixel32(unsigned int x, unsigned int y) {
     return pixels[(y * (mPitch / 4)) + x];
 }
 
-SDL_Texture *Texture::getTexture() {
-    return mTexture;
-}
-
-
-void Texture::setTexture(SDL_Texture *text) {
-    mTexture = text;
-
+void Texture::clearTexture() {
+    setAsRenderTarget();
+    SDL_RenderClear(gRenderer);
+    SDL_SetRenderTarget(gRenderer, NULL);
 }
