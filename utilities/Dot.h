@@ -17,8 +17,8 @@ class Dot
 {
 public:
     //The dimensions of the dot
-    static const int DOT_WIDTH = 20;
-    static const int DOT_HEIGHT = 20;
+    static const int DOT_WIDTH = 16;
+    static const int DOT_HEIGHT = 16;
 
     //Maximum axis velocity of the dot
     static const int DOT_VEL = 640;
