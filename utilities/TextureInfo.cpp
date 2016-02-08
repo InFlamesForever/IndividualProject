@@ -4,14 +4,14 @@
 
 #include "TextureInfo.h"
 
-void TextureInfo::setUp(Texture* const& tex, int x, int y) {
+void TextureInfo::setUp(int tex, int x, int y) {
     texture = tex;
     this->x = x;
     this->y = y;
 
 }
 
-Texture* TextureInfo::getTexture() {
+int TextureInfo::getTexture() {
     return texture;
 }
 

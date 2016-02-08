@@ -52,12 +52,11 @@ int main(int argc, char *args[]) {
 
                 //Calculate and correct fps
                 float avgFPS = countedFrames / ( fpsTimer.getTicks() / 1000.f );
-                if( avgFPS > 2000000 )
-                {
+                if( avgFPS > 2000000 ){
                     avgFPS = 0;
                 }
 
-                cout << avgFPS << endl;
+                //cout << avgFPS << endl;
 
                 //Calculate time step
                 float timeStep = stepTimer.getTicks() / 1000.f;

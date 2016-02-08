@@ -36,7 +36,7 @@ public:
 private:
     vector<TextureInfo> onScreenTerrain;
 
-    static int const terrainSize = 1000;
+    static int const terrainSize = 100;
     TextureInfo **terrain = new TextureInfo*[terrainSize];
 
     int numOfTilesHeight;
@@ -47,27 +47,34 @@ private:
     int pointInTerrainX;
     int pointInTerrainY;
 
-    Texture* terrainChooser[24] =  {
-            &gDirt_DirtTexture, &gDirt_DirtGravelTexture, &gDirt_GravelTexture,                     //00,01,02
-            &gGrass_DeadTexture, &gGrass_DryTexture, &gGrass_DyingTexture,                          //03,04,05
-            &gGrass_LushDeepTexture, &gGrass_LushLightTexture, &gGrass_ParchedTexture,              //06,07,08
-            &gPavement_CobblestoneTexture, &gSand_DarkTexture, &gSand_LightTexture,                 //09,10,11
-            &gStone_Gray_DarkTexture, &gStone_Gray_LightTexture, &gStone_Gray_MediumTexture,        //12,13,14
-            &gStone_Gray_VeryDarkTexture, &gStone_Gray_VeryLightTexture, &gStone_Sand_DarkTexture,  //15,16,17
-            &gStone_Sand_LightTexture, &gStone_Sand_MediumTexture, &gStone_Sand_VeryLightTexture,   //18,19,20
-            &gWater_RiverTexture, &gWater_SeaTexture, &gWater_SmallStreamTexture                    //21,22,23
-    };
-
     //These are required to move x and y to start at 00 otherwise
     //the blocks start half way down the screen
     int moveXTo0 = 0;
     int moveYTo0 = 0;
 
-    //------------change to be texture class in future--------------------------
     Texture tileTexture;
 
+    Texture* terrainChooser[24] =  {
+            &gDirt_DirtTexture, &gDirt_DirtGravelTexture, &gDirt_GravelTexture,                     //00,01,02
+
+            &gGrass_DeadTexture, &gGrass_DyingTexture, &gGrass_DryTexture,                          //03,04,05
+            &gGrass_ParchedTexture, &gGrass_LushLightTexture, &gGrass_LushDeepTexture,              //06,07,08
+
+            &gPavement_CobblestoneTexture,                                                          //09
+
+            &gSand_DarkTexture, &gSand_LightTexture,                                                //10,11
+
+            &gStone_Gray_VeryDarkTexture, &gStone_Gray_DarkTexture, &gStone_Gray_MediumTexture,     //12,13,14
+            &gStone_Gray_VeryLightTexture, &gStone_Gray_LightTexture,                               //15,16
+
+            &gStone_Sand_DarkTexture, &gStone_Sand_MediumTexture, &gStone_Sand_LightTexture,        //17,18,19
+            &gStone_Sand_VeryLightTexture,                                                          //20
+
+            &gWater_RiverTexture, &gWater_SeaTexture, &gWater_SmallStreamTexture                    //21,22,23
+    };
+
     //Speed multiplier for movement
-    static int const moveConst = 3;
+    static int const moveConst = 100;
 
     //Holds the distance moved for a single block
     float movedSoFar = 0;

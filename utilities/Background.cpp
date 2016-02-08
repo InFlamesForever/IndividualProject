@@ -1,4 +1,5 @@
 #include "Background.h"
+#include "TerrainGenerator.h"
 
 Background::Background() {
     //Create and initialise terrain
@@ -6,16 +7,12 @@ Background::Background() {
            terrain[i] = new TextureInfo[terrainSize];
      }
 
-    //Creates a random terrain
-    for(int i = 0; i < terrainSize; i++){
-       for(int j = 0; j < terrainSize; j++) {
-           terrain[i][j].setUp(terrainChooser[rand() % 24], i, j);
-       }
-    }
+    TerrainGenerator generator;
+    generator.generateTerrain(terrain, terrainSize);
 
     //So that the start position can be stored in a file eventually
-    pointInTerrainX = 100;
-    pointInTerrainY = 100;
+    pointInTerrainX = 0;
+    pointInTerrainY = 0;
 
     onScreenTerrain.reserve(3000);
 
@@ -64,7 +61,8 @@ void Background::render() {
 }
 
 void Background::renderTile(int terX, int terY, int renX, int renY){
-    terrain[terX][terY].getTexture()->render(renX, renY);
+    terrainChooser[terrain[terX][terY].getTexture()]
+            ->render(renX, renY);
 }
 
 void Background::convert2Dto25D(int *x, int *y) {
@@ -109,12 +107,14 @@ void Background::composeTerrainToTexture() {
         dst.x = onScreenTerrain[i].getX();
         dst.y = onScreenTerrain[i].getY();
 
-        onScreenTerrain[i].getTexture()->render(dst.x,dst.y);
+        terrainChooser[onScreenTerrain[i].getTexture()]
+                ->render(dst.x,dst.y);
     }
 
     dst.x = onScreenTerrain[onScreenTerrain.size() - 1].getX();
     dst.y = onScreenTerrain[onScreenTerrain.size() - 1].getY();
-    onScreenTerrain[onScreenTerrain.size() - 1].getTexture()->render(dst.x,dst.y);
+    terrainChooser[onScreenTerrain[onScreenTerrain.size() - 1].getTexture()]
+            ->render(dst.x,dst.y);
 
 
     SDL_SetRenderTarget(gRenderer, NULL);
@@ -159,7 +159,10 @@ void Background::getTerrain() {
 
 bool Background::move(float timeStep, int xShift, int yShift) {
     //Stops movement off the edge of the map
-    if(pointInTerrainX == 1 && xShift > 0 || pointInTerrainY == 1 && yShift > 0){
+    if(pointInTerrainX == 0 && xShift > 0 ||
+            pointInTerrainX == terrainSize - SCREEN_WIDTH / BLOCK_WIDTH && xShift < 0 ||
+            pointInTerrainY == 0 && yShift > 0 ||
+            pointInTerrainY == terrainSize - SCREEN_HEIGHT / BLOCK_WIDTH && yShift < 0){
         return false;
     }
     if(xShift != 0){

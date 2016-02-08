@@ -11,9 +11,9 @@
 
 class TextureInfo {
 public:
-    void setUp(Texture* const& tex, int x, int y);
+    void setUp(int tex, int x, int y);
 
-    Texture* getTexture();
+    int getTexture();
 
     int getX();
 
@@ -21,7 +21,7 @@ public:
 
 
 private:
-    Texture *texture;
+    int texture;
 
     //2.5d Coords
     int x;
