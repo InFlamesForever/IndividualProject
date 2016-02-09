@@ -36,8 +36,7 @@ public:
 private:
     vector<TextureInfo> onScreenTerrain;
 
-    static int const terrainSize = 100;
-    TextureInfo **terrain = new TextureInfo*[terrainSize];
+    TextureInfo **terrain = new TextureInfo*[TERRAIN_SIZE];
 
     int numOfTilesHeight;
     int numOfTilesWidth;
@@ -55,14 +54,23 @@ private:
     Texture tileTexture;
 
     Texture* terrainChooser[24] =  {
+            &gWater_SeaTexture,                                             //00
+
+            &gSand_LightTexture, &gSand_DarkTexture,                        //01,02
+
+            &gGrass_DryTexture, &gGrass_ParchedTexture,                     //03,04
+             &gGrass_LushLightTexture, &gGrass_LushDeepTexture,             //05,06
+            &gGrass_DeadTexture, &gGrass_DyingTexture,                      //07,08
+
+
+            //update when needed6
             &gDirt_DirtTexture, &gDirt_DirtGravelTexture, &gDirt_GravelTexture,                     //00,01,02
 
-            &gGrass_DeadTexture, &gGrass_DyingTexture, &gGrass_DryTexture,                          //03,04,05
-            &gGrass_ParchedTexture, &gGrass_LushLightTexture, &gGrass_LushDeepTexture,              //06,07,08
+
 
             &gPavement_CobblestoneTexture,                                                          //09
 
-            &gSand_DarkTexture, &gSand_LightTexture,                                                //10,11
+                                                           //10,11
 
             &gStone_Gray_VeryDarkTexture, &gStone_Gray_DarkTexture, &gStone_Gray_MediumTexture,     //12,13,14
             &gStone_Gray_VeryLightTexture, &gStone_Gray_LightTexture,                               //15,16
@@ -70,7 +78,7 @@ private:
             &gStone_Sand_DarkTexture, &gStone_Sand_MediumTexture, &gStone_Sand_LightTexture,        //17,18,19
             &gStone_Sand_VeryLightTexture,                                                          //20
 
-            &gWater_RiverTexture, &gWater_SeaTexture, &gWater_SmallStreamTexture                    //21,22,23
+            &gWater_RiverTexture,  &gWater_SmallStreamTexture                    //21,22,23
     };
 
     //Speed multiplier for movement
