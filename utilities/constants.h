@@ -9,5 +9,7 @@ const int BLOCK_WIDTH = 16;
 
 const int NUM_TEXTURES = 24;
 
+const int TERRAIN_SIZE = 1000;
+
 
 #endif //INDIVIDUALPROJECT_CONSTANTS_H
