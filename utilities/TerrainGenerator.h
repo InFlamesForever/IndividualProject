@@ -9,16 +9,22 @@
 #include <stdlib.h>
 #include "TextureInfo.h"
 #include "textures.h"
+#include "PerlinNoise.h"
 
 class TerrainGenerator {
 public:
     TerrainGenerator();
 
-    void generateTerrain(TextureInfo **terrain, int terrainSize);
+    void generateTerrain(TextureInfo **terrain);
+
+    int generateOcean(int x, int y, int edgeSandLine, double value);
+
+    double fRand(double fMin, double fMax);
+
 private:
-    int waterline;
-    int maxWaterLine;
-    int maxSandLine;
+    int const MAX_BEACH_LINE = 70;
+    int const beachLine = 0;
+    unsigned int seed;
 };
 
 
