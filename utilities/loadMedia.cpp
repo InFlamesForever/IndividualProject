@@ -5,9 +5,46 @@
 #include "loadMedia.h"
 
 bool loadMedia() {
-    //Load dot texture
-    if (!gDotTexture.loadFromFile("textures/characters/dot.bmp")) {
-        cout << "Failed to load dot texture!" << endl;
+    //Load Character pictures
+    if (!gStock_Back.loadFromFile("textures/characters/Stock/Stock_Back.png")) {
+        cout << "Failed to load Player Character - Back texture!" << endl;
+        return false;
+    }
+    if (!gStock_Back_Walking1.loadFromFile("textures/characters/Stock/Stock_Back_Walking1.png")) {
+        cout << "Failed to load Player Character - Back Walking 1 texture!" << endl;
+        return false;
+    }
+    if (!gStock_Back_Walking2.loadFromFile("textures/characters/Stock/Stock_Back_Walking2.png")) {
+        cout << "Failed to load Player Character - Back Walking 2 texture!" << endl;
+        return false;
+    }
+
+    if (!gStock_Front.loadFromFile("textures/characters/Stock/Stock_Front.png")) {
+        cout << "Failed to load Player Character - Front texture!" << endl;
+        return false;
+    }
+    if (!gStock_Front_Walking1.loadFromFile("textures/characters/Stock/Stock_Front_Walking1.png")) {
+        cout << "Failed to load Player Character - Front Walking 1 texture!" << endl;
+        return false;
+    }
+    if (!gStock_Front_Walking2.loadFromFile("textures/characters/Stock/Stock_Front_Walking2.png")) {
+        cout << "Failed to load Player Character - Front Walking 2 texture!" << endl;
+        return false;
+    }
+
+    if (!gStock_Side_Right.loadFromFile("textures/characters/Stock/Stock_Side_Right.png")) {
+        cout << "Failed to load Player Character - Side texture!" << endl;
+        return false;
+    }
+    if (!gStock_Side_Right_Walking.loadFromFile("textures/characters/Stock/Stock_Side_Right_Walking.png")) {
+        cout << "Failed to load Player Character - Walking texture!" << endl;
+        return false;
+    }
+    if (!gStock_Side_Right_Walking2.loadFromFile("textures/characters/Stock/Stock_Side_Right_Walking2.png")) {
+        cout << "Failed to load Player Character - Walking 2 texture!" << endl;
+        return false;
+    }if (!gStock_Side_Right_Walking3.loadFromFile("textures/characters/Stock/Stock_Side_Right_Walking3.png")) {
+        cout << "Failed to load Player Character - Walking 3 texture!" << endl;
         return false;
     }
 
@@ -121,5 +158,20 @@ bool loadMedia() {
         cout << "Failed to load Water - small-stream texture!" << endl;
         return false;
     }
+
+    //Snow Texture
+    if (!gSnow.loadFromFile("textures/terrain/snow/Snow.png")) {
+        cout << "Failed to load Snow texture!" << endl;
+        return false;
+    }
+
+    //Load Town Logo
+    if (!gTownSymbol.loadFromFile("textures/AboveTerrainElements/Town/TownSymbol.png")) {
+        cout << "Failed to load Town - Town Symbol texture!" << endl;
+        return false;
+    }
+
+
+
     return true;
 }

@@ -88,3 +88,13 @@ bool Timer::isStarted() {
 bool Timer::isPaused() {
     return paused && started;
 }
+
+/*
+ * Resets the timer without stopping it
+ */
+void Timer::reset() {
+    paused = false;
+
+    startTicks = SDL_GetTicks();;
+    pausedTicks = 0;
+}

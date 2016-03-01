@@ -7,13 +7,13 @@
 
 
 #include <SDL_events.h>
-#include "Dot.h"
+#include "PlayerCharacter.h"
 #include "Background.h"
 #include "constants.h"
 
 class Update {
 public:
-
+    Update();
     ~Update();
 
     void handleEventUpdate(SDL_Event e);
@@ -24,9 +24,9 @@ public:
 
 private:
     //The dot that will be moving around on the screen
-    Dot dot;
+    PlayerCharacter player;
     Background background;
-    enum MoveType {UP, DOWN, LEFT, RIGHT};
+    enum MoveType {DOWN, UP, LEFT, RIGHT};
     MoveType move = DOWN;
     bool isMoving = false;
 };

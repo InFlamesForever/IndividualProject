@@ -4,15 +4,16 @@
 Background::Background() {
     //Create and initialise terrain
     for(int i = 0; i < TERRAIN_SIZE; i++){
-           terrain[i] = new TextureInfo[TERRAIN_SIZE];
+        terrain[i] = new TextureInfo[TERRAIN_SIZE];
+        terrainDetail[i] = new TextureInfo[TERRAIN_SIZE];
      }
 
     TerrainGenerator generator;
     generator.generateTerrain(terrain);
 
     //So that the start position can be stored in a file eventually
-    pointInTerrainX = 0;
-    pointInTerrainY = 0;
+    pointInTerrainX = STARTX;
+    pointInTerrainY = STARTY;
 
     onScreenTerrain.reserve(3000);
 
@@ -166,7 +167,7 @@ bool Background::move(float timeStep, int xShift, int yShift) {
         return false;
     }
     if(xShift != 0){
-        movedSoFar += xShift * moveConst * timeStep;
+        movedSoFar += xShift * MOVE_SPEED * timeStep;
         if(movedSoFar > BLOCK_WIDTH || movedSoFar < -BLOCK_WIDTH) {
             moveBackgroundX = 0;
             movedSoFar = 0;
@@ -179,7 +180,7 @@ bool Background::move(float timeStep, int xShift, int yShift) {
         return true;
 
     } else if(yShift != 0) {
-        movedSoFar += yShift * moveConst * timeStep;
+        movedSoFar += yShift * MOVE_SPEED * timeStep;
         if(movedSoFar > BLOCK_WIDTH || movedSoFar < -BLOCK_WIDTH) {
             moveBackgroundY = 0;
             movedSoFar = 0;

@@ -11,9 +11,10 @@
 #include <string>
 #include "constants.h"
 #include "textures.h"
+#include "Timer.h"
 
 //The dot that will move around on the screen
-class Dot
+class PlayerCharacter
 {
 public:
     //The dimensions of the dot
@@ -24,20 +25,39 @@ public:
     static const int DOT_VEL = 640;
 
     //Initializes the variables
-    Dot();
-
-    //Takes key presses and adjusts the dot's velocity
-    void handleEvent( SDL_Event& e );
-
-    //Moves the dot
-    void move( float timeStep );
+    PlayerCharacter();
 
     //Shows the dot on the screen
     void render();
 
+    void updateRender(bool isMoving, int dir);
+
 private:
     float mPosX, mPosY;
-    float mVelX, mVelY;
+
+    enum MoveType {DOWN, UP, LEFT, RIGHT};
+
+    bool isMoving;
+    bool hasMoved;
+
+
+    int dir;
+    int lastDir;
+
+    Texture* playerStationary[4] = {
+            &gStock_Front,
+            &gStock_Back,
+            &gStock_Side_Right,
+            &gStock_Side_Right
+    };
+    Texture* playerMoving[4] = {
+            &gStock_Front_Walking1,
+            &gStock_Back_Walking1,
+            &gStock_Side_Right_Walking,
+            &gStock_Side_Right_Walking,
+    };
+
+
 };
 
 

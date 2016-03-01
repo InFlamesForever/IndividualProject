@@ -27,9 +27,6 @@ void Update::handleEventUpdate(SDL_Event e) {
                 break;
         }
     }
-
-    //Handle input for the dot
-    //dot.handleEvent(e);
 }
 
 void Update::moveUpdate(float timeStep) {
@@ -49,16 +46,24 @@ void Update::moveUpdate(float timeStep) {
                 break;
         }
     }
-    //Move for time step
-    //dot.move(timeStep);
+    player.updateRender(isMoving, move);
 }
 
 void Update::renderUpdate() {
-    //Render dot
     background.render();
-    dot.render();
+    player.render();
 
 }
 
+/*
+ * Destructor
+ */
 Update::~Update() {
+
+}
+
+/*
+ * Constructor
+ */
+Update::Update() {
 }

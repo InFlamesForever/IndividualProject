@@ -1,6 +1,15 @@
 #include "textures.h"
 
-Texture gDotTexture;
+Texture gStock_Back;
+Texture gStock_Back_Walking1;
+Texture gStock_Back_Walking2;
+Texture gStock_Front;
+Texture gStock_Front_Walking1;
+Texture gStock_Front_Walking2;
+Texture gStock_Side_Right;
+Texture gStock_Side_Right_Walking;
+Texture gStock_Side_Right_Walking2;
+Texture gStock_Side_Right_Walking3;
 
 Texture gDirt_DirtTexture;
 Texture gDirt_DirtGravelTexture;
@@ -32,3 +41,7 @@ Texture gStone_Sand_VeryLightTexture;
 Texture gWater_RiverTexture;
 Texture gWater_SeaTexture;
 Texture gWater_SmallStreamTexture;
+
+Texture gSnow;
+
+Texture gTownSymbol;

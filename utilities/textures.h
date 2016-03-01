@@ -3,8 +3,17 @@
 
 #include "Texture.h"
 
-//Char texture
-extern Texture gDotTexture;
+//Character texture
+extern Texture gStock_Back;
+extern Texture gStock_Back_Walking1;
+extern Texture gStock_Back_Walking2;
+extern Texture gStock_Front;
+extern Texture gStock_Front_Walking1;
+extern Texture gStock_Front_Walking2;
+extern Texture gStock_Side_Right;
+extern Texture gStock_Side_Right_Walking;
+extern Texture gStock_Side_Right_Walking2;
+extern Texture gStock_Side_Right_Walking3;
 
 //Dirt textures -- 3 Textures
 extern Texture gDirt_DirtTexture;
@@ -43,6 +52,12 @@ extern Texture gStone_Sand_VeryLightTexture;
 extern Texture gWater_RiverTexture;
 extern Texture gWater_SeaTexture;
 extern Texture gWater_SmallStreamTexture;
+
+//snow Texture
+extern Texture gSnow;
+
+//Town Symbol
+extern Texture gTownSymbol;
 
 
 #endif //INDIVIDUALPROJECT_TEXTURES_H

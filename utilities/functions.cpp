@@ -59,7 +59,7 @@ bool init() {
 
 void close() {
     //Free loaded images
-    gDotTexture.free();
+    free();
 
     //Destroy window
     SDL_DestroyRenderer(gRenderer);
@@ -70,4 +70,41 @@ void close() {
     //Quit SDL subsystems
     IMG_Quit();
     SDL_Quit();
+}
+
+void free() {
+    gStock_Front.free();
+    gStock_Side_Right.free();
+    gStock_Side_Right_Walking.free();
+
+    gDirt_DirtTexture.free();
+    gDirt_DirtGravelTexture.free();
+    gDirt_GravelTexture.free();
+
+    gGrass_DeadTexture.free();
+    gGrass_DryTexture.free();
+    gGrass_DyingTexture.free();
+    gGrass_LushDeepTexture.free();
+    gGrass_LushLightTexture.free();
+    gGrass_ParchedTexture.free();
+
+    gPavement_CobblestoneTexture.free();
+
+    gSand_DarkTexture.free();
+    gSand_LightTexture.free();
+
+    gStone_Gray_DarkTexture.free();
+    gStone_Gray_LightTexture.free();
+    gStone_Gray_MediumTexture.free();
+    gStone_Gray_VeryDarkTexture.free();
+    gStone_Gray_VeryLightTexture.free();
+
+    gStone_Sand_DarkTexture.free();
+    gStone_Sand_LightTexture.free();
+    gStone_Sand_MediumTexture.free();
+    gStone_Sand_VeryLightTexture.free();
+
+    gWater_RiverTexture.free();
+    gWater_SeaTexture.free();
+    gWater_SmallStreamTexture.free();
 }

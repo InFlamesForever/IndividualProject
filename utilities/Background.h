@@ -37,6 +37,7 @@ private:
     vector<TextureInfo> onScreenTerrain;
 
     TextureInfo **terrain = new TextureInfo*[TERRAIN_SIZE];
+    TextureInfo **terrainDetail = new TextureInfo*[TERRAIN_SIZE];
 
     int numOfTilesHeight;
     int numOfTilesWidth;
@@ -53,36 +54,32 @@ private:
 
     Texture tileTexture;
 
-    Texture* terrainChooser[24] =  {
-            &gWater_SeaTexture,                                             //00
+    Texture* terrainChooser[25] =  {
+            &gSand_LightTexture, &gSand_DarkTexture,
 
-            &gSand_LightTexture, &gSand_DarkTexture,                        //01,02
-
-            &gGrass_DryTexture, &gGrass_ParchedTexture,                     //03,04
-             &gGrass_LushLightTexture, &gGrass_LushDeepTexture,             //05,06
-            &gGrass_DeadTexture, &gGrass_DyingTexture,                      //07,08
+            &gGrass_DryTexture, &gGrass_ParchedTexture,
+             &gGrass_LushLightTexture, &gGrass_LushDeepTexture,
+            &gGrass_DeadTexture, &gGrass_DyingTexture,
 
 
-            //update when needed6
-            &gDirt_DirtTexture, &gDirt_DirtGravelTexture, &gDirt_GravelTexture,                     //00,01,02
+            &gDirt_DirtTexture, &gDirt_DirtGravelTexture,
+            &gDirt_GravelTexture,
 
 
+            &gStone_Gray_VeryDarkTexture, &gStone_Gray_DarkTexture,
+            &gStone_Gray_MediumTexture, &gStone_Gray_LightTexture,
+            &gStone_Gray_VeryLightTexture,
 
-            &gPavement_CobblestoneTexture,                                                          //09
+            &gSnow,
 
-                                                           //10,11
 
-            &gStone_Gray_VeryDarkTexture, &gStone_Gray_DarkTexture, &gStone_Gray_MediumTexture,     //12,13,14
-            &gStone_Gray_VeryLightTexture, &gStone_Gray_LightTexture,                               //15,16
+            &gStone_Sand_DarkTexture, &gStone_Sand_MediumTexture,
+            &gStone_Sand_LightTexture, &gStone_Sand_VeryLightTexture,
 
-            &gStone_Sand_DarkTexture, &gStone_Sand_MediumTexture, &gStone_Sand_LightTexture,        //17,18,19
-            &gStone_Sand_VeryLightTexture,                                                          //20
-
-            &gWater_RiverTexture,  &gWater_SmallStreamTexture                    //21,22,23
+            &gWater_SeaTexture,
+            &gWater_RiverTexture,  &gWater_SmallStreamTexture,
+            &gPavement_CobblestoneTexture,
     };
-
-    //Speed multiplier for movement
-    static int const moveConst = 100;
 
     //Holds the distance moved for a single block
     float movedSoFar = 0;

@@ -18,5 +18,7 @@ bool init();
 //Frees media and shuts down SDL
 void close();
 
+void free();
+
 
 #endif //INDIVIDUALPROJECT_FUNCTIONS_H

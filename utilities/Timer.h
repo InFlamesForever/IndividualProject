@@ -16,6 +16,7 @@ public:
     void stop();
     void pause();
     void resume();
+    void reset();
 
     //Gets the timer's time
     Uint32 getTicks();

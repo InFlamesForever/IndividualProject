@@ -14,8 +14,6 @@ include_directories(${SDL2_INCLUDE_DIR}
         ${SDL2_TTF_INCLUDE_DIR})
 
 file(GLOB SOURCES
-        textures/characters/*.cpp
-        textures/characters/*.h
         utilities/*.cpp
         utilities/*.h
 )
