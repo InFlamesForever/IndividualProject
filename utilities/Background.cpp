@@ -21,7 +21,7 @@ Background::Background() {
     //These will change with the size of the window
     int x = 0;
     int y = 0;
-    convert2Dto25D(&x, &y);
+
     moveXTo0 = x;
     moveYTo0 = y;
 
@@ -29,7 +29,15 @@ Background::Background() {
     composeTerrainToTexture();
 }
 
+Background::~Background() {
+    for(int i = 0; i < TERRAIN_SIZE; i++){
+        delete[] terrain[i];
+    }
+    delete[] terrain;
+}
+
 void Background::render() {
+
     if(moveBackgroundX != 0){
         if(moveBackgroundX > 0){
             for(int i = 0; i < numOfTilesHeight; i++){
@@ -58,67 +66,20 @@ void Background::render() {
             }
         }
     }
-    tileTexture.render(moveBackgroundX, moveBackgroundY);
+    terrainTexture.render(moveBackgroundX, moveBackgroundY);
 }
 
 void Background::renderTile(int terX, int terY, int renX, int renY){
-    terrainChooser[terrain[terX][terY].getTexture()]
-            ->render(renX, renY);
-}
-
-void Background::convert2Dto25D(int *x, int *y) {
-    double t = -0; // tilt angle
-    double X = *x - SCREEN_WIDTH / 2;
-    double Y = *y - SCREEN_HEIGHT / 2;
-    double a = (SCREEN_HEIGHT / (SCREEN_HEIGHT + Y * sin(t)));
-
-    *x = (int) (a * X + SCREEN_WIDTH / 2) - moveXTo0;
-    *y = (int) (a * Y * cos(t) + SCREEN_HEIGHT / 2) - moveYTo0;
-}
-
-void Background::composeTerrainToTexture() {
-    //The texture is cleared to stop glitches with transparent textures
-    //and the re-used texture
-    tileTexture.clearTexture();
-
-    tileTexture.setAsRenderTarget();
-
-    SDL_Rect dst;
-    int j = 1;
-    int lastY = 0;
-    int nextY = 0;
-    for(int i = 0; i < onScreenTerrain.size() - 1; i++){
-        int width  = onScreenTerrain[i + 1].getX() - onScreenTerrain[i].getX();
-        width > 0 ? dst.w = width : dst.w = BLOCK_WIDTH;
-
-        if(lastY != onScreenTerrain[i].getY()){
-            j++;
-            int u = 0;
-            int v = j * BLOCK_WIDTH;
-
-            convert2Dto25D(&u, &v);
-            nextY = v;
-
-            lastY = onScreenTerrain[i].getY();
-        }
-
-        int h = nextY - onScreenTerrain[i].getY();
-        h > 0 ? dst.h = h : dst.h = BLOCK_WIDTH;
-
-        dst.x = onScreenTerrain[i].getX();
-        dst.y = onScreenTerrain[i].getY();
-
-        terrainChooser[onScreenTerrain[i].getTexture()]
-                ->render(dst.x,dst.y);
+    //Checks if the tile in question is on map or not
+    // if it isn't use an ocean tile
+    if(terX > TERRAIN_SIZE || terX < 0 ||
+            terX + renX + 1 > TERRAIN_SIZE ||
+            terY + renY + 1 > TERRAIN_SIZE){
+        gWater_SeaTexture.render(renX, renY);
+    } else {
+        terrainChooser[terrain[terX][terY].getTexture()]
+                    ->render(renX, renY);
     }
-
-    dst.x = onScreenTerrain[onScreenTerrain.size() - 1].getX();
-    dst.y = onScreenTerrain[onScreenTerrain.size() - 1].getY();
-    terrainChooser[onScreenTerrain[onScreenTerrain.size() - 1].getTexture()]
-            ->render(dst.x,dst.y);
-
-
-    SDL_SetRenderTarget(gRenderer, NULL);
 }
 
 void Background::getTerrain() {
@@ -133,11 +94,17 @@ void Background::getTerrain() {
         int x = i * BLOCK_WIDTH;
         int y = j * BLOCK_WIDTH;
 
-        convert2Dto25D(&x, &y);
-
         if (x + BLOCK_WIDTH > -5 && y < SCREEN_HEIGHT) {
             TextureInfo temp;
-            temp.setUp(terrain[pointX][pointY].getTexture(), x, y);
+            //Checks if the tile in question is on map or not
+            // if it isn't use an ocean tile
+            if(pointX < 0 || pointY < 0 ||
+                    pointX + x + 1> TERRAIN_SIZE ||
+                    pointY + y + 1> TERRAIN_SIZE){
+                temp.setUp(TerrainTypes::Water_Ocean, x, y);
+            } else {
+                temp.setUp(terrain[pointX][pointY].getTexture(), x, y);
+            }
 
             onScreenTerrain.push_back(temp);
         }
@@ -158,14 +125,8 @@ void Background::getTerrain() {
     }
 }
 
+
 bool Background::move(float timeStep, int xShift, int yShift) {
-    //Stops movement off the edge of the map
-    if(pointInTerrainX == 0 && xShift > 0 ||
-            pointInTerrainX == TERRAIN_SIZE - SCREEN_WIDTH / BLOCK_WIDTH && xShift < 0 ||
-            pointInTerrainY == 0 && yShift > 0 ||
-            pointInTerrainY == TERRAIN_SIZE - SCREEN_HEIGHT / BLOCK_WIDTH && yShift < 0){
-        return false;
-    }
     if(xShift != 0){
         movedSoFar += xShift * MOVE_SPEED * timeStep;
         if(movedSoFar > BLOCK_WIDTH || movedSoFar < -BLOCK_WIDTH) {
@@ -196,10 +157,20 @@ bool Background::move(float timeStep, int xShift, int yShift) {
     return false;
 }
 
+void Background::composeTerrainToTexture() {
+    //The texture is cleared to stop glitches with transparent textures
+    //and the re-used texture
+    terrainTexture.clearTexture();
 
-Background::~Background() {
-    for(int i = 0; i < TERRAIN_SIZE; i++){
-        delete[] terrain[i];
+    //Target the texture rather than the window
+    terrainTexture.setAsRenderTarget();
+
+    //Go through the onScreenTerrain vector and render all textures to the
+    //terrain texture
+    for(int i = 0; i < onScreenTerrain.size(); i++){
+        terrainChooser[onScreenTerrain[i].getTexture()]
+                ->render(onScreenTerrain[i].getX(),onScreenTerrain[i].getY());
     }
-    delete[] terrain;
+    //Return the render target to the window
+    SDL_SetRenderTarget(gRenderer, NULL);
 }

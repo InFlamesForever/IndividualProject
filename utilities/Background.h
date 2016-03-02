@@ -23,15 +23,16 @@ public:
     //Compiles all of the textures for the terrain to reduce rendering
     void composeTerrainToTexture();
 
+    /**
+     * Takes all of the terrain tiles from the terrain array and places
+     * them in a vector so that only on-screen textures are displayed
+     */
     void getTerrain();
 
     //Moves the terrain
     bool move(float timeStep, int xShift, int yShift);
 
     void render();
-
-    //Converts 2D coordinates to 2.5D Coordinates
-    void convert2Dto25D(int *X, int *Y);
 
 private:
     vector<TextureInfo> onScreenTerrain;
@@ -42,8 +43,7 @@ private:
     int numOfTilesHeight;
     int numOfTilesWidth;
 
-    //Stores where the terrain on the screen the player sees starts on the whole
-    //terrain grid
+    //The position of the top left of the screen in relation to the player
     int pointInTerrainX;
     int pointInTerrainY;
 
@@ -52,7 +52,7 @@ private:
     int moveXTo0 = 0;
     int moveYTo0 = 0;
 
-    Texture tileTexture;
+    Texture terrainTexture;
 
     Texture* terrainChooser[25] =  {
             &gSand_LightTexture, &gSand_DarkTexture,
@@ -85,6 +85,7 @@ private:
     float movedSoFar = 0;
 
     //Holds the offset for the on screen map during movement
+    // for smooth movement
     int moveBackgroundY = 0;
     int moveBackgroundX = 0;
 
