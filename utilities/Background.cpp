@@ -37,7 +37,7 @@ Background::~Background() {
 }
 
 void Background::render() {
-
+    //When moving from side to side
     if(moveBackgroundX != 0){
         if(moveBackgroundX > 0){
             for(int i = 0; i < numOfTilesHeight; i++){
@@ -52,6 +52,7 @@ void Background::render() {
                            i * BLOCK_WIDTH);
             }
         }
+        //When moving up and down
     } else if(moveBackgroundY != 0){
         if(moveBackgroundY > 0){
             for(int i = 0; i < numOfTilesWidth; i++){
@@ -99,8 +100,8 @@ void Background::getTerrain() {
             //Checks if the tile in question is on map or not
             // if it isn't use an ocean tile
             if(pointX < 0 || pointY < 0 ||
-                    pointX + (x/SCREEN_WIDTH) + 1 > TERRAIN_SIZE ||
-                    pointY + (y/SCREEN_HEIGHT) + 1 > TERRAIN_SIZE){
+                    pointX + i > TERRAIN_SIZE ||
+                    pointY + j > TERRAIN_SIZE){
                 temp.setUp(TerrainTypes::Water_Ocean, x, y);
             } else {
                 temp.setUp(terrain[pointX][pointY].getTexture(), x, y);
