@@ -32,10 +32,18 @@ public:
 
     void updateRender(bool isMoving, int dir);
 
-private:
-    float mPosX, mPosY;
+    int getTerrainPosX();
+    int getTerrainPosY();
 
-    enum MoveType {DOWN, UP, LEFT, RIGHT};
+    int getCantTraverseSize();
+    int* getCantTraverse();
+
+private:
+    //The position to render the player character
+    float screenPosX, screenPosY;
+
+    //The position of the player in the terrain
+    int terrainPosX, terrainPosY;
 
     bool isMoving;
     bool hasMoved;
@@ -57,6 +65,10 @@ private:
             &gStock_Side_Right_Walking,
     };
 
+    const int cantTraverseSize = 1;
+    int cantTraverse[1] = {
+            TerrainTypes::Water_Ocean
+    };
 
 };
 

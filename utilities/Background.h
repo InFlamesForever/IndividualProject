@@ -14,6 +14,7 @@
 #include "vector"
 #include "TextureInfo.h"
 #include "math.h"
+#include "PlayerCharacter.h"
 
 class Background {
 public:
@@ -33,6 +34,13 @@ public:
     bool move(float timeStep, int xShift, int yShift);
 
     void render();
+
+    /**
+     * A character is passed to this method along with a direction
+     * the movement is then checked to see whether it should be based
+     * on the terrain tiles that the character can move over.
+     */
+    bool terrainCollision(PlayerCharacter character, int dir);
 
 private:
     vector<TextureInfo> onScreenTerrain;

@@ -175,3 +175,39 @@ void Background::composeTerrainToTexture() {
     //Return the render target to the window
     SDL_SetRenderTarget(gRenderer, NULL);
 }
+
+bool Background::terrainCollision(PlayerCharacter character, int dir) {
+    for(int i = 0; i < character.getCantTraverseSize(); i++) {
+        switch (dir) {
+            case UP:
+                if (character.getCantTraverse()[i] ==
+                    terrain[character.getTerrainPosX()]
+                    [character.getTerrainPosY() - 1].getTexture()) {
+                    return true;
+                }
+                break;
+            case DOWN:
+                if (character.getCantTraverse()[i] ==
+                    terrain[character.getTerrainPosX()]
+                    [character.getTerrainPosY() + 1].getTexture()) {
+                    return true;
+                }
+                break;
+            case LEFT:
+                if (character.getCantTraverse()[i] ==
+                    terrain[character.getTerrainPosX() - 1]
+                            [character.getTerrainPosY()].getTexture()) {
+                    return true;
+                }
+                break;
+            case RIGHT:
+                if (character.getCantTraverse()[i] ==
+                    terrain[character.getTerrainPosX() + 1]
+                            [character.getTerrainPosY()].getTexture()) {
+                    return true;
+                }
+                break;
+        }
+    }
+    return false;
+}
