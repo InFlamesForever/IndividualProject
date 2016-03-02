@@ -73,8 +73,8 @@ void Background::renderTile(int terX, int terY, int renX, int renY){
     //Checks if the tile in question is on map or not
     // if it isn't use an ocean tile
     if(terX > TERRAIN_SIZE || terX < 0 ||
-            terX + renX + 1 > TERRAIN_SIZE ||
-            terY + renY + 1 > TERRAIN_SIZE){
+            terX + (renX/SCREEN_WIDTH) + 1 > TERRAIN_SIZE ||
+            terY + (renY/SCREEN_HEIGHT) + 1 > TERRAIN_SIZE){
         gWater_SeaTexture.render(renX, renY);
     } else {
         terrainChooser[terrain[terX][terY].getTexture()]
@@ -99,8 +99,8 @@ void Background::getTerrain() {
             //Checks if the tile in question is on map or not
             // if it isn't use an ocean tile
             if(pointX < 0 || pointY < 0 ||
-                    pointX + x + 1> TERRAIN_SIZE ||
-                    pointY + y + 1> TERRAIN_SIZE){
+                    pointX + (x/SCREEN_WIDTH) + 1 > TERRAIN_SIZE ||
+                    pointY + (y/SCREEN_HEIGHT) + 1 > TERRAIN_SIZE){
                 temp.setUp(TerrainTypes::Water_Ocean, x, y);
             } else {
                 temp.setUp(terrain[pointX][pointY].getTexture(), x, y);
