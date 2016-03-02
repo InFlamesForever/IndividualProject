@@ -26,8 +26,7 @@ private:
     //The dot that will be moving around on the screen
     PlayerCharacter player;
     Background background;
-    enum MoveType {DOWN, UP, LEFT, RIGHT};
-    MoveType move = DOWN;
+    int move = DOWN;
     bool isMoving = false;
 };
 
