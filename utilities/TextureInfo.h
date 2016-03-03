@@ -21,7 +21,7 @@ public:
 
 
 private:
-    int texture;
+    int texture = INT32_MAX;
 
     //2.5d Coords
     int x;
