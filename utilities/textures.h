@@ -72,12 +72,12 @@ extern Texture gTownSymbol;
 //Doors
 extern Texture gTown_Door_Closed;
 extern Texture gTown_Door_HalfOpen;
-extern Texture gTown_Door_ThreeQuatersOpen;
+extern Texture gTown_Door_ThreeQuartersOpen;
 extern Texture gTown_Door_Open;
 
 //Roofs
 extern Texture gTown_Roof_Thatched;
-extern Texture gTown_Roof_Corner;
+extern Texture gTown_Roof_Thatched_Corner;
 
 
 extern Texture gTown_Wall_Wood;

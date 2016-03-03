@@ -48,11 +48,11 @@ Texture gTownSymbol;
 
 Texture gTown_Door_Closed;
 Texture gTown_Door_HalfOpen;
-Texture gTown_Door_ThreeQuatersOpen;
+Texture gTown_Door_ThreeQuartersOpen;
 Texture gTown_Door_Open;
 
 Texture gTown_Roof_Thatched;
-Texture gTown_Roof_Corner;
+Texture gTown_Roof_Thatched_Corner;
 
 Texture gTown_Wall_Wood;
 Texture gTown_Wall_Wood_Corner_Left_Ground;
