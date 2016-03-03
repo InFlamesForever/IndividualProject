@@ -9,13 +9,11 @@ Background::Background() {
      }
 
     TerrainGenerator generator;
-    generator.generateTerrain(terrain);
+    generator.generateTerrain(terrain, terrainDetail);
 
     //So that the start position can be stored in a file eventually
     pointInTerrainX = STARTX;
     pointInTerrainY = STARTY;
-
-    onScreenTerrain.reserve(3000);
 
     //Initialize moveXTo0 and moveYTo0
     //These will change with the size of the window
@@ -84,8 +82,6 @@ void Background::renderTile(int terX, int terY, int renX, int renY){
 }
 
 void Background::getTerrain() {
-    onScreenTerrain.clear();
-
     int pointX = pointInTerrainX;
     int pointY = pointInTerrainY;
     int i = 0;
@@ -102,12 +98,14 @@ void Background::getTerrain() {
             if(pointX < 0 || pointY < 0 ||
                     pointX + i > TERRAIN_SIZE ||
                     pointY + j > TERRAIN_SIZE){
-                temp.setUp(TerrainTypes::Water_Ocean, x, y);
+                onScreenTerrain[i][j].setUp(
+                        TerrainTypes::Water_Ocean, pointX + i, pointY + j);
             } else {
-                temp.setUp(terrain[pointX][pointY].getTexture(), x, y);
+                onScreenTerrain[i][j].setUp(
+                        terrain[pointX][pointY].getTexture(),
+                        terrain[pointX][pointY].getX(),
+                        terrain[pointX][pointY].getY());
             }
-
-            onScreenTerrain.push_back(temp);
         }
 
         i++;
@@ -168,9 +166,34 @@ void Background::composeTerrainToTexture() {
 
     //Go through the onScreenTerrain vector and render all textures to the
     //terrain texture
-    for(int i = 0; i < onScreenTerrain.size(); i++){
-        terrainChooser[onScreenTerrain[i].getTexture()]
-                ->render(onScreenTerrain[i].getX(),onScreenTerrain[i].getY());
+    for(int i = 0; i < numOfTilesWidth; i++){
+        for(int j = 0; j < numOfTilesHeight; j++){
+            terrainChooser[onScreenTerrain[i][j].getTexture()]
+                    ->render(i * BLOCK_WIDTH,
+                             j * BLOCK_WIDTH);
+            if(terrainDetail
+               [onScreenTerrain[i][j].getY()][onScreenTerrain[i][j].getY()]
+                       .getTexture() != INT32_MAX){
+
+                aboveTerrainChooser[terrainDetail
+                [onScreenTerrain[i][j].getY()][onScreenTerrain[i][j].getY()]
+                        .getTexture()]->render(i * BLOCK_WIDTH,
+                                               j * BLOCK_WIDTH);
+            }
+        }
+    }
+    for(int i = 0; i < numOfTilesWidth; i++){
+        for(int j = 0; j < numOfTilesHeight; j++){
+            if(terrainDetail
+               [onScreenTerrain[i][j].getY()][onScreenTerrain[i][j].getY()]
+                       .getTexture() != INT32_MAX){
+
+                aboveTerrainChooser[terrainDetail
+                [onScreenTerrain[i][j].getY()][onScreenTerrain[i][j].getY()]
+                        .getTexture()]->render(i * BLOCK_WIDTH,
+                                               j * BLOCK_WIDTH);
+            }
+        }
     }
     //Return the render target to the window
     SDL_SetRenderTarget(gRenderer, NULL);

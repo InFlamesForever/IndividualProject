@@ -43,7 +43,7 @@ public:
     bool terrainCollision(PlayerCharacter character, int dir);
 
 private:
-    vector<TextureInfo> onScreenTerrain;
+    TextureInfo onScreenTerrain[SCREEN_WIDTH/BLOCK_WIDTH][SCREEN_HEIGHT/BLOCK_WIDTH];
 
     TextureInfo **terrain = new TextureInfo*[TERRAIN_SIZE];
     TextureInfo **terrainDetail = new TextureInfo*[TERRAIN_SIZE];
