@@ -5,8 +5,8 @@
 const int SCREEN_WIDTH = 1280;
 const int SCREEN_HEIGHT = 720;
 
-const int STARTX = 00;
-const int STARTY = 800;
+const int STARTX = 600;
+const int STARTY = 600;
 
 const int BLOCK_WIDTH = 16;
 
@@ -38,6 +38,27 @@ enum TerrainTypes {
 
     Pavement_Cobblestone
 };
+
+enum AboveTerrainTypes {
+    TownSymbol,
+
+    Door_Closed, Door_HalfOpen,
+    Door_ThreeQuartersOpen, Door_Open,
+
+    Roof_Thatched, Roof_Thatched_Corner,
+
+    Wall_Wood, Wall_Wood_Corner_Left_Ground,
+    Wall_Wood_Corner_Left_Upper,
+    Wall_Wood_Corner_Right_Ground,
+    Wall_Wood_Corner_Right_Upper, Wall_Wood_Window,
+
+    SeaWaves,
+
+    Tree_Dark, Tree_Medium,
+    Tree_MediumLittle, Tree_Light
+};
+
+enum MoveType {DOWN, UP, LEFT, RIGHT};
 
 
 #endif //INDIVIDUALPROJECT_CONSTANTS_H
