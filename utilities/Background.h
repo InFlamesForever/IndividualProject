@@ -80,13 +80,32 @@ private:
 
             &gSnow,
 
-
             &gStone_Sand_DarkTexture, &gStone_Sand_MediumTexture,
             &gStone_Sand_LightTexture, &gStone_Sand_VeryLightTexture,
 
             &gWater_SeaTexture,
             &gWater_RiverTexture,  &gWater_SmallStreamTexture,
+
             &gPavement_CobblestoneTexture,
+    };
+
+    Texture* aboveTerrainChooser[18] = {
+            &gTownSymbol,
+
+            &gTown_Door_Closed, &gTown_Door_HalfOpen,
+            &gTown_Door_ThreeQuartersOpen, &gTown_Door_Open,
+
+            &gTown_Roof_Thatched, &gTown_Roof_Thatched_Corner,
+
+            &gTown_Wall_Wood, &gTown_Wall_Wood_Corner_Left_Ground,
+            &gTown_Wall_Wood_Corner_Left_Upper,
+            &gTown_Wall_Wood_Corner_Right_Ground,
+            &gTown_Wall_Wood_Corner_Right_Upper, &gTown_Wall_Wood_Window,
+
+            &gWater_SeaWaves,
+
+            &gTree_Dark, &gTree_Medium,
+            &gTree_MediumLittle, &gTree_Light
     };
 
     //Holds the distance moved for a single block
