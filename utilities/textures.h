@@ -4,6 +4,8 @@
 #include "Texture.h"
 
 //Character texture
+//################## PLAYER CHARACTERS ######################
+//-----------------------------------------------------------------------------
 extern Texture gStock_Back;
 extern Texture gStock_Back_Walking1;
 extern Texture gStock_Back_Walking2;
@@ -14,6 +16,10 @@ extern Texture gStock_Side_Right;
 extern Texture gStock_Side_Right_Walking;
 extern Texture gStock_Side_Right_Walking2;
 extern Texture gStock_Side_Right_Walking3;
+
+//-----------------------------------------------------------------------------
+//############# TERRAIN TILES #################################
+//-----------------------------------------------------------------------------
 
 //Dirt textures -- 3 Textures
 extern Texture gDirt_DirtTexture;
@@ -56,8 +62,39 @@ extern Texture gWater_SmallStreamTexture;
 //snow Texture
 extern Texture gSnow;
 
+//-----------------------------------------------------------------------------
+//############# ABOVE TERRAIN ELEMENTS ######################
+//-----------------------------------------------------------------------------
 //Town Symbol
 extern Texture gTownSymbol;
+
+//Town Parts
+//Doors
+extern Texture gTown_Door_Closed;
+extern Texture gTown_Door_HalfOpen;
+extern Texture gTown_Door_ThreeQuatersOpen;
+extern Texture gTown_Door_Open;
+
+//Roofs
+extern Texture gTown_Roof_Thatched;
+extern Texture gTown_Roof_Corner;
+
+
+extern Texture gTown_Wall_Wood;
+extern Texture gTown_Wall_Wood_Corner_Left_Ground;
+extern Texture gTown_Wall_Wood_Corner_Left_Upper;
+extern Texture gTown_Wall_Wood_Corner_Right_Ground;
+extern Texture gTown_Wall_Wood_Corner_Right_Upper;
+extern Texture gTown_Wall_Wood_Window;
+
+//Water
+extern Texture gWater_SeaWaves;
+
+//Trees
+extern Texture gTree_Dark;
+extern Texture gTree_Medium;
+extern Texture gTree_MediumLittle;
+extern Texture gTree_Light;
 
 
 #endif //INDIVIDUALPROJECT_TEXTURES_H

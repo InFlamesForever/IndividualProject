@@ -45,3 +45,25 @@ Texture gWater_SmallStreamTexture;
 Texture gSnow;
 
 Texture gTownSymbol;
+
+Texture gTown_Door_Closed;
+Texture gTown_Door_HalfOpen;
+Texture gTown_Door_ThreeQuatersOpen;
+Texture gTown_Door_Open;
+
+Texture gTown_Roof_Thatched;
+Texture gTown_Roof_Corner;
+
+Texture gTown_Wall_Wood;
+Texture gTown_Wall_Wood_Corner_Left_Ground;
+Texture gTown_Wall_Wood_Corner_Left_Upper;
+Texture gTown_Wall_Wood_Corner_Right_Ground;
+Texture gTown_Wall_Wood_Corner_Right_Upper;
+Texture gTown_Wall_Wood_Window;
+
+Texture gWater_SeaWaves;
+
+Texture gTree_Dark;
+Texture gTree_Medium;
+Texture gTree_MediumLittle;
+Texture gTree_Light;
