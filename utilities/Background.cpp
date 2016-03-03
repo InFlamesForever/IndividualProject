@@ -8,8 +8,7 @@ Background::Background() {
         terrainDetail[i] = new TextureInfo[TERRAIN_SIZE];
      }
 
-    TerrainGenerator generator;
-    generator.generateTerrain(terrain, terrainDetail);
+    TerrainGenerator generator(terrain, terrainDetail);
 
     //So that the start position can be stored in a file eventually
     pointInTerrainX = STARTX;
@@ -171,25 +170,15 @@ void Background::composeTerrainToTexture() {
             terrainChooser[onScreenTerrain[i][j].getTexture()]
                     ->render(i * BLOCK_WIDTH,
                              j * BLOCK_WIDTH);
-            if(terrainDetail
-               [onScreenTerrain[i][j].getY()][onScreenTerrain[i][j].getY()]
-                       .getTexture() != INT32_MAX){
-
-                aboveTerrainChooser[terrainDetail
-                [onScreenTerrain[i][j].getY()][onScreenTerrain[i][j].getY()]
-                        .getTexture()]->render(i * BLOCK_WIDTH,
-                                               j * BLOCK_WIDTH);
-            }
         }
     }
     for(int i = 0; i < numOfTilesWidth; i++){
         for(int j = 0; j < numOfTilesHeight; j++){
-            if(terrainDetail
-               [onScreenTerrain[i][j].getY()][onScreenTerrain[i][j].getY()]
-                       .getTexture() != INT32_MAX){
+            if(terrainDetail[onScreenTerrain[i][j].getX()]
+               [onScreenTerrain[i][j].getY()].getTexture() != INT32_MAX){
 
                 aboveTerrainChooser[terrainDetail
-                [onScreenTerrain[i][j].getY()][onScreenTerrain[i][j].getY()]
+                [onScreenTerrain[i][j].getX()][onScreenTerrain[i][j].getY()]
                         .getTexture()]->render(i * BLOCK_WIDTH,
                                                j * BLOCK_WIDTH);
             }
