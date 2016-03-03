@@ -171,7 +171,81 @@ bool loadMedia() {
         return false;
     }
 
+    //Town -- Doors
+    if (!gTown_Door_Closed.loadFromFile("textures/AboveTerrainElements/Town/Doors/Closed_Wood.png")) {
+        cout << "Failed to load Town - Door - Closed texture!" << endl;
+        return false;
+    }
+    if (!gTown_Door_HalfOpen.loadFromFile("textures/AboveTerrainElements/Town/Doors/Half_Open_Wood.png")) {
+        cout << "Failed to load Town - Door - Half Open texture!" << endl;
+        return false;
+    }
+    if (!gTown_Door_ThreeQuartersOpen.loadFromFile("textures/AboveTerrainElements/Town/Doors/Three_Quater_Open_Wood.png")) {
+        cout << "Failed to load Town - Door - Three Quarter Open texture!" << endl;
+        return false;
+    }
+    if (!gTown_Door_Open.loadFromFile("textures/AboveTerrainElements/Town/Doors/Open_Wood.png")) {
+        cout << "Failed to load Town - Door - Open texture!" << endl;
+        return false;
+    }
 
+    //Town -- Roofs
+    if (!gTown_Roof_Thatched.loadFromFile("textures/AboveTerrainElements/Town/Roofs/Thatched.png")) {
+        cout << "Failed to load Town - Roof - Thatched texture!" << endl;
+        return false;
+    }
+    if (!gTown_Roof_Thatched_Corner.loadFromFile("textures/AboveTerrainElements/Town/Roofs/Thatched_Corner.png")) {
+        cout << "Failed to load Town - Roof - Thatched Corner texture!" << endl;
+        return false;
+    }
+
+    //Town -- Walls
+    if (!gTown_Wall_Wood.loadFromFile("textures/AboveTerrainElements/Town/Walls/Wood_Wall.png")) {
+        cout << "Failed to load Town - Walls - Wall texture!" << endl;
+        return false;
+    }
+    if (!gTown_Wall_Wood_Corner_Left_Ground.loadFromFile("textures/AboveTerrainElements/Town/Walls/Wood_Corner_Left_Ground.png")) {
+        cout << "Failed to load Town - Walls - Corner Left Ground texture!" << endl;
+        return false;
+    }
+    if (!gTown_Wall_Wood_Corner_Left_Upper.loadFromFile("textures/AboveTerrainElements/Town/Walls/Wood_Corner_Left_Upper.png")) {
+        cout << "Failed to load Town - Walls - Corner Left Upper texture!" << endl;
+        return false;
+    }
+    if (!gTown_Wall_Wood_Corner_Right_Ground.loadFromFile("textures/AboveTerrainElements/Town/Walls/Wood_Corner_Right_Ground.png")) {
+        cout << "Failed to load Town - Walls - Corner Right Ground texture!" << endl;
+        return false;
+    }if (!gTown_Wall_Wood_Corner_Right_Upper.loadFromFile("textures/AboveTerrainElements/Town/Walls/Wood_Corner_Right_Upper.png")) {
+
+        cout << "Failed to load Town - Walls - Corner Right Upper texture!" << endl;
+        return false;
+    }
+    if (!gTown_Wall_Wood_Window.loadFromFile("textures/AboveTerrainElements/Town/Walls/Wood_Window.png")) {
+        cout << "Failed to load Town - Walls - Window texture!" << endl;
+        return false;
+    }
+
+    //Water Sea Waves
+    if (!gWater_SeaWaves.loadFromFile("textures/AboveTerrainElements/Water/Sea_Waves.png")) {
+        cout << "Failed to load Water - Sea Waves texture!" << endl;
+        return false;
+    }
+
+    //Trees
+    if (!gTree_Dark.loadFromFile("textures/AboveTerrainElements/Trees/Dark.png")) {
+        cout << "Failed to load Tree - Dark texture!" << endl;
+        return false;
+    }
+    if (!gTree_Medium.loadFromFile("textures/AboveTerrainElements/Trees/Medium.png")) {
+        cout << "Failed to load Tree - Medium texture!" << endl;
+        return false;
+    }    if (!gTree_MediumLittle.loadFromFile("textures/AboveTerrainElements/Trees/Little_Medium.png")) {
+        cout << "Failed to load Tree - Medium little texture!" << endl;
+        return false;
+    }    if (!gTree_Light.loadFromFile("textures/AboveTerrainElements/Trees/Light.png")) {
+        cout << "Failed to load Tree - Light texture!" << endl;
+        return false;
+    }
 
     return true;
 }
