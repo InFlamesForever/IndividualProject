@@ -4,7 +4,7 @@
 
 #include "TerrainGenerator.h"
 
-TerrainGenerator::TerrainGenerator(TextureInfo **terrain, TextureInfo **terrainDetail) {
+TerrainGenerator::TerrainGenerator(int **terrain, int **terrainDetail) {
     this-> terrain = terrain;
     this-> terrainDetail = terrainDetail;
     srand(time(0));
@@ -35,8 +35,8 @@ void TerrainGenerator::generateTerrain() {
             } else {
                 texture = generateLand(value);
             }
-            terrain[x][y].setUp(texture, x, y);
-            terrainDetail[x][y].setUp(INT32_MAX,x,y);
+            terrain[x][y] = texture;
+            terrainDetail[x][y] = INT32_MAX;
         }
     }
 
@@ -124,6 +124,26 @@ int TerrainGenerator::generateLand(double value) {
 void TerrainGenerator::placeTowns() {
     //4 major towns and a random number (0-4) hidden towns
 
+    int townsPlaced = 0;
+    int sandTownsRemaining = 1;
+    int plainsTownsRemaining = 1;
+    int mountainCitiesRemaining = 1;
+    int waterCitiesRemaining = 1;
+    //Town in the top left corner
+    for(int x = 0; x < TERRAIN_SIZE/2; x++){
+        for(int y = 0; y < TERRAIN_SIZE/2; y++){
+            if(townsPlaced == 0){
+                if(sandTownsRemaining > 0
+                   && terrain[x][y] == SandLight
+                   && fRand(0, 1) > 0.99){
+                    townsPlaced++;
+                    terrainDetail[x][y] = TownSymbol;
+                }
+            } else {
+                break;
+            }
+        }
+    }
 
 }
 
@@ -135,47 +155,47 @@ void TerrainGenerator::placeTrees() {
     for(int x = 0; x < TERRAIN_SIZE; x++) {
         for (int y = 0; y < TERRAIN_SIZE; y++) {
             //Checks if there is already something in the tile
-            if (terrainDetail[x][y].getTexture() == INT32_MAX) {
+            if (terrainDetail[x][y] == INT32_MAX) {
                 double random = fRand(0, 1);
 
                 //Trees at the base of a mountain
-                if (terrain[x][y].getTexture() == Stone_Gray_VeryDark
+                if (terrain[x][y] == Stone_Gray_VeryDark
                     && random > 0.95
-                    || terrain[x][y].getTexture() == Dirt_Dirt
+                    || terrain[x][y] == Dirt_Dirt
                        && random > 0.8
-                    || terrain[x][y].getTexture() == Dirt_DirtGravel
+                    || terrain[x][y] == Dirt_DirtGravel
                        && random > 0.7
-                    || terrain[x][y].getTexture() == Dirt_Gravel
+                    || terrain[x][y] == Dirt_Gravel
                        && random > 0.2) {
-                    terrainDetail[x][y].setUp(Tree_Dark, x, y);
+                    terrainDetail[x][y] = Tree_Dark;
                 }
 
                     //Trees on plains
-                else if (terrain[x][y].getTexture() == Grass_LushLight
+                else if (terrain[x][y] == Grass_LushLight
                          && random > 0.98
                          //Creates forest groups
-                         || terrain[x][y].getTexture() == Grass_LushLight
+                         || terrain[x][y] == Grass_LushLight
                             &&
-                            terrainDetail[x - 1][y].getTexture() == Tree_Medium
+                            terrainDetail[x - 1][y] == Tree_Medium
                             && random > 0.3
-                         || terrain[x][y].getTexture() == Grass_LushLight
+                         || terrain[x][y] == Grass_LushLight
                             &&
-                            terrainDetail[x][y - 1].getTexture() == Tree_Medium
+                            terrainDetail[x][y - 1] == Tree_Medium
                             && random > 0.3) {
-                    terrainDetail[x][y].setUp(Tree_Medium, x, y);
+                    terrainDetail[x][y] = Tree_Medium;
                 }
 
-                else if (terrain[x][y].getTexture() == Grass_LushDeep
+                else if (terrain[x][y] == Grass_LushDeep
                          && random > 0.9) {
-                    terrainDetail[x][y].setUp(Tree_MediumLittle, x, y);
+                    terrainDetail[x][y] = Tree_MediumLittle;
                 }
 
                     //Trees on dry land
-                else if (terrain[x][y].getTexture() == Grass_Dry
+                else if (terrain[x][y] == Grass_Dry
                          && random > 0.96
-                         || terrain[x][y].getTexture() == Grass_Parched
+                         || terrain[x][y] == Grass_Parched
                             && random > 0.93) {
-                    terrainDetail[x][y].setUp(Tree_Light, x, y);
+                    terrainDetail[x][y] = Tree_Light;
                 }
             }
         }
@@ -186,18 +206,18 @@ void TerrainGenerator::placeWaves() {
     for(int x = 0; x < TERRAIN_SIZE; x++) {
         for (int y = 0; y < TERRAIN_SIZE; y++) {
             //Checks if there is already something in the tile
-            if (terrainDetail[x][y].getTexture() == INT32_MAX) {
-                if (terrain[x][y].getTexture() == Water_Ocean
+            if (terrainDetail[x][y] == INT32_MAX) {
+                if (terrain[x][y] == Water_Ocean
                     && fRand(0, 1) > 0.98
-                    || terrain[x][y].getTexture() == Water_Ocean
+                    || terrain[x][y] == Water_Ocean
                        && x > 0 &&
-                       terrainDetail[x - 1][y].getTexture() == SeaWaves
+                       terrainDetail[x - 1][y] == SeaWaves
                        && fRand(0, 1) > 0.6
-                    || terrain[x][y].getTexture() == Water_Ocean
+                    || terrain[x][y] == Water_Ocean
                        && y > 0 &&
-                       terrainDetail[x][y - 1].getTexture() == SeaWaves
+                       terrainDetail[x][y - 1] == SeaWaves
                        && fRand(0, 1) > 0.7) {
-                    terrainDetail[x][y].setUp(SeaWaves, x, y);
+                    terrainDetail[x][y] = SeaWaves;
                 }
 
             }

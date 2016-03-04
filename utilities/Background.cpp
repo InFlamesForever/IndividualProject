@@ -4,8 +4,8 @@
 Background::Background() {
     //Create and initialise terrain
     for(int i = 0; i < TERRAIN_SIZE; i++){
-        terrain[i] = new TextureInfo[TERRAIN_SIZE];
-        terrainDetail[i] = new TextureInfo[TERRAIN_SIZE];
+        terrain[i] = new int[TERRAIN_SIZE];
+        terrainDetail[i] = new int[TERRAIN_SIZE];
      }
 
     TerrainGenerator generator(terrain, terrainDetail);
@@ -74,7 +74,7 @@ void Background::renderTile(int terX, int terY, int renX, int renY){
        terY > TERRAIN_SIZE - 1 || terY < 0){
         gWater_SeaTexture.render(renX, renY);
     } else {
-        terrainChooser[terrain[terX][terY].getTexture()]
+        terrainChooser[terrain[terX][terY]]
                     ->render(renX, renY);
         renderAboveTerrainDetail(terX, terY, renX, renY);
     }
@@ -101,9 +101,8 @@ void Background::getTerrain() {
                         TerrainTypes::Water_Ocean, pointX, pointY);
             } else {
                 onScreenTerrain[i][j].setUp(
-                        terrain[pointX][pointY].getTexture(),
-                        terrain[pointX][pointY].getX(),
-                        terrain[pointX][pointY].getY());
+                        terrain[pointX][pointY],
+                        pointX, pointY);
             }
         }
 
@@ -190,28 +189,28 @@ bool Background::terrainCollision(PlayerCharacter character, int dir) {
             case UP:
                 if (character.getCantTraverse()[i] ==
                     terrain[character.getTerrainPosX()]
-                    [character.getTerrainPosY() - 1].getTexture()) {
+                    [character.getTerrainPosY() - 1]) {
                     return true;
                 }
                 break;
             case DOWN:
                 if (character.getCantTraverse()[i] ==
                     terrain[character.getTerrainPosX()]
-                    [character.getTerrainPosY() + 1].getTexture()) {
+                    [character.getTerrainPosY() + 1]) {
                     return true;
                 }
                 break;
             case LEFT:
                 if (character.getCantTraverse()[i] ==
                     terrain[character.getTerrainPosX() - 1]
-                            [character.getTerrainPosY()].getTexture()) {
+                            [character.getTerrainPosY()]) {
                     return true;
                 }
                 break;
             case RIGHT:
                 if (character.getCantTraverse()[i] ==
                     terrain[character.getTerrainPosX() + 1]
-                            [character.getTerrainPosY()].getTexture()) {
+                            [character.getTerrainPosY()]) {
                     return true;
                 }
                 break;
@@ -225,8 +224,8 @@ void Background::renderAboveTerrainDetail(int x, int y, int renX, int renY) {
     if(x >= 0 && x < TERRAIN_SIZE - 1
        && y >= 0 && y < TERRAIN_SIZE - 1
        //If within bounds check if there is something to display
-       && terrainDetail[x][y].getTexture() < INT32_MAX) {
-        Texture *tex = aboveTerrainChooser[terrainDetail[x][y].getTexture()];
+       && terrainDetail[x][y] < INT32_MAX) {
+        Texture *tex = aboveTerrainChooser[terrainDetail[x][y]];
         if (tex->getHeight() == 16) {
             tex->render(renX, renY);
         } else {

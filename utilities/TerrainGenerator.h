@@ -13,7 +13,7 @@
 
 class TerrainGenerator {
 public:
-    TerrainGenerator(TextureInfo **terrain, TextureInfo **terrainDetail);
+    TerrainGenerator(int **terrain, int **terrainDetail);
 
 private:
     void generateTerrain();
@@ -49,8 +49,8 @@ private:
      */
     double fRand(double fMin, double fMax);
 
-    TextureInfo **terrain;
-    TextureInfo **terrainDetail;
+    int **terrain;
+    int **terrainDetail;
 
     int const MAX_OCEAN_LINE = 200;
     int const MAX_BEACH_LINE = 400;
