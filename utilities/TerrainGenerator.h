@@ -27,7 +27,7 @@ private:
      * Adds between 0 and 4 random hidden towns,
      * these are not on any connecting roads
      */
-    void placeTowns(int numTowns);
+    void placeTowns();
 
     /**
      * Adds roads to the map. These roads pave a way between the 4 major towns
@@ -39,8 +39,14 @@ private:
      */
     void placeTrees();
 
+    /**
+     * Places waves on the ocean and lakes
+     */
     void placeWaves();
 
+    /**
+     * Returns a random double value between a min and max value
+     */
     double fRand(double fMin, double fMax);
 
     TextureInfo **terrain;
@@ -50,6 +56,10 @@ private:
     int const MAX_BEACH_LINE = 400;
 
     int const TERRAIN_SCALE = 50;
+
+    //Number of towns on the map, between 4 and 8
+    int numTowns;
+    int townPositions[8][2];
 };
 
 
