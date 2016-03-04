@@ -127,23 +127,46 @@ void TerrainGenerator::placeTowns() {
     int townsPlaced = 0;
     int sandTownsRemaining = 1;
     int plainsTownsRemaining = 1;
-    int mountainCitiesRemaining = 1;
+    int mountainTownsRemaining = 1;
     int waterCitiesRemaining = 1;
     //Town in the top left corner
-    for(int x = 0; x < TERRAIN_SIZE/2; x++){
-        for(int y = 0; y < TERRAIN_SIZE/2; y++){
+    for(int x = 100; x < TERRAIN_SIZE/2; x++){
+        for(int y = 100; y < TERRAIN_SIZE/2; y++){
+            //water town, check if there is sand or something within 10 tiles in each direction, if not don't place
             if(townsPlaced == 0){
                 if(sandTownsRemaining > 0
-                   && terrain[x][y] == SandLight
-                   && fRand(0, 1) > 0.99){
-                    townsPlaced++;
-                    terrainDetail[x][y] = TownSymbol;
+                        && terrain[x][y] == SandLight
+                        && fRand(0, 1) > 0.999){
+
+                } else if(plainsTownsRemaining > 0
+                        && terrain[x][y] == Grass_LushDeep
+                        && fRand(0, 1) > 0.999){
+
+                } else if(mountainTownsRemaining > 0
+                        && terrain[x][y] == Stone_Gray_VeryLight
+                        && fRand(0, 1) > 0.999){
+
+                    //Place a city in the middle of a lake
+                } else if(waterCitiesRemaining > 0
+                          && terrain[x][y] == Water_Ocean
+                          && fRand(0, 1) > 0.99){
+                    if(terrain[x - 10][y] != Water_Ocean
+                            && terrain[x + 10][y] != Water_Ocean
+                            && terrain[x][y - 10] != Water_Ocean
+                            && terrain[x][y + 10] != Water_Ocean
+                            ){
+                        townsPlaced++;
+                        terrainDetail[x][y] = TownSymbol;
+                        townPositions[0][0] = x;
+                        townPositions[0][1] = y;
+                    }
                 }
             } else {
                 break;
             }
         }
     }
+    if(townsPlaced == 1) cout << "yes" << townPositions[0][0] << " " << townPositions[0][1] << endl;
 
 }
 
