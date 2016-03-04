@@ -4,9 +4,17 @@
 
 #include "TerrainGenerator.h"
 
-TerrainGenerator::TerrainGenerator() {}
+TerrainGenerator::TerrainGenerator(TextureInfo **terrain, TextureInfo **terrainDetail) {
+    this-> terrain = terrain;
+    this-> terrainDetail = terrainDetail;
+    generateTerrain();
+    placeTowns((int)fRand(4, 9));
+    placeRoads();
+    placeTrees();
+    srand(time(0));
+}
 
-void TerrainGenerator::generateTerrain(TextureInfo **terrain) {
+void TerrainGenerator::generateTerrain() {
     PerlinNoise perlin(time(0));
     for(int x = 0; x < TERRAIN_SIZE; x++) {
         for (int y = 0; y < TERRAIN_SIZE; y++) {
@@ -23,13 +31,15 @@ void TerrainGenerator::generateTerrain(TextureInfo **terrain) {
                 texture = generateLand(value);
             }
             terrain[x][y].setUp(texture, x, y);
+            terrainDetail[x][y].setUp(INT32_MAX,x,y);
         }
     }
+
 }
 
 double TerrainGenerator::fRand(double fMin, double fMax) {
-        double f = (double)rand() / RAND_MAX;
-        return fMin + f * (fMax - fMin);
+    double f = (double)rand() / RAND_MAX;
+    return fMin + f * (fMax - fMin);
 }
 
 int TerrainGenerator::generateOcean(int x, int y,
@@ -56,11 +66,11 @@ int TerrainGenerator::generateOcean(int x, int y,
 
     double newVal = value*gradient;
     if(newVal < 0.3){
-        return TerrainTypes::Water_Ocean;
+        return Water_Ocean;
     } else if( newVal < 0.4){
-        return TerrainTypes::SandLight;
+        return SandLight;
     } else if( newVal < 0.5){
-        return TerrainTypes::SandDark;
+        return SandDark;
     } else {
         return generateLand(value);
     }
@@ -68,39 +78,109 @@ int TerrainGenerator::generateOcean(int x, int y,
 
 int TerrainGenerator::generateLand(double value) {
     if(value < 0.1){
-        return TerrainTypes::SandLight;
+        return SandLight;
     } else if(value < 0.2){
-        return TerrainTypes::SandDark;
+        return SandDark;
     } else if(value < 0.22){
-        return TerrainTypes::Grass_Dead;
+        return Grass_Dead;
     } else if(value < 0.26){
-        return TerrainTypes::Grass_Dying;
+        return Grass_Dying;
     } else if(value < 0.3){
-        return TerrainTypes::Grass_Dry;
+        return Grass_Dry;
     } else if(value < 0.35){
-        return TerrainTypes::Grass_Parched;
+        return Grass_Parched;
     } else if(value < 0.45){
-        return TerrainTypes::Grass_LushDeep;
+        return Grass_LushDeep;
     } else if(value < 0.52){
-        return TerrainTypes::Grass_LushLight;
+        return Grass_LushLight;
     } else if(value < 0.56){
-        return TerrainTypes::Dirt_Gravel;
+        return Dirt_Gravel;
     } else if(value < 0.58){
-        return TerrainTypes::Dirt_DirtGravel;
+        return Dirt_DirtGravel;
     } else if(value < 0.61){
-        return TerrainTypes::Dirt_Dirt;
+        return Dirt_Dirt;
     } else if(value < 0.65){
-        return TerrainTypes::Stone_Gray_VeryDark;
+        return Stone_Gray_VeryDark;
     }else if(value < 0.7){
-        return TerrainTypes::Stone_Gray_Dark;
+        return Stone_Gray_Dark;
     }else if(value < 0.75){
-        return TerrainTypes::Stone_Gray_Medium;
+        return Stone_Gray_Medium;
     }else if(value < 0.8){
-        return TerrainTypes::Stone_Gray_Light;
+        return Stone_Gray_Light;
     } else if(value < 0.9){
-        return TerrainTypes::Stone_Gray_VeryLight;
+        return Stone_Gray_VeryLight;
     } else if(value < 1){
-        return TerrainTypes::Snow;
+        return Snow;
     }
     else return Water_River;
+}
+
+
+void TerrainGenerator::placeTowns(int numTowns) {
+    //4 major towns and a random number (0-4) hidden towns
+
+}
+
+void TerrainGenerator::placeTrees() {
+    for(int x = 0; x < TERRAIN_SIZE; x++) {
+        for (int y = 0; y < TERRAIN_SIZE; y++) {
+            double random = fRand(0, 1);
+            int tex = INT32_MAX;
+
+            //Trees at the base of a mountain
+            if(terrain[x][y].getTexture() == Stone_Gray_VeryDark
+                    && random > 0.95){
+                tex = Tree_Dark;
+            } else if(terrain[x][y].getTexture() == Dirt_Dirt
+                    && random > 0.8){
+                tex = Tree_Dark;
+            } else if(terrain[x][y].getTexture() == Dirt_DirtGravel
+                    && random > 0.7){
+                tex = Tree_Dark;
+            } else if(terrain[x][y].getTexture() == Dirt_Gravel
+                    && random > 0.2){
+                tex = Tree_Dark;
+            }
+
+            //Trees on plains
+            if(terrain[x][y].getTexture() == Grass_LushLight
+                    && random > 0.98){
+                tex = Tree_Medium;
+            }
+            //Creates forest groups
+            else if(terrain[x][y].getTexture() == Grass_LushLight
+                      && terrainDetail[x - 1][y].getTexture() == Tree_Medium
+                    && random > 0.3){
+                tex = Tree_Medium;
+            } else if(terrain[x][y].getTexture() == Grass_LushLight
+                      && terrainDetail[x][y - 1].getTexture() == Tree_Medium
+                    && random > 0.3){
+                tex = Tree_Medium;
+            }
+            else if(terrain[x][y].getTexture() == Grass_LushDeep
+                    && random > 0.9){
+                tex = Tree_MediumLittle;
+            }
+
+            //Trees on dry land
+            if(terrain[x][y].getTexture() == Grass_Dry
+               && random > 0.96){
+                tex = Tree_Light;
+            } else if(terrain[x][y].getTexture() == Grass_Parched
+                      && random > 0.93){
+                tex = Tree_Light;
+            }
+
+            //Add tree to terrainDetail vector
+            terrainDetail[x][y].setUp(tex,x,y);
+        }
+    }
+}
+
+void TerrainGenerator::placeRoads() {
+
+}
+
+void TerrainGenerator::placeWaves() {
+
 }
