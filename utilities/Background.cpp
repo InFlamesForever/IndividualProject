@@ -163,25 +163,27 @@ void Background::composeTerrainToTexture() {
     //Target the texture rather than the window
     terrainTexture.setAsRenderTarget();
 
+    //Compute this here to increase performance
+    int halfBlock = BLOCK_WIDTH/2;
+
     //Go through the onScreenTerrain vector and render all textures to the
     //terrain texture
     for(int i = 0; i < numOfTilesWidth; i++){
         for(int j = 0; j < numOfTilesHeight; j++){
+            int xPos = i * BLOCK_WIDTH;
+            int yPos = j * BLOCK_WIDTH;
             terrainChooser[onScreenTerrain[i][j].getTexture()]
-                    ->render(i * BLOCK_WIDTH,
-                             j * BLOCK_WIDTH);
-        }
-    }
-    for(int i = 0; i < numOfTilesWidth; i++){
-        for(int j = 0; j < numOfTilesHeight; j++){
+                    ->render(xPos, yPos);
+
             if(terrainDetail[onScreenTerrain[i][j].getX()]
                [onScreenTerrain[i][j].getY()].getTexture() != INT32_MAX){
 
                 aboveTerrainChooser[terrainDetail
                 [onScreenTerrain[i][j].getX()][onScreenTerrain[i][j].getY()]
-                        .getTexture()]->render(i * BLOCK_WIDTH,
-                                               j * BLOCK_WIDTH);
+                        .getTexture()]->render(xPos - halfBlock,
+                                               yPos - BLOCK_WIDTH);
             }
+
         }
     }
     //Return the render target to the window
