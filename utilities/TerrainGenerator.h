@@ -13,17 +13,39 @@
 
 class TerrainGenerator {
 public:
-    TerrainGenerator();
+    TerrainGenerator(TextureInfo **terrain, TextureInfo **terrainDetail);
 
-    void generateTerrain(TextureInfo **terrain);
+private:
+    void generateTerrain();
 
     int generateOcean(int x, int y, int edgeSandLine, double value);
 
     int generateLand(double value);
 
+    /**
+     * Adds 4 major towns, one in each corner of the map
+     * Adds between 0 and 4 random hidden towns,
+     * these are not on any connecting roads
+     */
+    void placeTowns(int numTowns);
+
+    /**
+     * Adds roads to the map. These roads pave a way between the 4 major towns
+     */
+    void placeRoads();
+
+    /**
+     * Add trees around the map
+     */
+    void placeTrees();
+
+    void placeWaves();
+
     double fRand(double fMin, double fMax);
 
-private:
+    TextureInfo **terrain;
+    TextureInfo **terrainDetail;
+
     int const MAX_OCEAN_LINE = 200;
     int const MAX_BEACH_LINE = 400;
 
