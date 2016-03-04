@@ -7,11 +7,14 @@
 TerrainGenerator::TerrainGenerator(TextureInfo **terrain, TextureInfo **terrainDetail) {
     this-> terrain = terrain;
     this-> terrainDetail = terrainDetail;
+    srand(time(0));
+
     generateTerrain();
     placeTowns((int)fRand(4, 9));
     placeRoads();
     placeTrees();
-    srand(time(0));
+    placeWaves();
+
 }
 
 void TerrainGenerator::generateTerrain() {
@@ -182,5 +185,22 @@ void TerrainGenerator::placeRoads() {
 }
 
 void TerrainGenerator::placeWaves() {
-
+    for(int x = 0; x < TERRAIN_SIZE; x++) {
+        for (int y = 0; y < TERRAIN_SIZE; y++) {
+            int tex = INT32_MAX;
+            if(terrain[x][y].getTexture() == Water_Ocean
+                    && fRand(0,1) > 0.98){
+                tex = SeaWaves;
+            } else if(terrain[x][y].getTexture() == Water_Ocean
+                    && x > 0 && terrainDetail[x - 1][y].getTexture() == SeaWaves
+                    && fRand(0,1) > 0.6){
+                tex = SeaWaves;
+            } else if(terrain[x][y].getTexture() == Water_Ocean
+                    && y > 0 && terrainDetail[x][y - 1].getTexture() == SeaWaves
+                    && fRand(0,1) > 0.7){
+                tex = SeaWaves;
+            }
+            terrainDetail[x][y].setUp(tex, x, y);
+        }
+    }
 }
