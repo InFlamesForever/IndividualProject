@@ -70,11 +70,11 @@ void Background::render() {
 void Background::renderTile(int terX, int terY, int renX, int renY){
     //Checks if the tile in question is on map or not
     // if it isn't use an ocean tile
-    if(terX > TERRAIN_SIZE || terX < 0 ||
-            terX + (renX/SCREEN_WIDTH) + 1 > TERRAIN_SIZE ||
-            terY + (renY/SCREEN_HEIGHT) + 1 > TERRAIN_SIZE){
+    if(terX > TERRAIN_SIZE - 1 || terX < 0 ||
+       terY > TERRAIN_SIZE - 1 || terY < 0){
         gWater_SeaTexture.render(renX, renY);
     } else {
+        cout << terX << " " << endl;
         terrainChooser[terrain[terX][terY].getTexture()]
                     ->render(renX, renY);
     }
@@ -94,11 +94,12 @@ void Background::getTerrain() {
             TextureInfo temp;
             //Checks if the tile in question is on map or not
             // if it isn't use an ocean tile
+            //cout << pointX << " " << pointY << endl;
             if(pointX < 0 || pointY < 0 ||
-                    pointX + i > TERRAIN_SIZE ||
-                    pointY + j > TERRAIN_SIZE){
+                    pointX + i > TERRAIN_SIZE - 1||
+                    pointY + j > TERRAIN_SIZE - 1){
                 onScreenTerrain[i][j].setUp(
-                        TerrainTypes::Water_Ocean, pointX + i, pointY + j);
+                        TerrainTypes::Water_Ocean, pointX, pointY);
             } else {
                 onScreenTerrain[i][j].setUp(
                         terrain[pointX][pointY].getTexture(),
@@ -174,15 +175,6 @@ void Background::composeTerrainToTexture() {
             int yPos = j * BLOCK_WIDTH;
             terrainChooser[onScreenTerrain[i][j].getTexture()]
                     ->render(xPos, yPos);
-
-            if(terrainDetail[onScreenTerrain[i][j].getX()]
-               [onScreenTerrain[i][j].getY()].getTexture() != INT32_MAX){
-
-                aboveTerrainChooser[terrainDetail
-                [onScreenTerrain[i][j].getX()][onScreenTerrain[i][j].getY()]
-                        .getTexture()]->render(xPos - halfBlock,
-                                               yPos - BLOCK_WIDTH);
-            }
 
         }
     }
