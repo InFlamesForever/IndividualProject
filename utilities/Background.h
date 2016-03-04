@@ -117,6 +117,12 @@ private:
     int moveBackgroundX = 0;
 
     void renderTile(int terX, int terY, int renX, int renY);
+
+    /**
+     * Renders the AboveTerrain Details, changes the position depending on
+     * the size of the texture
+     */
+    void renderAboveTerrainDetail(int x, int y, int renX, int renY);
 };
 
 
