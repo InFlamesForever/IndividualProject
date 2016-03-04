@@ -4,6 +4,12 @@
 
 #include "TextureInfo.h"
 
+TextureInfo::TextureInfo() {
+    texture = INT32_MAX;
+    x = 0;
+    y = 0;
+}
+
 void TextureInfo::setUp(int tex, int x, int y) {
     texture = tex;
     this->x = x;

@@ -11,6 +11,8 @@
 
 class TextureInfo {
 public:
+    TextureInfo();
+
     void setUp(int tex, int x, int y);
 
     int getTexture();
@@ -21,7 +23,7 @@ public:
 
 
 private:
-    int texture = INT32_MAX;
+    int texture;
 
     //2.5d Coords
     int x;
