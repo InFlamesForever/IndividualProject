@@ -76,6 +76,7 @@ void Background::renderTile(int terX, int terY, int renX, int renY){
     } else {
         terrainChooser[terrain[terX][terY].getTexture()]
                     ->render(renX, renY);
+        renderAboveTerrainDetail(terX, terY, renX, renY);
     }
 }
 
@@ -174,19 +175,9 @@ void Background::composeTerrainToTexture() {
     //Secondary for loop required otherwise the larger textures are written over
     for(int i = 0; i < numOfTilesWidth; i++){
         for(int j = 0; j < numOfTilesHeight; j++){
-            //Check if in bounds of map
-            if(onScreenTerrain[i][j].getX() >= 0
-                && onScreenTerrain[i][j].getX() < TERRAIN_SIZE - 1
-                && onScreenTerrain[i][j].getY() >= 0
-                && onScreenTerrain[i][j].getY() < TERRAIN_SIZE - 1
-           //If within bounds check if there is something to display
-                && terrainDetail[onScreenTerrain[i][j].getX()]
-                [onScreenTerrain[i][j].getY()].getTexture() < INT32_MAX)
-            {
-                renderAboveTerrainDetail(onScreenTerrain[i][j].getX(),
-                                         onScreenTerrain[i][j].getY(),
-                                         i * BLOCK_WIDTH, j * BLOCK_WIDTH);
-            }
+            renderAboveTerrainDetail(onScreenTerrain[i][j].getX(),
+                                     onScreenTerrain[i][j].getY(),
+                                     i * BLOCK_WIDTH, j * BLOCK_WIDTH);
         }
     }
     //Return the render target to the window
@@ -230,7 +221,16 @@ bool Background::terrainCollision(PlayerCharacter character, int dir) {
 }
 
 void Background::renderAboveTerrainDetail(int x, int y, int renX, int renY) {
-    //Compute this here to increase performance
-    int halfBlock = BLOCK_WIDTH/2;
-    aboveTerrainChooser[terrainDetail[x][y].getTexture()]->render(renX, renY);
+    //Check if in bounds of map
+    if(x >= 0 && x < TERRAIN_SIZE - 1
+       && y >= 0 && y < TERRAIN_SIZE - 1
+       //If within bounds check if there is something to display
+       && terrainDetail[x][y].getTexture() < INT32_MAX) {
+        Texture *tex = aboveTerrainChooser[terrainDetail[x][y].getTexture()];
+        if (tex->getHeight() == 16) {
+            tex->render(renX, renY);
+        } else {
+            tex->render(renX - BLOCK_WIDTH / 2, renY - BLOCK_WIDTH);
+        }
+    }
 }
