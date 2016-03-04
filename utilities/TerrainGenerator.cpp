@@ -9,8 +9,10 @@ TerrainGenerator::TerrainGenerator(TextureInfo **terrain, TextureInfo **terrainD
     this-> terrainDetail = terrainDetail;
     srand(time(0));
 
+    numTowns = (int)fRand(4, 9);
+
     generateTerrain();
-    placeTowns((int)fRand(4, 9));
+    placeTowns();
     placeRoads();
     placeTrees();
     placeWaves();
@@ -119,75 +121,86 @@ int TerrainGenerator::generateLand(double value) {
 }
 
 
-void TerrainGenerator::placeTowns(int numTowns) {
+void TerrainGenerator::placeTowns() {
     //4 major towns and a random number (0-4) hidden towns
 
-}
 
-void TerrainGenerator::placeTrees() {
-    for(int x = 0; x < TERRAIN_SIZE; x++) {
-        for (int y = 0; y < TERRAIN_SIZE; y++) {
-            double random = fRand(0, 1);
-
-            //Trees at the base of a mountain
-            if(terrain[x][y].getTexture() == Stone_Gray_VeryDark
-                    && random > 0.95
-                    || terrain[x][y].getTexture() == Dirt_Dirt
-                      && random > 0.8
-                    || terrain[x][y].getTexture() == Dirt_DirtGravel
-                       && random > 0.7
-                    || terrain[x][y].getTexture() == Dirt_Gravel
-                       && random > 0.2){
-                terrainDetail[x][y].setUp(Tree_Dark, x, y);
-            }
-
-            //Trees on plains
-            else if(terrain[x][y].getTexture() == Grass_LushLight
-                    && random > 0.98
-               //Creates forest groups
-                    || terrain[x][y].getTexture() == Grass_LushLight
-                       && terrainDetail[x - 1][y].getTexture() == Tree_Medium
-                       && random > 0.3
-                    || terrain[x][y].getTexture() == Grass_LushLight
-                       && terrainDetail[x][y - 1].getTexture() == Tree_Medium
-                       && random > 0.3){
-                terrainDetail[x][y].setUp(Tree_Medium, x, y);
-            }
-
-            else if(terrain[x][y].getTexture() == Grass_LushDeep
-                    && random > 0.9){
-                terrainDetail[x][y].setUp(Tree_MediumLittle, x, y);
-            }
-
-            //Trees on dry land
-            else if(terrain[x][y].getTexture() == Grass_Dry
-                && random > 0.96
-                || terrain[x][y].getTexture() == Grass_Parched
-                      && random > 0.93){
-                terrainDetail[x][y].setUp(Tree_Light, x, y);
-            }
-        }
-    }
 }
 
 void TerrainGenerator::placeRoads() {
 
 }
 
+void TerrainGenerator::placeTrees() {
+    for(int x = 0; x < TERRAIN_SIZE; x++) {
+        for (int y = 0; y < TERRAIN_SIZE; y++) {
+            //Checks if there is already something in the tile
+            if (terrainDetail[x][y].getTexture() == INT32_MAX) {
+                double random = fRand(0, 1);
+
+                //Trees at the base of a mountain
+                if (terrain[x][y].getTexture() == Stone_Gray_VeryDark
+                    && random > 0.95
+                    || terrain[x][y].getTexture() == Dirt_Dirt
+                       && random > 0.8
+                    || terrain[x][y].getTexture() == Dirt_DirtGravel
+                       && random > 0.7
+                    || terrain[x][y].getTexture() == Dirt_Gravel
+                       && random > 0.2) {
+                    terrainDetail[x][y].setUp(Tree_Dark, x, y);
+                }
+
+                    //Trees on plains
+                else if (terrain[x][y].getTexture() == Grass_LushLight
+                         && random > 0.98
+                         //Creates forest groups
+                         || terrain[x][y].getTexture() == Grass_LushLight
+                            &&
+                            terrainDetail[x - 1][y].getTexture() == Tree_Medium
+                            && random > 0.3
+                         || terrain[x][y].getTexture() == Grass_LushLight
+                            &&
+                            terrainDetail[x][y - 1].getTexture() == Tree_Medium
+                            && random > 0.3) {
+                    terrainDetail[x][y].setUp(Tree_Medium, x, y);
+                }
+
+                else if (terrain[x][y].getTexture() == Grass_LushDeep
+                         && random > 0.9) {
+                    terrainDetail[x][y].setUp(Tree_MediumLittle, x, y);
+                }
+
+                    //Trees on dry land
+                else if (terrain[x][y].getTexture() == Grass_Dry
+                         && random > 0.96
+                         || terrain[x][y].getTexture() == Grass_Parched
+                            && random > 0.93) {
+                    terrainDetail[x][y].setUp(Tree_Light, x, y);
+                }
+            }
+        }
+    }
+}
+
 void TerrainGenerator::placeWaves() {
     for(int x = 0; x < TERRAIN_SIZE; x++) {
         for (int y = 0; y < TERRAIN_SIZE; y++) {
-            if(terrain[x][y].getTexture() == Water_Ocean
-                    && fRand(0,1) > 0.98
-                || terrain[x][y].getTexture() == Water_Ocean
-                    && x > 0 && terrainDetail[x - 1][y].getTexture() == SeaWaves
-                    && fRand(0,1) > 0.6
-                || terrain[x][y].getTexture() == Water_Ocean
-                    && y > 0 && terrainDetail[x][y - 1].getTexture() == SeaWaves
-                    && fRand(0,1) > 0.7){
-                terrainDetail[x][y].setUp(SeaWaves, x, y);
+            //Checks if there is already something in the tile
+            if (terrainDetail[x][y].getTexture() == INT32_MAX) {
+                if (terrain[x][y].getTexture() == Water_Ocean
+                    && fRand(0, 1) > 0.98
+                    || terrain[x][y].getTexture() == Water_Ocean
+                       && x > 0 &&
+                       terrainDetail[x - 1][y].getTexture() == SeaWaves
+                       && fRand(0, 1) > 0.6
+                    || terrain[x][y].getTexture() == Water_Ocean
+                       && y > 0 &&
+                       terrainDetail[x][y - 1].getTexture() == SeaWaves
+                       && fRand(0, 1) > 0.7) {
+                    terrainDetail[x][y].setUp(SeaWaves, x, y);
+                }
+
             }
-            
         }
     }
 }
