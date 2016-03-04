@@ -162,18 +162,18 @@ void Background::composeTerrainToTexture() {
     //Target the texture rather than the window
     terrainTexture.setAsRenderTarget();
 
-    //Compute this here to increase performance
-    int halfBlock = BLOCK_WIDTH/2;
-
     //Go through the onScreenTerrain vector and render all textures to the
     //terrain texture
+    for(int i = 0; i < numOfTilesWidth; i++) {
+        for (int j = 0; j < numOfTilesHeight; j++) {
+            terrainChooser[onScreenTerrain[i][j].getTexture()]
+                    ->render(i * BLOCK_WIDTH, j * BLOCK_WIDTH);
+
+        }
+    }
+    //Secondary for loop required otherwise the larger textures are written over
     for(int i = 0; i < numOfTilesWidth; i++){
         for(int j = 0; j < numOfTilesHeight; j++){
-            int xPos = i * BLOCK_WIDTH;
-            int yPos = j * BLOCK_WIDTH;
-            terrainChooser[onScreenTerrain[i][j].getTexture()]
-                    ->render(xPos, yPos);
-
             //Check if in bounds of map
             if(onScreenTerrain[i][j].getX() >= 0
                 && onScreenTerrain[i][j].getX() < TERRAIN_SIZE - 1
@@ -181,12 +181,11 @@ void Background::composeTerrainToTexture() {
                 && onScreenTerrain[i][j].getY() < TERRAIN_SIZE - 1
            //If within bounds check if there is something to display
                 && terrainDetail[onScreenTerrain[i][j].getX()]
-                [onScreenTerrain[i][j].getY()].getTexture() != INT32_MAX)
+                [onScreenTerrain[i][j].getY()].getTexture() < INT32_MAX)
             {
-                    aboveTerrainChooser[terrainDetail
-                    [onScreenTerrain[i][j].getX()][onScreenTerrain[i][j].getY()]
-                            .getTexture()]->render(xPos - halfBlock,
-                                                   yPos - BLOCK_WIDTH);
+                renderAboveTerrainDetail(onScreenTerrain[i][j].getX(),
+                                         onScreenTerrain[i][j].getY(),
+                                         i * BLOCK_WIDTH, j * BLOCK_WIDTH);
             }
         }
     }
@@ -228,4 +227,10 @@ bool Background::terrainCollision(PlayerCharacter character, int dir) {
         }
     }
     return false;
+}
+
+void Background::renderAboveTerrainDetail(int x, int y, int renX, int renY) {
+    //Compute this here to increase performance
+    int halfBlock = BLOCK_WIDTH/2;
+    aboveTerrainChooser[terrainDetail[x][y].getTexture()]->render(renX, renY);
 }
