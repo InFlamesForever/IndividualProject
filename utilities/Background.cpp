@@ -74,7 +74,6 @@ void Background::renderTile(int terX, int terY, int renX, int renY){
        terY > TERRAIN_SIZE - 1 || terY < 0){
         gWater_SeaTexture.render(renX, renY);
     } else {
-        cout << terX << " " << endl;
         terrainChooser[terrain[terX][terY].getTexture()]
                     ->render(renX, renY);
     }
@@ -94,7 +93,6 @@ void Background::getTerrain() {
             TextureInfo temp;
             //Checks if the tile in question is on map or not
             // if it isn't use an ocean tile
-            //cout << pointX << " " << pointY << endl;
             if(pointX < 0 || pointY < 0 ||
                     pointX + i > TERRAIN_SIZE - 1||
                     pointY + j > TERRAIN_SIZE - 1){
@@ -176,6 +174,20 @@ void Background::composeTerrainToTexture() {
             terrainChooser[onScreenTerrain[i][j].getTexture()]
                     ->render(xPos, yPos);
 
+            //Check if in bounds of map
+            if(onScreenTerrain[i][j].getX() >= 0
+                && onScreenTerrain[i][j].getX() < TERRAIN_SIZE - 1
+                && onScreenTerrain[i][j].getY() >= 0
+                && onScreenTerrain[i][j].getY() < TERRAIN_SIZE - 1
+           //If within bounds check if there is something to display
+                && terrainDetail[onScreenTerrain[i][j].getX()]
+                [onScreenTerrain[i][j].getY()].getTexture() != INT32_MAX)
+            {
+                    aboveTerrainChooser[terrainDetail
+                    [onScreenTerrain[i][j].getX()][onScreenTerrain[i][j].getY()]
+                            .getTexture()]->render(xPos - halfBlock,
+                                                   yPos - BLOCK_WIDTH);
+            }
         }
     }
     //Return the render target to the window
