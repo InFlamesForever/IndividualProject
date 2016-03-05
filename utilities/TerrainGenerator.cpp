@@ -9,7 +9,8 @@ TerrainGenerator::TerrainGenerator(int **terrain, int **terrainDetail) {
     this-> terrainDetail = terrainDetail;
     srand(time(0));
 
-    numTowns = (int)fRand(4, 9);
+    //When secret towns are implemented will use a random number of them
+    numTowns = 4; //(int)fRand(4, 9);
 
     generateTerrain();
     placeTowns();
@@ -128,45 +129,130 @@ void TerrainGenerator::placeTowns() {
     int sandTownsRemaining = 1;
     int plainsTownsRemaining = 1;
     int mountainTownsRemaining = 1;
-    int waterCitiesRemaining = 1;
-    //Town in the top left corner
-    for(int x = 100; x < TERRAIN_SIZE/2; x++){
-        for(int y = 100; y < TERRAIN_SIZE/2; y++){
-            //water town, check if there is sand or something within 10 tiles in each direction, if not don't place
-            if(townsPlaced == 0){
-                if(sandTownsRemaining > 0
-                        && terrain[x][y] == SandLight
-                        && fRand(0, 1) > 0.999){
+    int waterTownsRemaining = 1;
 
-                } else if(plainsTownsRemaining > 0
-                        && terrain[x][y] == Grass_LushDeep
-                        && fRand(0, 1) > 0.999){
+    int borderDisplacer = 100;
+    int halfMap = TERRAIN_SIZE/2;
+    int terrainBorder = TERRAIN_SIZE - borderDisplacer;
 
-                } else if(mountainTownsRemaining > 0
-                        && terrain[x][y] == Stone_Gray_VeryLight
-                        && fRand(0, 1) > 0.999){
+    //Top left quarter
+    int startX = borderDisplacer;
+    int endX = halfMap;
+    int startY = borderDisplacer;
+    int endY = halfMap;
 
-                    //Place a city in the middle of a lake
-                } else if(waterCitiesRemaining > 0
-                          && terrain[x][y] == Water_Ocean
-                          && fRand(0, 1) > 0.99){
-                    if(terrain[x - 10][y] != Water_Ocean
+    int townsThisLoop = 1;
+    while(townsPlaced < 4) {
+        //top right quarter
+        if(townsPlaced == 1){
+            startX = halfMap;
+            endX = terrainBorder;
+            startY = borderDisplacer;
+            endY = halfMap;
+            townsThisLoop++;
+            //Bottom left quarter
+        } else if(townsPlaced == 2){
+            startX = borderDisplacer;
+            endX = halfMap;
+            startY = halfMap;
+            endY = terrainBorder;
+            townsThisLoop++;
+            //Bottom right quarter
+        } else if(townsPlaced == 3){
+            startX = halfMap;
+            endX = terrainBorder;
+            startY = halfMap;
+            endY = terrainBorder;
+            townsThisLoop++;
+        }
+        //Town in the top left corner
+        for (int x = startX; x < endX; x++) {
+            for (int y = startY; y < endY; y++) {
+                if(townsThisLoop > 0) {
+                    //Place a Town in the desert
+                    if (sandTownsRemaining > 0
+                        && terrain[x][y] == SandDark
+                        && fRand(0, 1) > 0.9999) {
+                        //if the sand is surrounded by grass
+                        if ((unsigned) (terrain[x - 10][y] - Grass_Dry)
+                            <= (Grass_Dying - Grass_Dry)
+                            && (unsigned) (terrain[x + 10][y] - Grass_Dry)
+                               <= (Grass_Dying - Grass_Dry)
+                            && (unsigned) (terrain[x][y - 10] - Grass_Dry)
+                               <= (Grass_Dying - Grass_Dry)
+                            && (unsigned) (terrain[x][y + 10] - Grass_Dry)
+                               <= (Grass_Dying - Grass_Dry)
+                                ) {
+                            terrainDetail[x][y] = TownSymbol;
+                            townPositions[townsPlaced][0] = x;
+                            townPositions[townsPlaced][1] = y;
+                            townPositions[townsPlaced][2] = Sand;
+                            cout << x << " sandtown " << y << endl;
+                            townsPlaced++;
+                            sandTownsRemaining--;
+                            townsThisLoop--;
+                        }
+
+                        //Place a town on some plains
+                    } else if (plainsTownsRemaining > 0
+                               && terrain[x][y] == Grass_Parched
+                               && fRand(0, 1) > 0.9999) {
+                        if (terrain[x - 5][y] == Grass_Parched
+                            && terrain[x + 5][y] == Grass_Parched
+                            && terrain[x][y - 5] == Grass_Parched
+                            && terrain[x][y + 5] == Grass_Parched
+                                ) {
+                            terrainDetail[x][y] = TownSymbol;
+                            townPositions[townsPlaced][0] = x;
+                            townPositions[townsPlaced][1] = y;
+                            townPositions[townsPlaced][2] = Plains;
+                            townsPlaced++;
+                            plainsTownsRemaining--;
+                            cout << x << " plains " << y << endl;
+                            townsThisLoop--;
+                        }
+                        //Place a town on a mountain
+                    } else if (mountainTownsRemaining > 0
+                               && terrain[x][y] == Stone_Gray_VeryLight
+                               && fRand(0, 1) > 0.9999) {
+                        if (terrain[x - 5][y] == Stone_Gray_VeryLight
+                            && terrain[x + 5][y] == Stone_Gray_VeryLight
+                            && terrain[x][y - 5] == Stone_Gray_VeryLight
+                            && terrain[x][y + 5] == Stone_Gray_VeryLight
+                                ) {
+                            terrainDetail[x][y] = TownSymbol;
+                            townPositions[townsPlaced][0] = x;
+                            townPositions[townsPlaced][1] = y;
+                            townPositions[townsPlaced][2] = Mountain;
+                            townsPlaced++;
+                            mountainTownsRemaining--;
+                            cout << x << " mountain " << y << endl;
+                            townsThisLoop--;
+                        }
+
+                        //Place a town in the middle of a lake
+                    } else if (waterTownsRemaining > 0
+                               && terrain[x][y] == Water_Ocean
+                               && fRand(0, 1) > 0.9999) {
+                        if (terrain[x - 10][y] != Water_Ocean
                             && terrain[x + 10][y] != Water_Ocean
                             && terrain[x][y - 10] != Water_Ocean
                             && terrain[x][y + 10] != Water_Ocean
-                            ){
-                        townsPlaced++;
-                        terrainDetail[x][y] = TownSymbol;
-                        townPositions[0][0] = x;
-                        townPositions[0][1] = y;
+                                ) {
+                            terrainDetail[x][y] = TownSymbol;
+                            townPositions[townsPlaced][0] = x;
+                            townPositions[townsPlaced][1] = y;
+                            townPositions[townsPlaced][2] = Water;
+                            townsPlaced++;
+                            waterTownsRemaining--;
+                            cout << x << " watertown " << y << endl;
+                            townsThisLoop--;
+                        }
                     }
                 }
-            } else {
-                break;
             }
         }
     }
-    if(townsPlaced == 1) cout << "yes" << townPositions[0][0] << " " << townPositions[0][1] << endl;
 
 }
 
@@ -247,3 +333,5 @@ void TerrainGenerator::placeWaves() {
         }
     }
 }
+
+

@@ -59,7 +59,15 @@ private:
 
     //Number of towns on the map, between 4 and 8
     int numTowns;
-    int townPositions[8][2];
+    //First for x coord, second for y coord, and third for type
+    int townPositions[8][3];
+
+    enum TownType {
+        Sand,
+        Plains,
+        Mountain,
+        Water
+    };
 };
 
 
