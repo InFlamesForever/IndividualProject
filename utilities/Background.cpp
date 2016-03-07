@@ -91,7 +91,6 @@ void Background::getTerrain() {
         int y = j * BLOCK_WIDTH;
 
         if (x + BLOCK_WIDTH > -5 && y < SCREEN_HEIGHT) {
-            TextureInfo temp;
             //Checks if the tile in question is on map or not
             // if it isn't use an ocean tile
             if(pointX < 0 || pointY < 0 ||
