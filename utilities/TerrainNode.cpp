@@ -4,18 +4,10 @@
 
 #include "TerrainNode.h"
 
-TerrainNode::TerrainNode(int x, int y, TerrainNode* previousNode, int endX, int endY){
+TerrainNode::TerrainNode(int x, int y, TerrainNode* previousNode){
     this->x = x;
     this->y = y;
     this->previousNode = previousNode;
-
-    if(previousNode == NULL){
-        distFromStart = 0;
-    } else {
-        distFromStart = previousNode->getDistFromStart() + 1;
-    }
-
-    distToGoal = abs(x - endX) + abs(y - endY);
 }
 
 int TerrainNode::getX() {
@@ -32,12 +24,4 @@ TerrainNode* TerrainNode::getPrevNode() {
 
 bool TerrainNode::equals(TerrainNode *other) {
     return x == other->getX() && y == other->getY();
-}
-
-int TerrainNode::getDistFromStart() {
-    return distFromStart;
-}
-
-int TerrainNode::getDistToGoal() {
-    return distToGoal;
 }

@@ -11,19 +11,15 @@
 
 class TerrainNode {
 public:
-    TerrainNode(int x, int y, TerrainNode* previousNode, int endX, int endY);
+    TerrainNode(int x, int y, TerrainNode* previousNode);
     int getX();
     int getY();
-    int getDistFromStart();
-    int getDistToGoal();
     TerrainNode* getPrevNode();
     bool equals(TerrainNode* other);
 private:
     int x;
     int y;
     TerrainNode* previousNode;
-    int distFromStart;
-    int distToGoal;
 };
 
 
