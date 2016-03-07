@@ -298,9 +298,8 @@ vector<pair<int, int>> TerrainGenerator::aStarSearch(int startX, int startY,
         expNodes.push_back(curNode);
         counter++;
 
-        //cout << curNode.getDistFromStart() << " dist " << curNode.getDistToGoal() <<   endl;
-        //cout << curNode.getX() << " x and y " << curNode.getY() <<   endl;
-        expNodes.push_back(curNode);
+        cout << curNode.getDistFromStart() << " <- dist from start | dist to goal ->" << curNode.getDistToGoal() <<   endl;
+        cout << curNode.getX() << " x and y of current node " << curNode.getY() <<   endl;
 
         if(curNode.getX() == endX && curNode.getY() == endY){
             break;
@@ -322,12 +321,12 @@ vector<pair<int, int>> TerrainGenerator::aStarSearch(int startX, int startY,
             for(int j = 0; j < unExpNodes.size(); j++){
                 if(unExpNodes[j].getX() == potentialMoves[i][0] && unExpNodes[j].getY() == potentialMoves[i][1]){
                     foundUnexp = true;
-                    //cout << "yes" << unExpNodes[j].getX() << " " << unExpNodes[j].getY() <<  " <node > " << potentialMoves[i][0] << " " << potentialMoves[i][1] << endl;
+                    break;
                 }
-                if(expNodes[j].equals(&checkNode)){
+            }
+            for(int j = 0; j < expNodes.size(); j++){
+                if(expNodes[j].getX() == potentialMoves[i][0] && expNodes[j].getY() == potentialMoves[i][1]){
                     foundExp = true;
-                }
-                if(foundUnexp && foundExp){
                     break;
                 }
             }
@@ -338,7 +337,13 @@ vector<pair<int, int>> TerrainGenerator::aStarSearch(int startX, int startY,
     }
 
 
-    cout << curNode.getX() << " found " << curNode.getY() << endl;
+    //cout << curNode.getX() << " found " << curNode.getY() << endl;
+    for(int i = 0; i < unExpNodes.size(); i++){
+        cout << unExpNodes[i].getX() << "x and y unexpanded " << unExpNodes[i].getY() << endl;
+    }
+    for(int i = 0; i < expNodes.size(); i++){
+        cout << expNodes[i].getX() << "x and y expanded " << expNodes[i].getY() << endl;
+    }
 
     return std::vector<pair<int, int>>();
 }
