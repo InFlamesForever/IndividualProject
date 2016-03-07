@@ -26,9 +26,8 @@ vector<pair<int, int>> Search::aStarSearch(int startX, int startY,
         expNodes.push_back(curNode);
         counter++;
 
-        //cout << curNode.getDistFromStart() << " dist " << curNode.getDistToGoal() <<   endl;
-        //cout << curNode.getX() << " x and y " << curNode.getY() <<   endl;
-        expNodes.push_back(curNode);
+        cout << curNode.getDistFromStart() << " <- dist from start | dist to goal ->" << curNode.getDistToGoal() <<   endl;
+        cout << curNode.getX() << " x and y of current node " << curNode.getY() <<   endl;
 
         if(curNode.getX() == endX && curNode.getY() == endY){
             break;
