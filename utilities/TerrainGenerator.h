@@ -44,7 +44,7 @@ private:
      */
     vector<pair<int, int>> aStarSearch(int startX, int startY, int endX, int endY);
 
-    int findBestNode(vector<TerrainNode> unExpNodes);
+    int findBestNode(vector<TerrainNode> unExpNodes, int startX, int startY, int endX, int endY);
 
     void placeTrees();
 

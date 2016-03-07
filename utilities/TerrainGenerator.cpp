@@ -280,9 +280,9 @@ vector<pair<int, int>> TerrainGenerator::aStarSearch(int startX, int startY,
                                                      int endX, int endY) {
     vector<TerrainNode> unExpNodes;
     vector<TerrainNode> expNodes;
-    TerrainNode curNode(NULL,NULL,NULL,NULL,NULL);
+    TerrainNode curNode(NULL,NULL,NULL);
 
-    TerrainNode temp(startX,startY,NULL, endX, endX);
+    TerrainNode temp(startX,startY,NULL);
     unExpNodes.push_back(temp);
 
     cout << startX << " start " << startY << endl;
@@ -292,14 +292,11 @@ vector<pair<int, int>> TerrainGenerator::aStarSearch(int startX, int startY,
     while(!unExpNodes.empty()){
 
         //Finds the best node in the vector and then removes it
-        int bestNode = findBestNode(unExpNodes);
-        curNode = TerrainNode(unExpNodes[bestNode].getX(), unExpNodes[bestNode].getY(), unExpNodes[bestNode].getPrevNode(), endX, endY);
+        int bestNode = findBestNode(unExpNodes, curNode, startX, startY, endX, endY);
+        curNode = TerrainNode(unExpNodes[bestNode].getX(), unExpNodes[bestNode].getY(), unExpNodes[bestNode].getPrevNode());
         unExpNodes.erase(unExpNodes.begin()+bestNode);
         expNodes.push_back(curNode);
         counter++;
-
-        cout << curNode.getDistFromStart() << " <- dist from start | dist to goal ->" << curNode.getDistToGoal() <<   endl;
-        cout << curNode.getX() << " x and y of current node " << curNode.getY() <<   endl;
 
         if(curNode.getX() == endX && curNode.getY() == endY){
             break;
@@ -313,11 +310,9 @@ vector<pair<int, int>> TerrainGenerator::aStarSearch(int startX, int startY,
         };
 
         for(int i = 0; i < 4; i++){
-            TerrainNode checkNode(potentialMoves[i][0], potentialMoves[i][1], &curNode, endX, endX);
-            //cout << curNode.getX() << " " << curNode.getY() << " <node > " << potentialMoves[i][0] << " " << potentialMoves[i][1] << endl;
+            TerrainNode checkNode(potentialMoves[i][0], potentialMoves[i][1], &curNode);
             bool foundUnexp = false;
             bool foundExp = false;
-            //cout << "size " << unExpNodes.size() << endl;
             for(int j = 0; j < unExpNodes.size(); j++){
                 if(unExpNodes[j].getX() == potentialMoves[i][0] && unExpNodes[j].getY() == potentialMoves[i][1]){
                     foundUnexp = true;
@@ -337,24 +332,20 @@ vector<pair<int, int>> TerrainGenerator::aStarSearch(int startX, int startY,
     }
 
 
-    //cout << curNode.getX() << " found " << curNode.getY() << endl;
-    for(int i = 0; i < unExpNodes.size(); i++){
-        cout << unExpNodes[i].getX() << "x and y unexpanded " << unExpNodes[i].getY() << endl;
-    }
-    for(int i = 0; i < expNodes.size(); i++){
-        cout << expNodes[i].getX() << "x and y expanded " << expNodes[i].getY() << endl;
-    }
+    cout << curNode.getX() << " found " << curNode.getY() << endl;
 
     return std::vector<pair<int, int>>();
 }
 
-int TerrainGenerator::findBestNode(vector<TerrainNode> unExpNodes) {
+int TerrainGenerator::findBestNode(vector<TerrainNode> unExpNodes, int startX, int startY, int endX, int endY) {
     int closest = INT32_MAX;
     int place = 0;
     int aStar;
 
     for(int i = 0; i < unExpNodes.size(); i++){
-        aStar = unExpNodes[i].getDistFromStart() + unExpNodes[i].getDistToGoal();
+        int manDistance = abs(unExpNodes[i].getX() - endX) + abs(unExpNodes[i].getY() - endY);
+        int manDistToStart = abs(unExpNodes[i].getX() - startX) + abs(unExpNodes[i].getY() - startY);
+        aStar = manDistance + manDistToStart;
         if(aStar < closest){
             closest = aStar;
             place = i;
