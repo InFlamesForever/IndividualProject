@@ -141,9 +141,10 @@ void TerrainGenerator::placeTowns() {
     int startY = borderDisplacer;
     int endY = halfMap;
 
-    int townsThisLoop = 1;
+    int townsThisLoop = 4;
     while(townsPlaced < 4) {
         //top right quarter
+        /*
         if(townsPlaced == 1){
             startX = halfMap;
             endX = terrainBorder;
@@ -164,7 +165,7 @@ void TerrainGenerator::placeTowns() {
             startY = halfMap;
             endY = terrainBorder;
             townsThisLoop++;
-        }
+        }*/
         //Town in the top left corner
         for (int x = startX; x < endX; x++) {
             for (int y = startY; y < endY; y++) {
@@ -172,7 +173,7 @@ void TerrainGenerator::placeTowns() {
                     //Place a Town in the desert
                     if (sandTownsRemaining > 0
                         && terrain[x][y] == SandDark
-                        && fRand(0, 1) > 0.9999) {
+                        && fRand(0, 1) > 0.99) {
                         //if the sand is surrounded by grass
                         if ((unsigned) (terrain[x - 10][y] - Grass_Dry)
                             <= (Grass_Dying - Grass_Dry)
@@ -196,7 +197,7 @@ void TerrainGenerator::placeTowns() {
                         //Place a town on some plains
                     } else if (plainsTownsRemaining > 0
                                && terrain[x][y] == Grass_Parched
-                               && fRand(0, 1) > 0.9999) {
+                               && fRand(0, 1) > 0.99) {
                         if (terrain[x - 5][y] == Grass_Parched
                             && terrain[x + 5][y] == Grass_Parched
                             && terrain[x][y - 5] == Grass_Parched
@@ -214,7 +215,7 @@ void TerrainGenerator::placeTowns() {
                         //Place a town on a mountain
                     } else if (mountainTownsRemaining > 0
                                && terrain[x][y] == Stone_Gray_VeryLight
-                               && fRand(0, 1) > 0.9999) {
+                               && fRand(0, 1) > 0.99) {
                         if (terrain[x - 5][y] == Stone_Gray_VeryLight
                             && terrain[x + 5][y] == Stone_Gray_VeryLight
                             && terrain[x][y - 5] == Stone_Gray_VeryLight
@@ -233,7 +234,7 @@ void TerrainGenerator::placeTowns() {
                         //Place a town in the middle of a lake
                     } else if (waterTownsRemaining > 0
                                && terrain[x][y] == Water_Ocean
-                               && fRand(0, 1) > 0.9999) {
+                               && fRand(0, 1) > 0.99) {
                         if (terrain[x - 10][y] != Water_Ocean
                             && terrain[x + 10][y] != Water_Ocean
                             && terrain[x][y - 10] != Water_Ocean
@@ -257,8 +258,106 @@ void TerrainGenerator::placeTowns() {
 }
 
 void TerrainGenerator::placeRoads() {
-
+    for(int i = 0; i < numTowns; i++){
+        int x = townPositions[i][0];
+        int y = townPositions[i][1];
+        //Place pavement around the towns
+        terrain[x][y] = Pavement_Cobblestone;
+        terrain[x][y-1] = Pavement_Cobblestone;
+        terrain[x][y+1] = Pavement_Cobblestone;
+        terrain[x-1][y] = Pavement_Cobblestone;
+        terrain[x-1][y-1] = Pavement_Cobblestone;
+        terrain[x-1][y+1] = Pavement_Cobblestone;
+        terrain[x+1][y] = Pavement_Cobblestone;
+        terrain[x+1][y-1] = Pavement_Cobblestone;
+        terrain[x+1][y+1] = Pavement_Cobblestone;
+    }
+    aStarSearch(townPositions[0][0], townPositions[0][1],
+                townPositions[1][0], townPositions[1][1]);
 }
+
+vector<pair<int, int>> TerrainGenerator::aStarSearch(int startX, int startY,
+                                                     int endX, int endY) {
+    vector<TerrainNode> unExpNodes;
+    vector<TerrainNode> expNodes;
+    TerrainNode curNode(NULL,NULL,NULL,NULL,NULL);
+
+    TerrainNode temp(startX,startY,NULL, endX, endX);
+    unExpNodes.push_back(temp);
+
+    cout << startX << " start " << startY << endl;
+    cout << endX << " end " << endY << endl;
+
+    int counter = 0;
+    while(!unExpNodes.empty()){
+
+        //Finds the best node in the vector and then removes it
+        int bestNode = findBestNode(unExpNodes);
+        curNode = TerrainNode(unExpNodes[bestNode].getX(), unExpNodes[bestNode].getY(), unExpNodes[bestNode].getPrevNode(), endX, endY);
+        unExpNodes.erase(unExpNodes.begin()+bestNode);
+        expNodes.push_back(curNode);
+        counter++;
+
+        //cout << curNode.getDistFromStart() << " dist " << curNode.getDistToGoal() <<   endl;
+        //cout << curNode.getX() << " x and y " << curNode.getY() <<   endl;
+        expNodes.push_back(curNode);
+
+        if(curNode.getX() == endX && curNode.getY() == endY){
+            break;
+        }
+
+        int potentialMoves[4][2] = {
+                {curNode.getX()-1, curNode.getY()},
+                {curNode.getX()+1, curNode.getY()},
+                {curNode.getX(), curNode.getY()-1},
+                {curNode.getX(), curNode.getY()+1}
+        };
+
+        for(int i = 0; i < 4; i++){
+            TerrainNode checkNode(potentialMoves[i][0], potentialMoves[i][1], &curNode, endX, endX);
+            //cout << curNode.getX() << " " << curNode.getY() << " <node > " << potentialMoves[i][0] << " " << potentialMoves[i][1] << endl;
+            bool foundUnexp = false;
+            bool foundExp = false;
+            //cout << "size " << unExpNodes.size() << endl;
+            for(int j = 0; j < unExpNodes.size(); j++){
+                if(unExpNodes[j].getX() == potentialMoves[i][0] && unExpNodes[j].getY() == potentialMoves[i][1]){
+                    foundUnexp = true;
+                    //cout << "yes" << unExpNodes[j].getX() << " " << unExpNodes[j].getY() <<  " <node > " << potentialMoves[i][0] << " " << potentialMoves[i][1] << endl;
+                }
+                if(expNodes[j].equals(&checkNode)){
+                    foundExp = true;
+                }
+                if(foundUnexp && foundExp){
+                    break;
+                }
+            }
+            if(!foundExp && !foundUnexp){
+                unExpNodes.push_back(checkNode);
+            }
+        }
+    }
+
+
+    cout << curNode.getX() << " found " << curNode.getY() << endl;
+
+    return std::vector<pair<int, int>>();
+}
+
+int TerrainGenerator::findBestNode(vector<TerrainNode> unExpNodes) {
+    int closest = INT32_MAX;
+    int place = 0;
+    int aStar;
+
+    for(int i = 0; i < unExpNodes.size(); i++){
+        aStar = unExpNodes[i].getDistFromStart() + unExpNodes[i].getDistToGoal();
+        if(aStar < closest){
+            closest = aStar;
+            place = i;
+        }
+    }
+    return place;
+}
+
 
 void TerrainGenerator::placeTrees() {
     for(int x = 0; x < TERRAIN_SIZE; x++) {
@@ -333,5 +432,3 @@ void TerrainGenerator::placeWaves() {
         }
     }
 }
-
-

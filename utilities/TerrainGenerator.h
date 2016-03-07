@@ -10,6 +10,7 @@
 #include "TextureInfo.h"
 #include "textures.h"
 #include "PerlinNoise.h"
+#include "TerrainNode.h"
 
 class TerrainGenerator {
 public:
@@ -37,6 +38,14 @@ private:
     /**
      * Add trees around the map
      */
+
+    /**
+     * Finds the route for roads
+     */
+    vector<pair<int, int>> aStarSearch(int startX, int startY, int endX, int endY);
+
+    int findBestNode(vector<TerrainNode> unExpNodes);
+
     void placeTrees();
 
     /**
