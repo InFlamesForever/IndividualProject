@@ -274,15 +274,19 @@ void TerrainGenerator::placeRoads() {
     }
     aStarSearch(townPositions[0][0], townPositions[0][1],
                 townPositions[1][0], townPositions[1][1]);
+
+
+
+
 }
 
-vector<pair<int, int>> TerrainGenerator::aStarSearch(int startX, int startY,
+TerrainNode* TerrainGenerator::aStarSearch(int startX, int startY,
                                                      int endX, int endY) {
-    vector<TerrainNode> unExpNodes;
-    vector<TerrainNode> expNodes;
-    TerrainNode curNode(NULL,NULL,NULL);
+    vector<TerrainNode*> unExpNodes;
+    vector<TerrainNode*> expNodes;
+    TerrainNode* curNode(NULL);
 
-    TerrainNode temp(startX,startY,NULL);
+    TerrainNode* temp = new TerrainNode(startX,startY);
     unExpNodes.push_back(temp);
 
     cout << startX << " start " << startY << endl;
@@ -290,61 +294,75 @@ vector<pair<int, int>> TerrainGenerator::aStarSearch(int startX, int startY,
 
     int counter = 0;
     while(!unExpNodes.empty()){
-
         //Finds the best node in the vector and then removes it
-        int bestNode = findBestNode(unExpNodes, curNode, startX, startY, endX, endY);
-        curNode = TerrainNode(unExpNodes[bestNode].getX(), unExpNodes[bestNode].getY(), unExpNodes[bestNode].getPrevNode());
+        int bestNode = findBestNode(unExpNodes, startX, startY, endX, endY);
+
+        curNode = new TerrainNode(unExpNodes[bestNode]->getX(), unExpNodes[bestNode]->getY(), curNode);
+        delete(unExpNodes[bestNode]);
         unExpNodes.erase(unExpNodes.begin()+bestNode);
         expNodes.push_back(curNode);
         counter++;
 
-        if(curNode.getX() == endX && curNode.getY() == endY){
+        if(curNode->getX() == endX && curNode->getY() == endY){
             break;
         }
 
         int potentialMoves[4][2] = {
-                {curNode.getX()-1, curNode.getY()},
-                {curNode.getX()+1, curNode.getY()},
-                {curNode.getX(), curNode.getY()-1},
-                {curNode.getX(), curNode.getY()+1}
+                {curNode->getX()-1, curNode->getY()},
+                {curNode->getX()+1, curNode->getY()},
+                {curNode->getX(), curNode->getY()-1},
+                {curNode->getX(), curNode->getY()+1}
         };
 
         for(int i = 0; i < 4; i++){
-            TerrainNode checkNode(potentialMoves[i][0], potentialMoves[i][1], &curNode);
+            TerrainNode* checkNode = new TerrainNode(potentialMoves[i][0], potentialMoves[i][1], curNode);
             bool foundUnexp = false;
             bool foundExp = false;
             for(int j = 0; j < unExpNodes.size(); j++){
-                if(unExpNodes[j].getX() == potentialMoves[i][0] && unExpNodes[j].getY() == potentialMoves[i][1]){
+                if(unExpNodes[j]->getX() == potentialMoves[i][0] && unExpNodes[j]->getY() == potentialMoves[i][1]){
                     foundUnexp = true;
                     break;
                 }
             }
             for(int j = 0; j < expNodes.size(); j++){
-                if(expNodes[j].getX() == potentialMoves[i][0] && expNodes[j].getY() == potentialMoves[i][1]){
+                if(expNodes[j]->getX() == potentialMoves[i][0] && expNodes[j]->getY() == potentialMoves[i][1]){
                     foundExp = true;
                     break;
                 }
             }
             if(!foundExp && !foundUnexp){
                 unExpNodes.push_back(checkNode);
-            }
+            } else delete(checkNode);
         }
     }
 
 
-    cout << curNode.getX() << " found " << curNode.getY() << endl;
+    cout << curNode->getX() << " found " << curNode->getY() << endl;
 
-    return std::vector<pair<int, int>>();
+    while(curNode->getPrevNode() != NULL){
+        terrain[curNode->getX()][curNode->getY()] = Pavement_Cobblestone;
+        curNode = curNode->getPrevNode();
+    }
+
+    //Remove all pointers
+    for(int i = 0; i < unExpNodes.size(); i++){
+        delete(unExpNodes[i]);
+    }
+    for(int i = 0; i < expNodes.size(); i++){
+        delete(expNodes[i]);
+    }
+
+    return curNode;
 }
 
-int TerrainGenerator::findBestNode(vector<TerrainNode> unExpNodes, int startX, int startY, int endX, int endY) {
+int TerrainGenerator::findBestNode(vector<TerrainNode*> unExpNodes, int startX, int startY, int endX, int endY) {
     int closest = INT32_MAX;
     int place = 0;
     int aStar;
 
     for(int i = 0; i < unExpNodes.size(); i++){
-        int manDistance = abs(unExpNodes[i].getX() - endX) + abs(unExpNodes[i].getY() - endY);
-        int manDistToStart = abs(unExpNodes[i].getX() - startX) + abs(unExpNodes[i].getY() - startY);
+        int manDistance = abs(unExpNodes[i]->getX() - endX) + abs(unExpNodes[i]->getY() - endY);
+        int manDistToStart = abs(unExpNodes[i]->getX() - startX) + abs(unExpNodes[i]->getY() - startY);
         aStar = manDistance + manDistToStart;
         if(aStar < closest){
             closest = aStar;
