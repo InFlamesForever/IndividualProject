@@ -8,14 +8,17 @@
 
 #include <stddef.h>
 #include <stdlib.h>
+#include <bits/unique_ptr.h>
+
+using namespace std;
 
 class TerrainNode {
 public:
-    TerrainNode(int x, int y, TerrainNode* previousNode);
+    TerrainNode(int x, int y, TerrainNode* prev = NULL);
+    ~TerrainNode();
     int getX();
     int getY();
     TerrainNode* getPrevNode();
-    bool equals(TerrainNode* other);
 private:
     int x;
     int y;

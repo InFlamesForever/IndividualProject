@@ -4,10 +4,10 @@
 
 #include "TerrainNode.h"
 
-TerrainNode::TerrainNode(int x, int y, TerrainNode* previousNode){
+TerrainNode::TerrainNode(int x, int y, TerrainNode* prev){
     this->x = x;
     this->y = y;
-    this->previousNode = previousNode;
+    previousNode = prev;
 }
 
 int TerrainNode::getX() {
@@ -22,6 +22,6 @@ TerrainNode* TerrainNode::getPrevNode() {
     return previousNode;
 }
 
-bool TerrainNode::equals(TerrainNode *other) {
-    return x == other->getX() && y == other->getY();
+TerrainNode::~TerrainNode() {
+
 }
