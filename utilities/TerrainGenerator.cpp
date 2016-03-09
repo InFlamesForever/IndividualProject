@@ -141,10 +141,9 @@ void TerrainGenerator::placeTowns() {
     int startY = borderDisplacer;
     int endY = halfMap;
 
-    int townsThisLoop = 4;
+    int townsThisLoop = 1;
     while(townsPlaced < 4) {
         //top right quarter
-        /*
         if(townsPlaced == 1){
             startX = halfMap;
             endX = terrainBorder;
@@ -165,7 +164,7 @@ void TerrainGenerator::placeTowns() {
             startY = halfMap;
             endY = terrainBorder;
             townsThisLoop++;
-        }*/
+        }
         //Town in the top left corner
         for (int x = startX; x < endX; x++) {
             for (int y = startY; y < endY; y++) {
@@ -271,6 +270,26 @@ void TerrainGenerator::placeRoads() {
         terrain[x+1][y] = Pavement_Cobblestone;
         terrain[x+1][y-1] = Pavement_Cobblestone;
         terrain[x+1][y+1] = Pavement_Cobblestone;
+        if(townPositions[i][2] == Water){
+            //Check which quarter of the map its in
+            if(x < 500 && y < 500 || x < 500 && y > 500){
+                // move x outside of the pavement square
+                x += 2;
+                while(terrain[x][y] == Water_Ocean){
+                    terrain[x][y] = Pavement_Cobblestone;
+                    x++;
+                }
+                townPositions[i][0] = x;
+            } else{
+                x -= 2;
+                while(terrain[x][y] == Water_Ocean){
+                    terrain[x][y] = Pavement_Cobblestone;
+                    x--;
+                }
+                townPositions[i][0] = x;
+
+            }
+        }
     }
     aStarSearch(townPositions[0][0], townPositions[0][1],
                 townPositions[1][0], townPositions[1][1]);
@@ -295,7 +314,7 @@ TerrainNode* TerrainGenerator::aStarSearch(int startX, int startY,
     int counter = 0;
     while(!unExpNodes.empty()){
         //Finds the best node in the vector and then removes it
-        int bestNode = findBestNode(unExpNodes, startX, startY, endX, endY);
+        int bestNode = findBestNode(unExpNodes, startX, startY, endX, endY, curNode);
 
         curNode = new TerrainNode(unExpNodes[bestNode]->getX(), unExpNodes[bestNode]->getY(), curNode);
         delete(unExpNodes[bestNode]);
@@ -315,7 +334,9 @@ TerrainNode* TerrainGenerator::aStarSearch(int startX, int startY,
         };
 
         for(int i = 0; i < 4; i++){
+
             TerrainNode* checkNode = new TerrainNode(potentialMoves[i][0], potentialMoves[i][1], curNode);
+
             bool foundUnexp = false;
             bool foundExp = false;
             for(int j = 0; j < unExpNodes.size(); j++){
@@ -355,15 +376,19 @@ TerrainNode* TerrainGenerator::aStarSearch(int startX, int startY,
     return curNode;
 }
 
-int TerrainGenerator::findBestNode(vector<TerrainNode*> unExpNodes, int startX, int startY, int endX, int endY) {
+int TerrainGenerator::findBestNode(vector<TerrainNode*> unExpNodes, int startX, int startY, int endX, int endY, TerrainNode* curNode) {
     int closest = INT32_MAX;
     int place = 0;
     int aStar;
 
     for(int i = 0; i < unExpNodes.size(); i++){
         int manDistance = abs(unExpNodes[i]->getX() - endX) + abs(unExpNodes[i]->getY() - endY);
-        int manDistToStart = abs(unExpNodes[i]->getX() - startX) + abs(unExpNodes[i]->getY() - startY);
-        aStar = manDistance + manDistToStart;
+        //int manDistToStart = abs(unExpNodes[i]->getX() - startX) + abs(unExpNodes[i]->getY() - startY);
+        if(curNode == NULL) {
+            aStar = manDistance + 0;
+        } else {
+            aStar = manDistance + curNode->getDistFromStart() + 1;
+        }
         if(aStar < closest){
             closest = aStar;
             place = i;

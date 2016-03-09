@@ -44,7 +44,7 @@ private:
      */
     TerrainNode* aStarSearch(int startX, int startY, int endX, int endY);
 
-    int findBestNode(vector<TerrainNode*> unExpNodes, int startX, int startY, int endX, int endY);
+    int findBestNode(vector<TerrainNode*> unExpNodes, int startX, int startY, int endX, int endY, TerrainNode* curNode);
 
     void placeTrees();
 
