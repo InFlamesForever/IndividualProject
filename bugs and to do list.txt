@@ -3,6 +3,10 @@
 
 TODO:
 
+upload version to test at uni
+
+create bridge texture
+
 Fix roads around water
 
 Remake tree textures that were taken from internet
@@ -15,4 +19,3 @@ add secret towns
 
 Add rivers
 
-create bridge texture
