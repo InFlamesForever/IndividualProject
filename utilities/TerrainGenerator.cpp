@@ -337,32 +337,29 @@ TerrainNode* TerrainGenerator::aStarSearch(int startX, int startY,
         };
 
         for(int i = 0; i < 4; i++) {
-            if (terrain[potentialMoves[i][0]][potentialMoves[i][1]] !=
-                Water_Ocean) {
-                TerrainNode *checkNode = new TerrainNode(potentialMoves[i][0],
-                                                         potentialMoves[i][1],
-                                                         curNode);
+            TerrainNode *checkNode = new TerrainNode(potentialMoves[i][0],
+                                                     potentialMoves[i][1],
+                                                     curNode);
 
-                bool foundUnexp = false;
-                bool foundExp = false;
-                for (int j = 0; j < unExpNodes.size(); j++) {
-                    if (unExpNodes[j]->getX() == potentialMoves[i][0] &&
-                        unExpNodes[j]->getY() == potentialMoves[i][1]) {
-                        foundUnexp = true;
-                        break;
-                    }
+            bool foundUnexp = false;
+            bool foundExp = false;
+            for (int j = 0; j < unExpNodes.size(); j++) {
+                if (unExpNodes[j]->getX() == potentialMoves[i][0] &&
+                    unExpNodes[j]->getY() == potentialMoves[i][1]) {
+                    foundUnexp = true;
+                    break;
                 }
-                for (int j = 0; j < expNodes.size(); j++) {
-                    if (expNodes[j]->getX() == potentialMoves[i][0] &&
-                        expNodes[j]->getY() == potentialMoves[i][1]) {
-                        foundExp = true;
-                        break;
-                    }
-                }
-                if (!foundExp && !foundUnexp) {
-                    unExpNodes.push_back(checkNode);
-                } else delete (checkNode);
             }
+            for (int j = 0; j < expNodes.size(); j++) {
+                if (expNodes[j]->getX() == potentialMoves[i][0] &&
+                    expNodes[j]->getY() == potentialMoves[i][1]) {
+                    foundExp = true;
+                    break;
+                }
+            }
+            if (!foundExp && !foundUnexp) {
+                unExpNodes.push_back(checkNode);
+            } else delete (checkNode);
         }
     }
 
