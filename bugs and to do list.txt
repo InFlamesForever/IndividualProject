@@ -3,15 +3,11 @@
 
 TODO:
 
-upload version to test at uni
-
-create bridge texture
+upload bridge, waves, and other textures
 
 Fix roads around water
 
 Remake tree textures that were taken from internet
-
-Remake ocean waves
 
 Make enemy's
 
