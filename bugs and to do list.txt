@@ -3,7 +3,7 @@
 
 TODO:
 
-upload bridge, waves, and other textures
+upload bridge, waves, trees, 
 
 Fix roads around water
 
