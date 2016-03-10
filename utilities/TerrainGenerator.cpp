@@ -187,7 +187,6 @@ void TerrainGenerator::placeTowns() {
                             townPositions[townsPlaced][0] = x;
                             townPositions[townsPlaced][1] = y;
                             townPositions[townsPlaced][2] = Sand;
-                            cout << x << " sandtown " << y << endl;
                             townsPlaced++;
                             sandTownsRemaining--;
                             townsThisLoop--;
@@ -208,7 +207,6 @@ void TerrainGenerator::placeTowns() {
                             townPositions[townsPlaced][2] = Plains;
                             townsPlaced++;
                             plainsTownsRemaining--;
-                            cout << x << " plains " << y << endl;
                             townsThisLoop--;
                         }
                         //Place a town on a mountain
@@ -226,7 +224,6 @@ void TerrainGenerator::placeTowns() {
                             townPositions[townsPlaced][2] = Mountain;
                             townsPlaced++;
                             mountainTownsRemaining--;
-                            cout << x << " mountain " << y << endl;
                             townsThisLoop--;
                         }
 
@@ -249,7 +246,6 @@ void TerrainGenerator::placeTowns() {
                             townPositions[townsPlaced][2] = Water;
                             townsPlaced++;
                             waterTownsRemaining--;
-                            cout << x << " watertown " << y << endl;
                             townsThisLoop--;
                         }
                     }
@@ -318,9 +314,6 @@ TerrainNode* TerrainGenerator::aStarSearch(int startX, int startY,
     TerrainNode* temp = new TerrainNode(startX,startY);
     unExpNodes.push_back(temp);
 
-    cout << startX << " start " << startY << endl;
-    cout << endX << " end " << endY << endl;
-
     int counter = 0;
     while(!unExpNodes.empty()){
         //Finds the best node in the vector and then removes it
@@ -372,9 +365,6 @@ TerrainNode* TerrainGenerator::aStarSearch(int startX, int startY,
             }
         }
     }
-
-
-    cout << curNode->getX() << " found " << curNode->getY() << endl;
 
     while(curNode->getPrevNode() != NULL){
         terrain[curNode->getX()][curNode->getY()] = Pavement_Cobblestone;
