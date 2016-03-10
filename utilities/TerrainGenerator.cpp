@@ -234,10 +234,14 @@ void TerrainGenerator::placeTowns() {
                     } else if (waterTownsRemaining > 0
                                && terrain[x][y] == Water_Ocean
                                && fRand(0, 1) > 0.99) {
-                        if (terrain[x - 10][y] != Water_Ocean
-                            && terrain[x + 10][y] != Water_Ocean
-                            && terrain[x][y - 10] != Water_Ocean
-                            && terrain[x][y + 10] != Water_Ocean
+                        if (terrain[x - 20][y] != Water_Ocean
+                            && terrain[x + 20][y] != Water_Ocean
+                            && terrain[x][y - 20] != Water_Ocean
+                            && terrain[x][y + 20] != Water_Ocean
+                            && terrain[x - 10][y] == Water_Ocean
+                            && terrain[x + 10][y] == Water_Ocean
+                            && terrain[x][y - 10] == Water_Ocean
+                            && terrain[x][y + 10] == Water_Ocean
                                 ) {
                             terrainDetail[x][y] = TownSymbol;
                             townPositions[townsPlaced][0] = x;
@@ -293,6 +297,12 @@ void TerrainGenerator::placeRoads() {
     }
     aStarSearch(townPositions[0][0], townPositions[0][1],
                 townPositions[1][0], townPositions[1][1]);
+    aStarSearch(townPositions[1][0], townPositions[1][1],
+                townPositions[2][0], townPositions[2][1]);
+    aStarSearch(townPositions[2][0], townPositions[2][1],
+                townPositions[3][0], townPositions[3][1]);
+    aStarSearch(townPositions[3][0], townPositions[3][1],
+                townPositions[0][0], townPositions[0][1]);
 
 
 
@@ -314,7 +324,7 @@ TerrainNode* TerrainGenerator::aStarSearch(int startX, int startY,
     int counter = 0;
     while(!unExpNodes.empty()){
         //Finds the best node in the vector and then removes it
-        int bestNode = findBestNode(unExpNodes, startX, startY, endX, endY, curNode);
+        int bestNode = findBestNode(unExpNodes, endX, endY, curNode);
 
         curNode = new TerrainNode(unExpNodes[bestNode]->getX(), unExpNodes[bestNode]->getY(), curNode);
         delete(unExpNodes[bestNode]);
@@ -333,27 +343,33 @@ TerrainNode* TerrainGenerator::aStarSearch(int startX, int startY,
                 {curNode->getX(), curNode->getY()+1}
         };
 
-        for(int i = 0; i < 4; i++){
+        for(int i = 0; i < 4; i++) {
+            if (terrain[potentialMoves[i][0]][potentialMoves[i][1]] !=
+                Water_Ocean) {
+                TerrainNode *checkNode = new TerrainNode(potentialMoves[i][0],
+                                                         potentialMoves[i][1],
+                                                         curNode);
 
-            TerrainNode* checkNode = new TerrainNode(potentialMoves[i][0], potentialMoves[i][1], curNode);
-
-            bool foundUnexp = false;
-            bool foundExp = false;
-            for(int j = 0; j < unExpNodes.size(); j++){
-                if(unExpNodes[j]->getX() == potentialMoves[i][0] && unExpNodes[j]->getY() == potentialMoves[i][1]){
-                    foundUnexp = true;
-                    break;
+                bool foundUnexp = false;
+                bool foundExp = false;
+                for (int j = 0; j < unExpNodes.size(); j++) {
+                    if (unExpNodes[j]->getX() == potentialMoves[i][0] &&
+                        unExpNodes[j]->getY() == potentialMoves[i][1]) {
+                        foundUnexp = true;
+                        break;
+                    }
                 }
-            }
-            for(int j = 0; j < expNodes.size(); j++){
-                if(expNodes[j]->getX() == potentialMoves[i][0] && expNodes[j]->getY() == potentialMoves[i][1]){
-                    foundExp = true;
-                    break;
+                for (int j = 0; j < expNodes.size(); j++) {
+                    if (expNodes[j]->getX() == potentialMoves[i][0] &&
+                        expNodes[j]->getY() == potentialMoves[i][1]) {
+                        foundExp = true;
+                        break;
+                    }
                 }
+                if (!foundExp && !foundUnexp) {
+                    unExpNodes.push_back(checkNode);
+                } else delete (checkNode);
             }
-            if(!foundExp && !foundUnexp){
-                unExpNodes.push_back(checkNode);
-            } else delete(checkNode);
         }
     }
 
@@ -376,14 +392,27 @@ TerrainNode* TerrainGenerator::aStarSearch(int startX, int startY,
     return curNode;
 }
 
-int TerrainGenerator::findBestNode(vector<TerrainNode*> unExpNodes, int startX, int startY, int endX, int endY, TerrainNode* curNode) {
-    int closest = INT32_MAX;
+int TerrainGenerator::findBestNode(vector<TerrainNode*> unExpNodes, int endX, int endY, TerrainNode* curNode) {
+    double closest = INT32_MAX;
     int place = 0;
-    int aStar;
+    double aStar;
 
     for(int i = 0; i < unExpNodes.size(); i++){
-        int manDistance = abs(unExpNodes[i]->getX() - endX) + abs(unExpNodes[i]->getY() - endY);
-        //int manDistToStart = abs(unExpNodes[i]->getX() - startX) + abs(unExpNodes[i]->getY() - startY);
+        int x = unExpNodes[i]->getX();
+        int y = unExpNodes[i]->getY();
+        double manDistance = abs(x - endX) + abs(y - endY);
+        if(terrain[x][y] == Stone_Gray_VeryLight) {
+            manDistance += 0.9;
+        } else if(terrain[x][y] == Stone_Gray_Light || terrain[x][y] == Stone_Gray_Medium) {
+            manDistance += 0.8;
+        } else if(terrain[x][y] == Stone_Gray_Dark || terrain[x][y] == Stone_Gray_VeryDark) {
+            manDistance += 0.7;
+        } else if(terrain[x][y] == SandDark || terrain[x][y] == SandLight){
+            manDistance += 0.5;
+        } else if(terrain[x][y] == Dirt_DirtGravel || terrain[x][y] == Dirt_Dirt
+                  || terrain[x][y] == Dirt_Gravel){
+            manDistance += 0.3;
+        }
         if(curNode == NULL) {
             aStar = manDistance + 0;
         } else {
