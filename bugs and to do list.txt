@@ -1,0 +1,18 @@
+
+
+
+TODO:
+
+Fix roads around water
+
+Remake tree textures that were taken from internet
+
+Remake ocean waves
+
+Make enemy's
+
+add secret towns
+
+Add rivers
+
+create bridge texture
