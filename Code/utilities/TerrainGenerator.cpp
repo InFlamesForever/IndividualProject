@@ -341,9 +341,9 @@ TerrainNode* TerrainGenerator::aStarSearch(int startX, int startY,
     while(curNode->getPrevNode() != NULL){
         if(terrain[curNode->getX()][curNode->getY()] == Water_Ocean){
             if(curNode->getPrevNode()->getX() != curNode->getX()){
-                terrainDetail[curNode->getX()][curNode->getY()] = Bridge_Horizontal;
+                terrain[curNode->getX()][curNode->getY()] = Bridge_Horizontal;
             } else {
-                terrainDetail[curNode->getX()][curNode->getY()] = Bridge;
+                terrain[curNode->getX()][curNode->getY()] = Bridge;
             }
         } else {
             terrain[curNode->getX()][curNode->getY()] = Pavement_Cobblestone;
@@ -371,7 +371,9 @@ int TerrainGenerator::findBestNode(vector<TerrainNode*> unExpNodes, int endX, in
         int x = unExpNodes[i]->getX();
         int y = unExpNodes[i]->getY();
         double manDistance = abs(x - endX) + abs(y - endY);
-        if(terrain[x][y] == Stone_Gray_VeryLight) {
+        if(terrain[x][y] == Water_Ocean) {
+            manDistance += 1;
+        } else if(terrain[x][y] == Stone_Gray_VeryLight) {
             manDistance += 0.9;
         } else if(terrain[x][y] == Stone_Gray_Light || terrain[x][y] == Stone_Gray_Medium) {
             manDistance += 0.8;

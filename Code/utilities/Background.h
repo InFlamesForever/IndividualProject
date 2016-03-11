@@ -62,7 +62,7 @@ private:
 
     Texture terrainTexture;
 
-    Texture* terrainChooser[25] =  {
+    Texture* terrainChooser[27] =  {
             &gSand_LightTexture, &gSand_DarkTexture,
 
             &gGrass_DryTexture, &gGrass_ParchedTexture,
@@ -87,9 +87,11 @@ private:
             &gWater_RiverTexture,  &gWater_SmallStreamTexture,
 
             &gPavement_CobblestoneTexture,
+            &gPavement_Bridge,
+            &gPavement_Bridge_Horizontal
     };
 
-    Texture* aboveTerrainChooser[20] = {
+    Texture* aboveTerrainChooser[18] = {
             &gTownSymbol,
 
             &gTown_Door_Closed, &gTown_Door_HalfOpen,
@@ -106,9 +108,6 @@ private:
 
             &gTree_Dark, &gTree_Medium,
             &gTree_MediumLittle, &gTree_Light,
-
-            &gPavement_Bridge,
-            &gPavement_Bridge_Horizontal
     };
 
     //Holds the distance moved for a single block

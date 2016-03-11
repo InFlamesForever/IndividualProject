@@ -36,7 +36,9 @@ enum TerrainTypes {
     Water_Ocean,
     Water_River, Water_SmallStream,
 
-    Pavement_Cobblestone
+    Pavement_Cobblestone,
+    Bridge,
+    Bridge_Horizontal
 };
 
 enum AboveTerrainTypes {
@@ -55,10 +57,7 @@ enum AboveTerrainTypes {
     SeaWaves,
 
     Tree_Dark, Tree_Medium,
-    Tree_MediumLittle, Tree_Light,
-
-    Bridge,
-    Bridge_Horizontal
+    Tree_MediumLittle, Tree_Light
 };
 
 enum MoveType {DOWN, UP, LEFT, RIGHT};

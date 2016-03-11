@@ -26,12 +26,11 @@ void Update::handleEventUpdate(SDL_Event e) {
                 isMoving = true;
                 break;
         }
-        /*
         if(isMoving){
             if(background.terrainCollision(player, move)){
                 isMoving = false;
             }
-        }*/
+        }
     }
 }
 
