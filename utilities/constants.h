@@ -5,12 +5,12 @@
 const int SCREEN_WIDTH = 1280;
 const int SCREEN_HEIGHT = 720;
 
-const int STARTX = 600;
-const int STARTY = 600;
+const int STARTX = 200;
+const int STARTY = 200;
 
 const int BLOCK_WIDTH = 16;
 
-const int TERRAIN_SIZE = 1000;
+const int TERRAIN_SIZE = 2000;
 
 //Speed multiplier for movement
 static int const MOVE_SPEED = 100;
@@ -55,7 +55,10 @@ enum AboveTerrainTypes {
     SeaWaves,
 
     Tree_Dark, Tree_Medium,
-    Tree_MediumLittle, Tree_Light
+    Tree_MediumLittle, Tree_Light,
+
+    Bridge,
+    Bridge_Horizontal
 };
 
 enum MoveType {DOWN, UP, LEFT, RIGHT};
