@@ -33,6 +33,7 @@ Texture gGrass_ParchedTexture;
 
 Texture gPavement_CobblestoneTexture;
 Texture gPavement_Bridge;
+Texture gPavement_Bridge_Horizontal;
 
 Texture gSand_DarkTexture;
 Texture gSand_LightTexture;

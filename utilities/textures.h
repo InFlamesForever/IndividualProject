@@ -50,6 +50,7 @@ extern Texture gGrass_ParchedTexture;
 //Cobblestone pavement texture -- 2 Texture
 extern Texture gPavement_CobblestoneTexture;
 extern Texture gPavement_Bridge;
+extern Texture gPavement_Bridge_Horizontal;
 
 //Sand textures -- 2 textures
 extern Texture gSand_DarkTexture;

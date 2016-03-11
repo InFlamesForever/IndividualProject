@@ -126,6 +126,10 @@ bool loadMedia() {
         cout << "Failed to load Pavement - Bridge texture!" << endl;
         return false;
     }
+    if (!gPavement_Bridge.loadFromFile("textures/terrain/Bridges/Bridge-Horizontal.png")) {
+        cout << "Failed to load Pavement - Bridge Horizontal texture!" << endl;
+        return false;
+    }
 
     //Load Sand Textures
     if (!gSand_DarkTexture.loadFromFile("textures/terrain/sand/sand-dark.png")) {
