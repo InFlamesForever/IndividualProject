@@ -89,7 +89,7 @@ private:
             &gPavement_CobblestoneTexture,
     };
 
-    Texture* aboveTerrainChooser[18] = {
+    Texture* aboveTerrainChooser[20] = {
             &gTownSymbol,
 
             &gTown_Door_Closed, &gTown_Door_HalfOpen,
@@ -105,7 +105,10 @@ private:
             &gWater_SeaWaves,
 
             &gTree_Dark, &gTree_Medium,
-            &gTree_MediumLittle, &gTree_Light
+            &gTree_MediumLittle, &gTree_Light,
+
+            &gPavement_Bridge,
+            &gPavement_Bridge_Horizontal
     };
 
     //Holds the distance moved for a single block
