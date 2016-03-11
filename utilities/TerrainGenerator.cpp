@@ -24,7 +24,7 @@ void TerrainGenerator::generateTerrain() {
     PerlinNoise perlin(time(0));
     for(int x = 0; x < TERRAIN_SIZE; x++) {
         for (int y = 0; y < TERRAIN_SIZE; y++) {
-            double value = value = perlin.noise((double)x/TERRAIN_SCALE,
+            double value = perlin.noise((double)x/TERRAIN_SCALE,
                                                 (double)y/TERRAIN_SCALE, 0);
 
             int texture;
@@ -270,26 +270,6 @@ void TerrainGenerator::placeRoads() {
         terrain[x+1][y] = Pavement_Cobblestone;
         terrain[x+1][y-1] = Pavement_Cobblestone;
         terrain[x+1][y+1] = Pavement_Cobblestone;
-        if(townPositions[i][2] == Water){
-            //Check which quarter of the map its in
-            if(x < 500 && y < 500 || x < 500 && y > 500){
-                // move x outside of the pavement square
-                x += 2;
-                while(terrain[x][y] == Water_Ocean){
-                    terrain[x][y] = Pavement_Cobblestone;
-                    x++;
-                }
-                townPositions[i][0] = x;
-            } else{
-                x -= 2;
-                while(terrain[x][y] == Water_Ocean){
-                    terrain[x][y] = Pavement_Cobblestone;
-                    x--;
-                }
-                townPositions[i][0] = x;
-
-            }
-        }
     }
     aStarSearch(townPositions[0][0], townPositions[0][1],
                 townPositions[1][0], townPositions[1][1]);
@@ -299,10 +279,6 @@ void TerrainGenerator::placeRoads() {
                 townPositions[3][0], townPositions[3][1]);
     aStarSearch(townPositions[3][0], townPositions[3][1],
                 townPositions[0][0], townPositions[0][1]);
-
-
-
-
 }
 
 TerrainNode* TerrainGenerator::aStarSearch(int startX, int startY,
@@ -362,9 +338,16 @@ TerrainNode* TerrainGenerator::aStarSearch(int startX, int startY,
             } else delete (checkNode);
         }
     }
-
     while(curNode->getPrevNode() != NULL){
-        terrain[curNode->getX()][curNode->getY()] = Pavement_Cobblestone;
+        if(terrain[curNode->getX()][curNode->getY()] == Water_Ocean){
+            if(curNode->getPrevNode()->getX() != curNode->getX()){
+                terrainDetail[curNode->getX()][curNode->getY()] = Bridge_Horizontal;
+            } else {
+                terrainDetail[curNode->getX()][curNode->getY()] = Bridge;
+            }
+        } else {
+            terrain[curNode->getX()][curNode->getY()] = Pavement_Cobblestone;
+        }
         curNode = curNode->getPrevNode();
     }
 
