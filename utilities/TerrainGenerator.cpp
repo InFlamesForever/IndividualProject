@@ -7,7 +7,7 @@
 TerrainGenerator::TerrainGenerator(int **terrain, int **terrainDetail) {
     this-> terrain = terrain;
     this-> terrainDetail = terrainDetail;
-    srand(time(0));
+    srand((unsigned)time(0));
 
     //When secret towns are implemented will use a random number of them
     numTowns = 4; //(int)fRand(4, 9);
@@ -21,7 +21,7 @@ TerrainGenerator::TerrainGenerator(int **terrain, int **terrainDetail) {
 }
 
 void TerrainGenerator::generateTerrain() {
-    PerlinNoise perlin(time(0));
+    PerlinNoise perlin((unsigned)time(0));
     for(int x = 0; x < TERRAIN_SIZE; x++) {
         for (int y = 0; y < TERRAIN_SIZE; y++) {
             double value = perlin.noise((double)x/TERRAIN_SCALE,
