@@ -5,7 +5,7 @@
 #include "loadMedia.h"
 
 bool loadMedia() {
-    //Load Character pictures
+    //Load Character textures
     if (!gStock_Back.loadFromFile("textures/characters/Stock/Stock_Back.png")) {
         cout << "Failed to load Player Character - Back texture!" << endl;
         return false;
@@ -47,6 +47,35 @@ bool loadMedia() {
         cout << "Failed to load Player Character - Walking 3 texture!" << endl;
         return false;
     }
+
+    //Load Enemy Blob Character
+    if (!gEnemy_Blob.loadFromFile("textures/characters/Enemies/Blob/Blob-Normal.png")) {
+        cout << "Failed to load Enemy Character - Blob texture!" << endl;
+        return false;
+    }
+    if (!gEnemy_Blob_Angry.loadFromFile("textures/characters/Enemies/Blob/Blob-Angry.png")) {
+        cout << "Failed to load Enemy Character - Blob Angry texture!" << endl;
+        return false;
+    }
+    if (!gEnemy_Blob_Attack.loadFromFile("textures/characters/Enemies/Blob/Blob-Attack.png")) {
+        cout << "Failed to load Enemy Character - Blob Attack texture!" << endl;
+        return false;
+    }
+
+    //Load Enemy Slime Character
+    if (!gEnemy_Slime.loadFromFile("textures/characters/Enemies/Slime/Slime-Normal.png")) {
+        cout << "Failed to load Enemy Character - Slime texture!" << endl;
+        return false;
+    }
+    if (!gEnemy_Slime_Angry.loadFromFile("textures/characters/Enemies/Slime/Slime-Angry.png")) {
+        cout << "Failed to load Enemy Character - Slime Angry texture!" << endl;
+        return false;
+    }
+    if (!gEnemy_Slime_Attack.loadFromFile("textures/characters/Enemies/Slime/Slime-Attack.png")) {
+        cout << "Failed to load Enemy Character - Slime Attack texture!" << endl;
+        return false;
+    }
+
 
     //Load Dirt Textures
     if (!gDirt_DirtTexture.loadFromFile("textures/terrain/dirt/dirt.png")) {
@@ -91,6 +120,10 @@ bool loadMedia() {
     //Load Pavement Textures
     if (!gPavement_CobblestoneTexture.loadFromFile("textures/terrain/pavement/cobblestone.png")) {
         cout << "Failed to load Pavement - cobblestone texture!" << endl;
+        return false;
+    }
+    if (!gPavement_Bridge.loadFromFile("textures/terrain/Bridges/Bridge.png")) {
+        cout << "Failed to load Pavement - Bridge texture!" << endl;
         return false;
     }
 
