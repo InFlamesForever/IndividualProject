@@ -3,11 +3,7 @@
 
 TODO:
 
-upload bridge, waves, trees, 
-
-Fix roads around water
-
-Remake tree textures that were taken from internet
+Get new tree textures
 
 Make enemy's
 
