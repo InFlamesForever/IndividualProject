@@ -126,7 +126,7 @@ bool loadMedia() {
         cout << "Failed to load Pavement - Bridge texture!" << endl;
         return false;
     }
-    if (!gPavement_Bridge.loadFromFile("textures/terrain/Bridges/Bridge-Horizontal.png")) {
+    if (!gPavement_Bridge_Horizontal.loadFromFile("textures/terrain/Bridges/Bridge-Horizontal.png")) {
         cout << "Failed to load Pavement - Bridge Horizontal texture!" << endl;
         return false;
     }
