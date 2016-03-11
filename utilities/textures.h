@@ -18,6 +18,19 @@ extern Texture gStock_Side_Right_Walking2;
 extern Texture gStock_Side_Right_Walking3;
 
 //-----------------------------------------------------------------------------
+//############# Enemy Characters #################################
+//-----------------------------------------------------------------------------
+
+extern Texture gEnemy_Slime;
+extern Texture gEnemy_Slime_Angry;
+extern Texture gEnemy_Slime_Attack;
+
+extern Texture gEnemy_Blob;
+extern Texture gEnemy_Blob_Angry;
+extern Texture gEnemy_Blob_Attack;
+
+
+//-----------------------------------------------------------------------------
 //############# TERRAIN TILES #################################
 //-----------------------------------------------------------------------------
 
@@ -34,8 +47,9 @@ extern Texture gGrass_LushDeepTexture;
 extern Texture gGrass_LushLightTexture;
 extern Texture gGrass_ParchedTexture;
 
-//Cobblestone pavement texture -- 1 Texture
+//Cobblestone pavement texture -- 2 Texture
 extern Texture gPavement_CobblestoneTexture;
+extern Texture gPavement_Bridge;
 
 //Sand textures -- 2 textures
 extern Texture gSand_DarkTexture;

@@ -11,6 +11,15 @@ Texture gStock_Side_Right_Walking;
 Texture gStock_Side_Right_Walking2;
 Texture gStock_Side_Right_Walking3;
 
+Texture gEnemy_Slime;
+Texture gEnemy_Slime_Angry;
+Texture gEnemy_Slime_Attack;
+
+Texture gEnemy_Blob;
+Texture gEnemy_Blob_Angry;
+Texture gEnemy_Blob_Attack;
+
+
 Texture gDirt_DirtTexture;
 Texture gDirt_DirtGravelTexture;
 Texture gDirt_GravelTexture;
@@ -23,6 +32,7 @@ Texture gGrass_LushLightTexture;
 Texture gGrass_ParchedTexture;
 
 Texture gPavement_CobblestoneTexture;
+Texture gPavement_Bridge;
 
 Texture gSand_DarkTexture;
 Texture gSand_LightTexture;
