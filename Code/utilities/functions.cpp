@@ -6,6 +6,7 @@
 
 
 bool init() {
+    srand((unsigned)time(0));
 
     //Initialize SDL
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
