@@ -14,7 +14,7 @@
 #include "vector"
 #include "TextureInfo.h"
 #include "math.h"
-#include "PlayerCharacter.h"
+#include "../Characters/PlayerCharacter.h"
 
 class Background {
 public:

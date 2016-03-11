@@ -14,8 +14,10 @@ include_directories(${SDL2_INCLUDE_DIR}
         ${SDL2_TTF_INCLUDE_DIR})
 
 file(GLOB SOURCES
-        utilities/*.cpp
-        utilities/*.h
+        Code/utilities/*.cpp
+        Code/utilities/*.h
+        Code/Characters/*.cpp
+        Code/Characters/*.h
 )
 
 set(SOURCE_FILES ${SOURCES})

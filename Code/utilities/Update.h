@@ -7,7 +7,7 @@
 
 
 #include <SDL_events.h>
-#include "PlayerCharacter.h"
+#include "../Characters/PlayerCharacter.h"
 #include "Background.h"
 #include "constants.h"
 

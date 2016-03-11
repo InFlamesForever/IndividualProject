@@ -9,9 +9,9 @@
 #include <SDL_image.h>
 #include <stdio.h>
 #include <string>
-#include "constants.h"
-#include "textures.h"
-#include "Timer.h"
+#include "../utilities/constants.h"
+#include "../utilities/textures.h"
+#include "../utilities/Timer.h"
 
 //The dot that will move around on the screen
 class PlayerCharacter
