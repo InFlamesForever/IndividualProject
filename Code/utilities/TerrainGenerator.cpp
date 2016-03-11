@@ -7,7 +7,6 @@
 TerrainGenerator::TerrainGenerator(int **terrain, int **terrainDetail) {
     this-> terrain = terrain;
     this-> terrainDetail = terrainDetail;
-    srand((unsigned)time(0));
 
     //When secret towns are implemented will use a random number of them
     numTowns = 4; //(int)fRand(4, 9);
