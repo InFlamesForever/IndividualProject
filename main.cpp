@@ -1,12 +1,10 @@
 #include <SDL.h>
-#include <SDL_image.h>
-#include <stdio.h>
 #include <string>
 
-#include "utilities/functions.h"
-#include "utilities/Timer.h"
-#include "utilities/loadMedia.h"
-#include "utilities/Update.h"
+#include "Code/utilities/functions.h"
+#include "Code/utilities/Timer.h"
+#include "Code/utilities/loadMedia.h"
+#include "Code/utilities/Update.h"
 
 
 int main(int argc, char *args[]) {
