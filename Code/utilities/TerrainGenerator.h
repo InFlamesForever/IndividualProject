@@ -6,11 +6,11 @@
 #define INDIVIDUALPROJECT_TERRAINGENERATOR_H
 
 
-#include <stdlib.h>
 #include "TextureInfo.h"
 #include "textures.h"
 #include "PerlinNoise.h"
 #include "TerrainNode.h"
+#include "random.h"
 
 class TerrainGenerator {
 public:
@@ -61,10 +61,7 @@ private:
      */
     void placeWaves();
 
-    /**
-     * Returns a random double value between a min and max value
-     */
-    double fRand(double fMin, double fMax);
+
 
     int **terrain;
     int **terrainDetail;
