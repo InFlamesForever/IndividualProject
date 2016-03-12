@@ -19,9 +19,6 @@ Background::Background() {
     int x = 0;
     int y = 0;
 
-    moveXTo0 = x;
-    moveYTo0 = y;
-
     getTerrain();
     composeTerrainToTexture();
 }
@@ -207,4 +204,12 @@ int Background::getOffsetX() {
 
 int Background::getOffsetY() {
     return moveOffsetY;
+}
+
+int Background::getPointInTerrainY() {
+    return pointInTerrainY;
+}
+
+int Background::getPointInTerrainX() {
+    return pointInTerrainX;
 }

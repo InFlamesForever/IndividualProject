@@ -38,6 +38,9 @@ public:
     int getOffsetY();
     int getOffsetX();
 
+    int getPointInTerrainY();
+    int getPointInTerrainX();
+
 
     //Moves the terrain
     bool move(float timeStep, int xShift, int yShift);
