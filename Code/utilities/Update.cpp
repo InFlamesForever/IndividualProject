@@ -9,18 +9,22 @@ void Update::handleEventUpdate(SDL_Event e) {
     if (!isMoving && e.type == SDL_KEYDOWN) {
         //Adjust the velocity
         switch (e.key.keysym.sym) {
+            case SDLK_w:
             case SDLK_UP:
                 move = UP;
                 isMoving = true;
                 break;
+            case SDLK_s:
             case SDLK_DOWN:
                 move = DOWN;
                 isMoving = true;
                 break;
+            case SDLK_a:
             case SDLK_LEFT:
                 move = LEFT;
                 isMoving = true;
                 break;
+            case SDLK_d:
             case SDLK_RIGHT:
                 move = RIGHT;
                 isMoving = true;
