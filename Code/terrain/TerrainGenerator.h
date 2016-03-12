@@ -33,7 +33,9 @@ private:
     /**
      * Adds roads to the map. These roads pave a way between the 4 major towns
      */
-    void placeRoads();
+    void decideRoads();
+
+    void placeRoads(TerrainNode* curNode);
 
     /**
      * Add trees around the map

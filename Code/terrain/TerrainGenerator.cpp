@@ -13,7 +13,7 @@ TerrainGenerator::TerrainGenerator(int **terrain, int **terrainDetail) {
 
     generateTerrain();
     placeTowns();
-    placeRoads();
+    decideRoads();
     placeTrees();
     placeWaves();
 
@@ -250,7 +250,7 @@ void TerrainGenerator::placeTowns() {
 
 }
 
-void TerrainGenerator::placeRoads() {
+void TerrainGenerator::decideRoads() {
     for(int i = 0; i < numTowns; i++){
         int x = townPositions[i][0];
         int y = townPositions[i][1];
@@ -265,14 +265,34 @@ void TerrainGenerator::placeRoads() {
         terrain[x+1][y-1] = Pavement_Cobblestone;
         terrain[x+1][y+1] = Pavement_Cobblestone;
     }
-    aStarSearch(townPositions[0][0], townPositions[0][1],
-                townPositions[1][0], townPositions[1][1]);
-    aStarSearch(townPositions[1][0], townPositions[1][1],
-                townPositions[2][0], townPositions[2][1]);
-    aStarSearch(townPositions[2][0], townPositions[2][1],
-                townPositions[3][0], townPositions[3][1]);
-    aStarSearch(townPositions[3][0], townPositions[3][1],
-                townPositions[0][0], townPositions[0][1]);
+
+    placeRoads(aStarSearch(townPositions[0][0], townPositions[0][1],
+                townPositions[1][0], townPositions[1][1]));
+
+    placeRoads(aStarSearch(townPositions[1][0], townPositions[1][1],
+                townPositions[2][0], townPositions[2][1]));
+    placeRoads(aStarSearch(townPositions[2][0], townPositions[2][1],
+                townPositions[3][0], townPositions[3][1]));
+    placeRoads(aStarSearch(townPositions[3][0], townPositions[3][1],
+                townPositions[0][0], townPositions[0][1]));
+}
+
+void TerrainGenerator::placeRoads(TerrainNode *curNode) {
+    //Putting roads on the terrain
+    while(curNode->getPrevNode() != NULL){
+        if(terrain[curNode->getX()][curNode->getY()] == Water_Ocean){
+            if(curNode->getPrevNode()->getX() != curNode->getX()){
+                terrain[curNode->getX()][curNode->getY()] = Bridge_Horizontal;
+            } else {
+                terrain[curNode->getX()][curNode->getY()] = Bridge;
+            }
+        } else {
+            terrain[curNode->getX()][curNode->getY()] = Pavement_Cobblestone;
+        }
+        TerrainNode* temp = curNode;
+        curNode = curNode->getPrevNode();
+        delete(temp);
+    }
 }
 
 TerrainNode* TerrainGenerator::aStarSearch(int startX, int startY,
@@ -332,23 +352,12 @@ TerrainNode* TerrainGenerator::aStarSearch(int startX, int startY,
             } else delete (checkNode);
         }
     }
-    while(curNode->getPrevNode() != NULL){
-        if(terrain[curNode->getX()][curNode->getY()] == Water_Ocean){
-            if(curNode->getPrevNode()->getX() != curNode->getX()){
-                terrain[curNode->getX()][curNode->getY()] = Bridge_Horizontal;
-            } else {
-                terrain[curNode->getX()][curNode->getY()] = Bridge;
-            }
-        } else {
-            terrain[curNode->getX()][curNode->getY()] = Pavement_Cobblestone;
-        }
-        curNode = curNode->getPrevNode();
-    }
 
     //Remove all pointers
     for(int i = 0; i < unExpNodes.size(); i++){
         delete(unExpNodes[i]);
     }
+
     for(int i = 0; i < expNodes.size(); i++){
         delete(expNodes[i]);
     }
