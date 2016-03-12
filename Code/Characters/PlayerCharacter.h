@@ -17,13 +17,6 @@
 class PlayerCharacter
 {
 public:
-    //The dimensions of the dot
-    static const int DOT_WIDTH = 16;
-    static const int DOT_HEIGHT = 16;
-
-    //Maximum axis velocity of the dot
-    static const int DOT_VEL = 640;
-
     //Initializes the variables
     PlayerCharacter();
 
