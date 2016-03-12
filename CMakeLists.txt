@@ -16,14 +16,17 @@ include_directories(${SDL2_INCLUDE_DIR}
 file(GLOB SOURCES
         Code/utilities/*.cpp
         Code/utilities/*.h
-        Code/Characters/*.cpp
-        Code/Characters/*.h
         Code/media/*.cpp
         Code/media/*.h
         Code/terrain/*.cpp
         Code/terrain/*.h
         Code/*.cpp
         Code/*.h
+
+        Code/Characters/*.cpp
+        Code/Characters/*.h
+        Code/Characters/Enemies/*.cpp
+        Code/Characters/Enemies/*.h
 )
 
 set(SOURCE_FILES ${SOURCES})
