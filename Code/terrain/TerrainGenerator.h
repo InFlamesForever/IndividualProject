@@ -5,7 +5,8 @@
 #ifndef INDIVIDUALPROJECT_TERRAINGENERATOR_H
 #define INDIVIDUALPROJECT_TERRAINGENERATOR_H
 
-
+#include <memory>
+#include <bits/shared_ptr.h>
 #include "../media/TextureInfo.h"
 #include "../media/textures.h"
 #include "PerlinNoise.h"
@@ -35,7 +36,7 @@ private:
      */
     void decideRoads();
 
-    void placeRoads(TerrainNode* curNode);
+    void placeRoads(shared_ptr<TerrainNode>  curNode);
 
     /**
      * Add trees around the map

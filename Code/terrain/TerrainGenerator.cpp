@@ -268,24 +268,18 @@ void TerrainGenerator::decideRoads() {
     }
     
     AStarSearch search(terrain);
-    cout << "1" << endl;
 
     placeRoads(search.aStarSearch(townPositions[0][0], townPositions[0][1],
                 townPositions[1][0], townPositions[1][1]));
-    cout << "2" << endl;
-
     placeRoads(search.aStarSearch(townPositions[1][0], townPositions[1][1],
                 townPositions[2][0], townPositions[2][1]));
-    cout << "3" << endl;
-
     placeRoads(search.aStarSearch(townPositions[2][0], townPositions[2][1],
                 townPositions[3][0], townPositions[3][1]));
-    cout << "4" << endl;
     placeRoads(search.aStarSearch(townPositions[3][0], townPositions[3][1],
                 townPositions[0][0], townPositions[0][1]));
 }
 
-void TerrainGenerator::placeRoads(TerrainNode *curNode) {
+void TerrainGenerator::placeRoads(shared_ptr<TerrainNode> curNode) {
     //Putting roads on the terrain
     while(curNode->getPrevNode() != NULL){
         if(terrain[curNode->getX()][curNode->getY()] == Water_Ocean){
@@ -297,9 +291,7 @@ void TerrainGenerator::placeRoads(TerrainNode *curNode) {
         } else {
             terrain[curNode->getX()][curNode->getY()] = Pavement_Cobblestone;
         }
-        TerrainNode* temp = curNode;
         curNode = curNode->getPrevNode();
-        delete(temp);
     }
 }
 
