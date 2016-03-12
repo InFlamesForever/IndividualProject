@@ -16,7 +16,8 @@ public:
 
     void chooseMove(int playerPosX, int playerPosY, float timeStep);
 
-    void render(int screenPosX, int screenPosY);
+    void render(int screenPosX, int screenPosY,
+                int offsetY, int offsetX);
 
 private:
     void move(int dir, float timeStep);

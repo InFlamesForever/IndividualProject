@@ -35,13 +35,15 @@ void EnemyCharacter::setTextures(Texture **texts) {
 
 }
 
-void EnemyCharacter::render(int screenPosX, int screenPosY) {
+void EnemyCharacter::render(int screenPosX, int screenPosY,
+                            int offsetY, int offsetX) {
     if(isOnScreen(screenPosX, screenPosY)) {
         textures[state]->render(
                 (terrainPosX - screenPosX) * BLOCK_WIDTH -
-                        BLOCK_WIDTH/2 + (int)movingOffsetX,
+                        BLOCK_WIDTH/2 + (int)movingOffsetX + offsetX,
                 (terrainPosY - screenPosY - 1) * BLOCK_WIDTH -
-                        BLOCK_WIDTH/2 + (int)movingOffsetY);
+                        BLOCK_WIDTH/2 + (int)movingOffsetY + offsetY
+        );
     }
 
 }
