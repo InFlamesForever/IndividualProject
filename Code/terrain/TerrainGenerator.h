@@ -42,17 +42,6 @@ private:
      */
 
     /**
-     * Finds the route for roads
-     */
-    TerrainNode* aStarSearch(int startX, int startY, int endX, int endY);
-
-    /**
-     * Finds the best node to move to next for the search
-     */
-    int findBestNode(vector<TerrainNode*> unExpNodes,
-                     int endX, int endY, TerrainNode* curNode);
-
-    /**
      * Places trees on the map using random numbers and
      * weights depending on the terrain type
      */
