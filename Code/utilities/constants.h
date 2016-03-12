@@ -13,7 +13,7 @@ const int BLOCK_WIDTH = 16;
 const int TERRAIN_SIZE = 2000;
 
 //Speed multiplier for movement
-static int const MOVE_SPEED = 100;
+static int const MOVE_SPEED = 10;
 
 enum TerrainTypes {
     SandLight, SandDark,
