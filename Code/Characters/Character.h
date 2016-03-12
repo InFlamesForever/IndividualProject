@@ -20,11 +20,19 @@ public:
 
     void printOut();
 
+    int getCantTraverseSize();
+    int* getCantTraverse();
+
 private:
     int health;
     int level;
     int attack;
     int defence;
+
+    const int cantTraverseSize = 1;
+    int cantTraverse[1] = {
+            TerrainTypes::Water_Ocean
+    };
 
 protected:
     void setVars(int health, int level, int attack, int defence);

@@ -29,3 +29,11 @@ void Character::printOut() {
     cout << "level: " << level << " health: " << health <<
             " Attack: " << attack << " Defence: " << defence << endl;
 }
+
+int Character::getCantTraverseSize() {
+    return cantTraverseSize;
+}
+
+int *Character::getCantTraverse() {
+    return cantTraverse;
+}
