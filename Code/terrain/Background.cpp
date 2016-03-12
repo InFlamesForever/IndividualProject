@@ -35,36 +35,36 @@ Background::~Background() {
 
 void Background::render() {
     //When moving from side to side
-    if(moveBackgroundX != 0){
-        if(moveBackgroundX > 0){
+    if(moveOffsetX != 0){
+        if(moveOffsetX > 0){
             for(int i = 0; i < numOfTilesHeight; i++){
                 renderTile(pointInTerrainX - 1, pointInTerrainY + i,
-                           moveBackgroundX - BLOCK_WIDTH, i * BLOCK_WIDTH);
+                           moveOffsetX - BLOCK_WIDTH, i * BLOCK_WIDTH);
             }
         } else {
             for(int i = 0; i < numOfTilesHeight; i++){
                 renderTile(pointInTerrainX + numOfTilesWidth,
                            pointInTerrainY + i,
-                           numOfTilesWidth * BLOCK_WIDTH + moveBackgroundX,
+                           numOfTilesWidth * BLOCK_WIDTH + moveOffsetX,
                            i * BLOCK_WIDTH);
             }
         }
         //When moving up and down
-    } else if(moveBackgroundY != 0){
-        if(moveBackgroundY > 0){
+    } else if(moveOffsetY != 0){
+        if(moveOffsetY > 0){
             for(int i = 0; i < numOfTilesWidth; i++){
                 renderTile(pointInTerrainX + i, pointInTerrainY - 1,
-                           i * BLOCK_WIDTH, moveBackgroundY - BLOCK_WIDTH);
+                           i * BLOCK_WIDTH, moveOffsetY - BLOCK_WIDTH);
             }
         } else {
             for(int i = 0; i < numOfTilesWidth; i++){
                 renderTile(pointInTerrainX + i,
                            pointInTerrainY + numOfTilesHeight, i * BLOCK_WIDTH,
-                           numOfTilesHeight * BLOCK_WIDTH + moveBackgroundY);
+                           numOfTilesHeight * BLOCK_WIDTH + moveOffsetY);
             }
         }
     }
-    terrainTexture.render(moveBackgroundX, moveBackgroundY);
+    terrainTexture.render(moveOffsetX, moveOffsetY);
 }
 
 void Background::renderTile(int terX, int terY, int renX, int renY){
@@ -126,27 +126,27 @@ bool Background::move(float timeStep, int xShift, int yShift) {
     if(xShift != 0){
         movedSoFar += xShift * MOVE_SPEED * timeStep;
         if(movedSoFar > BLOCK_WIDTH || movedSoFar < -BLOCK_WIDTH) {
-            moveBackgroundX = 0;
+            moveOffsetX = 0;
             movedSoFar = 0;
             pointInTerrainX += -(xShift / 16);
             getTerrain();
             composeTerrainToTexture();
             return false;
         }
-        moveBackgroundX = (int) movedSoFar;
+        moveOffsetX = (int) movedSoFar;
         return true;
 
     } else if(yShift != 0) {
         movedSoFar += yShift * MOVE_SPEED * timeStep;
         if(movedSoFar > BLOCK_WIDTH || movedSoFar < -BLOCK_WIDTH) {
-            moveBackgroundY = 0;
+            moveOffsetY = 0;
             movedSoFar = 0;
             pointInTerrainY += -(yShift / 16);
             getTerrain();
             composeTerrainToTexture();
             return false;
         }
-        moveBackgroundY = (int) movedSoFar;
+        moveOffsetY = (int) movedSoFar;
         return true;
     }
 
@@ -199,4 +199,12 @@ void Background::renderAboveTerrainDetail(int x, int y, int renX, int renY) {
 
 int Background::getSquare(int x, int y) {
     return terrain[x][y];
+}
+
+int Background::getOffsetX() {
+    return moveOffsetX;
+}
+
+int Background::getOffsetY() {
+    return moveOffsetY;
 }
