@@ -30,17 +30,15 @@ public:
      */
     void getTerrain();
 
+    /**
+     * get a single square on the terrain
+     */
+    int getSquare(int x, int y);
+
     //Moves the terrain
     bool move(float timeStep, int xShift, int yShift);
 
     void render();
-
-    /**
-     * A character is passed to this method along with a direction
-     * the movement is then checked to see whether it should be based
-     * on the terrain tiles that the character can move over.
-     */
-    bool terrainCollision(PlayerCharacter character, int dir);
 
 private:
     TextureInfo onScreenTerrain[SCREEN_WIDTH/BLOCK_WIDTH][SCREEN_HEIGHT/BLOCK_WIDTH];

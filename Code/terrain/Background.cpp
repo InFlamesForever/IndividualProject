@@ -182,42 +182,6 @@ void Background::composeTerrainToTexture() {
     SDL_SetRenderTarget(gRenderer, NULL);
 }
 
-bool Background::terrainCollision(PlayerCharacter character, int dir) {
-    for(int i = 0; i < character.getCantTraverseSize(); i++) {
-        switch (dir) {
-            case UP:
-                if (character.getCantTraverse()[i] ==
-                    terrain[character.getTerrainPosX()]
-                    [character.getTerrainPosY() - 1]) {
-                    return true;
-                }
-                break;
-            case DOWN:
-                if (character.getCantTraverse()[i] ==
-                    terrain[character.getTerrainPosX()]
-                    [character.getTerrainPosY() + 1]) {
-                    return true;
-                }
-                break;
-            case LEFT:
-                if (character.getCantTraverse()[i] ==
-                    terrain[character.getTerrainPosX() - 1]
-                            [character.getTerrainPosY()]) {
-                    return true;
-                }
-                break;
-            case RIGHT:
-                if (character.getCantTraverse()[i] ==
-                    terrain[character.getTerrainPosX() + 1]
-                            [character.getTerrainPosY()]) {
-                    return true;
-                }
-                break;
-        }
-    }
-    return false;
-}
-
 void Background::renderAboveTerrainDetail(int x, int y, int renX, int renY) {
     //Check if in bounds of map
     if(x >= 0 && x < TERRAIN_SIZE - 1
@@ -231,4 +195,8 @@ void Background::renderAboveTerrainDetail(int x, int y, int renX, int renY) {
             tex->render(renX - BLOCK_WIDTH / 2, renY - BLOCK_WIDTH);
         }
     }
+}
+
+int Background::getSquare(int x, int y) {
+    return terrain[x][y];
 }
