@@ -26,6 +26,8 @@ EnemyCharacter::EnemyCharacter(int playerLevel, bool isBoss,
     setVars(health, level, attack, defence);
 
     state = Normal;
+    isMoving = false;
+    dir = LEFT;
 }
 
 void EnemyCharacter::setTextures(Texture **texts) {
@@ -45,12 +47,15 @@ void EnemyCharacter::render(int screenPosX, int screenPosY,
                         BLOCK_WIDTH/2 + (int)movingOffsetY + offsetY
         );
     }
-
 }
 
-void EnemyCharacter::move(int dir, float timeStep) {
-    moveSpeed;
-    int speed = 5;
+void EnemyCharacter::move(float timeStep) {
+    int speed;
+    if(state == Angry) {
+        speed = moveSpeed;
+    } else {
+        speed = 5;
+    }
     if(isMoving) {
         switch (dir) {
             case UP:
@@ -86,9 +91,20 @@ void EnemyCharacter::move(int dir, float timeStep) {
 }
 
 void EnemyCharacter::chooseMove(int playerPosX, int playerPosY, float timeStep) {
-    if (terrainPosX - playerPosX < 40 && terrainPosX - playerPosX > -40
-        && terrainPosY - playerPosY < 40 && terrainPosY - playerPosY > -40) {
-        isMoving = true;
-        move(UP, timeStep);
+    if (terrainPosX - playerPosX < withinRange && terrainPosX - playerPosX > -withinRange
+        && terrainPosY - playerPosY < withinRange && terrainPosY - playerPosY > -withinRange) {
+        if(!isMoving) {
+            if (terrainPosX - playerPosX < withinAttackRange && terrainPosX - playerPosX > -withinAttackRange
+                && terrainPosY - playerPosY < withinAttackRange && terrainPosY - playerPosY > -withinAttackRange) {
+                shared_ptr<TerrainNode> temp();
+
+                dir = LEFT;
+                isMoving = true;
+            } else {
+                dir = randInteger(0, 3);
+                isMoving = true;
+            }
+        }
+        move(timeStep);
     }
 }

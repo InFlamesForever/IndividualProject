@@ -8,6 +8,8 @@
 
 #include "Character.h"
 #include "../utilities/random.h"
+#include <bits/shared_ptr.h>
+#include "../terrain/TerrainNode.h"
 
 class EnemyCharacter: public Character {
 
@@ -20,7 +22,7 @@ public:
                 int offsetY, int offsetX);
 
 private:
-    void move(int dir, float timeStep);
+    void move(float timeStep);
 
     Texture* textures[3];
     enum States {
@@ -34,6 +36,12 @@ private:
     double movingOffsetX;
     bool isMoving;
     int moveSpeed;
+
+
+    int dir;
+
+    const int withinRange = 50;
+    const int withinAttackRange = 20;
 
 protected:
     void setTextures(Texture* texts[3]);
