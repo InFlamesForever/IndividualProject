@@ -9,10 +9,10 @@
 #include <SDL_image.h>
 #include <stdio.h>
 #include <string>
-#include "constants.h"
-#include "textures.h"
+#include "../utilities/constants.h"
+#include "../media/textures.h"
 #include "vector"
-#include "TextureInfo.h"
+#include "../media/TextureInfo.h"
 #include "math.h"
 #include "../Characters/PlayerCharacter.h"
 

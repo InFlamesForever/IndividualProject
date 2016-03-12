@@ -18,6 +18,12 @@ file(GLOB SOURCES
         Code/utilities/*.h
         Code/Characters/*.cpp
         Code/Characters/*.h
+        Code/media/*.cpp
+        Code/media/*.h
+        Code/terrain/*.cpp
+        Code/terrain/*.h
+        Code/*.cpp
+        Code/*.h
 )
 
 set(SOURCE_FILES ${SOURCES})

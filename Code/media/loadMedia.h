@@ -9,7 +9,7 @@
 #include <SDL_image.h>
 #include <stdio.h>
 #include <string>
-#include "constants.h"
+#include "../utilities/constants.h"
 #include "textures.h"
 
 //Loads media

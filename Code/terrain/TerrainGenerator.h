@@ -6,11 +6,11 @@
 #define INDIVIDUALPROJECT_TERRAINGENERATOR_H
 
 
-#include "TextureInfo.h"
-#include "textures.h"
+#include "../media/TextureInfo.h"
+#include "../media/textures.h"
 #include "PerlinNoise.h"
 #include "TerrainNode.h"
-#include "random.h"
+#include "../utilities/random.h"
 
 class TerrainGenerator {
 public:

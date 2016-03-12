@@ -10,7 +10,7 @@
 #include <stdio.h>
 #include <string>
 #include "constants.h"
-#include "textures.h"
+#include "../media/textures.h"
 
 //Starts up SDL and creates window
 bool init();

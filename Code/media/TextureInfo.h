@@ -7,7 +7,7 @@
 
 
 #include "Texture.h"
-#include "constants.h"
+#include "../utilities/constants.h"
 
 class TextureInfo {
 public:

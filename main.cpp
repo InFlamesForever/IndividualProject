@@ -3,8 +3,8 @@
 
 #include "Code/utilities/functions.h"
 #include "Code/utilities/Timer.h"
-#include "Code/utilities/loadMedia.h"
-#include "Code/utilities/Update.h"
+#include "Code/media/loadMedia.h"
+#include "Code/Update.h"
 
 int main(int argc, char *args[]) {
     //FPS timer

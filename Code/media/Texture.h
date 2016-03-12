@@ -6,8 +6,8 @@
 #include <SDL_image.h>
 #include <string>
 #include <iostream>
-#include "globals.h"
-#include "constants.h"
+#include "../utilities/globals.h"
+#include "../utilities/constants.h"
 
 using namespace std;
 

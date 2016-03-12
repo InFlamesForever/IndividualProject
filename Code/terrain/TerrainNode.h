@@ -8,7 +8,6 @@
 
 #include <stddef.h>
 #include <stdlib.h>
-#include <bits/unique_ptr.h>
 
 using namespace std;
 

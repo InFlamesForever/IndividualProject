@@ -7,9 +7,9 @@
 
 
 #include <SDL_events.h>
-#include "../Characters/PlayerCharacter.h"
-#include "Background.h"
-#include "constants.h"
+#include "Characters/PlayerCharacter.h"
+#include "terrain/Background.h"
+#include "utilities/constants.h"
 
 class Update {
 public:
