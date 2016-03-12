@@ -36,7 +36,7 @@ void EnemyCharacter::setTextures(Texture **texts) {
 }
 
 void EnemyCharacter::render(int screenPosX, int screenPosY,
-                            int offsetY, int offsetX) {
+                            int offsetX, int offsetY) {
     if(isOnScreen(screenPosX, screenPosY)) {
         textures[state]->render(
                 (terrainPosX - screenPosX) * BLOCK_WIDTH -
@@ -49,19 +49,21 @@ void EnemyCharacter::render(int screenPosX, int screenPosY,
 }
 
 void EnemyCharacter::move(int dir, float timeStep) {
+    moveSpeed;
+    int speed = 5;
     if(isMoving) {
         switch (dir) {
             case UP:
-                movingOffsetY += -BLOCK_WIDTH * moveSpeed * timeStep;
+                movingOffsetY += -BLOCK_WIDTH * speed * timeStep;
                 break;
             case DOWN:
-                movingOffsetY += BLOCK_WIDTH * moveSpeed * timeStep;
+                movingOffsetY += BLOCK_WIDTH * speed * timeStep;
                 break;
             case LEFT:
-                movingOffsetX += -BLOCK_WIDTH * moveSpeed * timeStep;
+                movingOffsetX += -BLOCK_WIDTH * speed * timeStep;
                 break;
             case RIGHT:
-                movingOffsetX += BLOCK_WIDTH * moveSpeed * timeStep;
+                movingOffsetX += BLOCK_WIDTH * speed * timeStep;
                 break;
         }
         if (movingOffsetX >= BLOCK_WIDTH || movingOffsetX <= -BLOCK_WIDTH
@@ -84,6 +86,9 @@ void EnemyCharacter::move(int dir, float timeStep) {
 }
 
 void EnemyCharacter::chooseMove(int playerPosX, int playerPosY, float timeStep) {
-    isMoving = true;
-    move(UP, timeStep);
+    if (terrainPosX - playerPosX < 40 && terrainPosX - playerPosX > -40
+        && terrainPosY - playerPosY < 40 && terrainPosY - playerPosY > -40) {
+        isMoving = true;
+        move(UP, timeStep);
+    }
 }
