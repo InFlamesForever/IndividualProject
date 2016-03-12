@@ -35,6 +35,10 @@ public:
      */
     int getSquare(int x, int y);
 
+    int getOffsetY();
+    int getOffsetX();
+
+
     //Moves the terrain
     bool move(float timeStep, int xShift, int yShift);
 
@@ -52,11 +56,6 @@ private:
     //The position of the top left of the screen in relation to the player
     int pointInTerrainX;
     int pointInTerrainY;
-
-    //These are required to move x and y to start at 00 otherwise
-    //the blocks start half way down the screen
-    int moveXTo0 = 0;
-    int moveYTo0 = 0;
 
     Texture terrainTexture;
 
@@ -113,8 +112,8 @@ private:
 
     //Holds the offset for the on screen map during movement
     // for smooth movement
-    int moveBackgroundY = 0;
-    int moveBackgroundX = 0;
+    int moveOffsetY = 0;
+    int moveOffsetX = 0;
 
     void renderTile(int terX, int terY, int renX, int renY);
 
