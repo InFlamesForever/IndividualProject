@@ -71,7 +71,8 @@ void Update::moveUpdate(float timeStep) {
 void Update::renderUpdate() {
     background.render();
     player.render();
-    enemies[0].render(200, 200);
+    enemies[0].render(background.getPointInTerrainX(), background.getPointInTerrainY(),
+                      background.getOffsetX(), background.getOffsetY());
 
 }
 
