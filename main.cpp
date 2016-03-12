@@ -6,7 +6,6 @@
 #include "Code/utilities/loadMedia.h"
 #include "Code/utilities/Update.h"
 
-
 int main(int argc, char *args[]) {
     //FPS timer
     Timer fpsTimer;
