@@ -74,9 +74,25 @@ void close() {
 }
 
 void free() {
+    gStock_Back.free();
+    gStock_Back_Walking1.free();
+    gStock_Back_Walking2.free();
     gStock_Front.free();
+    gStock_Front_Walking1.free();
+    gStock_Front_Walking2.free();
     gStock_Side_Right.free();
     gStock_Side_Right_Walking.free();
+    gStock_Side_Right_Walking2.free();
+    gStock_Side_Right_Walking3.free();
+
+    gEnemy_Slime.free();
+    gEnemy_Slime_Angry.free();
+    gEnemy_Slime_Attack.free();
+
+    gEnemy_Blob.free();
+    gEnemy_Blob_Angry.free();
+    gEnemy_Blob_Attack.free();
+
 
     gDirt_DirtTexture.free();
     gDirt_DirtGravelTexture.free();
@@ -90,6 +106,8 @@ void free() {
     gGrass_ParchedTexture.free();
 
     gPavement_CobblestoneTexture.free();
+    gPavement_Bridge.free();
+    gPavement_Bridge_Horizontal.free();
 
     gSand_DarkTexture.free();
     gSand_LightTexture.free();
@@ -108,4 +126,30 @@ void free() {
     gWater_RiverTexture.free();
     gWater_SeaTexture.free();
     gWater_SmallStreamTexture.free();
+
+    gSnow.free();
+
+    gTownSymbol.free();
+
+    gTown_Door_Closed.free();
+    gTown_Door_HalfOpen.free();
+    gTown_Door_ThreeQuartersOpen.free();
+    gTown_Door_Open.free();
+
+    gTown_Roof_Thatched.free();
+    gTown_Roof_Thatched_Corner.free();
+
+    gTown_Wall_Wood.free();
+    gTown_Wall_Wood_Corner_Left_Ground.free();
+    gTown_Wall_Wood_Corner_Left_Upper.free();
+    gTown_Wall_Wood_Corner_Right_Ground.free();
+    gTown_Wall_Wood_Corner_Right_Upper.free();
+    gTown_Wall_Wood_Window.free();
+
+    gWater_SeaWaves.free();
+
+    gTree_Dark.free();
+    gTree_Medium.free();
+    gTree_MediumLittle.free();
+    gTree_Light.free();
 }
