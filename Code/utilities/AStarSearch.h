@@ -10,6 +10,8 @@
 #include "constants.h"
 #include "../Characters/Character.h"
 #include <stdint.h>
+#include <memory>
+#include <bits/shared_ptr.h>
 
 using namespace std;
 
@@ -21,16 +23,16 @@ public:
     /**
  * Finds the route for roads
  */
-    TerrainNode* aStarSearch(int startX, int startY, int endX, int endY,
+    shared_ptr<TerrainNode> aStarSearch(int startX, int startY, int endX, int endY,
                              Character* ch = NULL);
 private:
     /**
  * Finds the best node to move to next for the search
  */
-    int findBestNode(vector<TerrainNode*> unExpNodes,
-                     int endX, int endY, TerrainNode* curNode);
+    int findBestNode(vector<shared_ptr<TerrainNode>> unExpNodes,
+                     int endX, int endY, shared_ptr<TerrainNode> curNode);
 
-    vector<TerrainNode*> expNodes;
+    vector<shared_ptr<TerrainNode>> expNodes;
 
     int **terrain;
 

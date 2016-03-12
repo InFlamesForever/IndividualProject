@@ -9,16 +9,14 @@ AStarSearch::AStarSearch(int **terrain) {
 }
 
 
-TerrainNode *AStarSearch::aStarSearch(int startX, int startY, int endX,
+shared_ptr<TerrainNode> AStarSearch::aStarSearch(int startX, int startY, int endX,
                                       int endY, Character* ch) {
-    vector<TerrainNode*> unExpNodes;
-    for(int i = 0; i < expNodes.size(); i++){
-        delete(expNodes[i]);
-    }
-    expNodes.clear();
-    TerrainNode* curNode(NULL);
+    vector<shared_ptr<TerrainNode>> unExpNodes;
 
-    TerrainNode* temp = new TerrainNode(startX,startY);
+    expNodes.clear();
+    shared_ptr<TerrainNode> curNode(NULL);
+
+    shared_ptr<TerrainNode> temp(new TerrainNode(startX,startY));
     unExpNodes.push_back(temp);
 
     int counter = 0;
@@ -26,8 +24,8 @@ TerrainNode *AStarSearch::aStarSearch(int startX, int startY, int endX,
         //Finds the best node in the vector and then removes it
         int bestNode = findBestNode(unExpNodes, endX, endY, curNode);
 
-        curNode = new TerrainNode(unExpNodes[bestNode]->getX(), unExpNodes[bestNode]->getY(), curNode);
-        delete(unExpNodes[bestNode]);
+        curNode = shared_ptr<TerrainNode>(new TerrainNode(unExpNodes[bestNode]->getX(), unExpNodes[bestNode]->getY(), curNode));
+
         unExpNodes.erase(unExpNodes.begin()+bestNode);
         expNodes.push_back(curNode);
         counter++;
@@ -45,7 +43,7 @@ TerrainNode *AStarSearch::aStarSearch(int startX, int startY, int endX,
 
         for(int i = 0; i < 4; i++) {
             bool createNode = false;
-            TerrainNode *checkNode = nullptr;
+            shared_ptr<TerrainNode> checkNode = nullptr;
             if(ch != NULL){
                 for(int j = 0; j < ch->getCantTraverseSize(); j++){
                     if(terrain[potentialMoves[i][0]][potentialMoves[i][1]]
@@ -54,9 +52,9 @@ TerrainNode *AStarSearch::aStarSearch(int startX, int startY, int endX,
                 }
             } else {
                 createNode = true;
-                checkNode = new TerrainNode(potentialMoves[i][0],
+                checkNode = shared_ptr<TerrainNode>(new TerrainNode(potentialMoves[i][0],
                                                          potentialMoves[i][1],
-                                                         curNode);
+                                                         curNode));
             }
             if(createNode) {
                 bool foundUnexp = false;
@@ -77,22 +75,17 @@ TerrainNode *AStarSearch::aStarSearch(int startX, int startY, int endX,
                 }
                 if (!foundExp && !foundUnexp) {
                     unExpNodes.push_back(checkNode);
-                } else delete (checkNode);
+                };
             }
         }
-    }
-
-    //Remove all pointers
-    for(int i = 0; i < unExpNodes.size(); i++){
-        delete(unExpNodes[i]);
     }
 
     return curNode;
 }
 
 
-int AStarSearch::findBestNode(vector<TerrainNode *> unExpNodes, int endX,
-                              int endY, TerrainNode *curNode) {
+int AStarSearch::findBestNode(vector<shared_ptr<TerrainNode>> unExpNodes, int endX,
+                              int endY, shared_ptr<TerrainNode> curNode) {
     double closest = INT32_MAX;
     int place = 0;
     double aStar;
@@ -129,8 +122,9 @@ int AStarSearch::findBestNode(vector<TerrainNode *> unExpNodes, int endX,
 }
 
 AStarSearch::~AStarSearch() {
+    /*
     for(int i = 0; i < expNodes.size(); i++){
         delete(expNodes[i]);
-    }
+    }*/
 }
 
