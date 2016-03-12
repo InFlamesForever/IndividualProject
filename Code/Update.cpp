@@ -31,7 +31,7 @@ void Update::handleEventUpdate(SDL_Event e) {
                 break;
         }
         if(isMoving){
-            if(background.terrainCollision(player, move)){
+            if(terrainCollision(player, move)){
                 isMoving = false;
             }
         }
@@ -39,6 +39,7 @@ void Update::handleEventUpdate(SDL_Event e) {
 }
 
 void Update::moveUpdate(float timeStep) {
+    cout << background.getSquare(200,200) << endl;
     if(isMoving){
         switch (move){
             case UP:
@@ -61,6 +62,7 @@ void Update::moveUpdate(float timeStep) {
 void Update::renderUpdate() {
     background.render();
     player.render();
+    enemies[0].render(200, 200);
 
 }
 
@@ -75,4 +77,43 @@ Update::~Update() {
  * Constructor
  */
 Update::Update() {
+    Blob temp(1, false, 200, 200);
+    enemies.push_back(temp);
+    numEnemies = 1;
+}
+
+bool Update::terrainCollision(PlayerCharacter character, int dir) {
+    for(int i = 0; i < character.getCantTraverseSize(); i++) {
+        switch (dir) {
+            case UP:
+                if (character.getCantTraverse()[i] ==
+                    background.getSquare(character.getTerrainPosX(),
+                                         character.getTerrainPosY() - 1)) {
+                    return true;
+                }
+                break;
+            case DOWN:
+                if (character.getCantTraverse()[i] ==
+                        background.getSquare(character.getTerrainPosX(),
+                                             character.getTerrainPosY() + 1)) {
+                    return true;
+                }
+                break;
+            case LEFT:
+                if (character.getCantTraverse()[i] ==
+                        background.getSquare(character.getTerrainPosX() - 1,
+                                             character.getTerrainPosY())) {
+                    return true;
+                }
+                break;
+            case RIGHT:
+                if (character.getCantTraverse()[i] ==
+                        background.getSquare(character.getTerrainPosX() + 1,
+                                             character.getTerrainPosY())) {
+                    return true;
+                }
+                break;
+        }
+    }
+    return false;
 }
