@@ -8,22 +8,24 @@
 
 #include <stddef.h>
 #include <stdlib.h>
+#include <memory>
+#include <bits/shared_ptr.h>
 
 using namespace std;
 
 class TerrainNode {
 public:
-    TerrainNode(int x, int y,TerrainNode* prev = NULL);
+    TerrainNode(int x, int y, shared_ptr<TerrainNode> prev = NULL);
     ~TerrainNode();
     int getX();
     int getY();
     int getDistFromStart();
-    TerrainNode* getPrevNode();
+    shared_ptr<TerrainNode> getPrevNode();
 private:
     int x;
     int y;
     int disFromStart = 0;
-    TerrainNode* previousNode;
+    shared_ptr<TerrainNode> previousNode;
 };
 
 

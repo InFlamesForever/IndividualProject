@@ -4,7 +4,7 @@
 
 #include "TerrainNode.h"
 
-TerrainNode::TerrainNode(int x, int y, TerrainNode* prev){
+TerrainNode::TerrainNode(int x, int y, shared_ptr<TerrainNode> prev){
     this->x = x;
     this->y = y;
     previousNode = prev;
@@ -23,7 +23,7 @@ int TerrainNode::getY() {
     return y;
 }
 
-TerrainNode* TerrainNode::getPrevNode() {
+shared_ptr<TerrainNode> TerrainNode::getPrevNode() {
     return previousNode;
 }
 
