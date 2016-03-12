@@ -4,6 +4,15 @@
 
 #include "Update.h"
 
+/*
+ * Constructor
+ */
+Update::Update() {
+    Blob temp(1, false, 220, 220);
+    enemies.push_back(temp);
+    numEnemies = 1;
+}
+
 void Update::handleEventUpdate(SDL_Event e) {
     //If a key is pressed (currently if it is held held down it keeps activating)
     if (!isMoving && e.type == SDL_KEYDOWN) {
@@ -39,7 +48,6 @@ void Update::handleEventUpdate(SDL_Event e) {
 }
 
 void Update::moveUpdate(float timeStep) {
-    cout << background.getSquare(200,200) << endl;
     if(isMoving){
         switch (move){
             case UP:
@@ -57,6 +65,7 @@ void Update::moveUpdate(float timeStep) {
         }
     }
     player.updateRender(isMoving, move);
+    enemies[0].chooseMove(player.getTerrainPosX(), player.getTerrainPosY(), timeStep);
 }
 
 void Update::renderUpdate() {
@@ -73,14 +82,7 @@ Update::~Update() {
 
 }
 
-/*
- * Constructor
- */
-Update::Update() {
-    Blob temp(1, false, 200, 200);
-    enemies.push_back(temp);
-    numEnemies = 1;
-}
+
 
 bool Update::terrainCollision(PlayerCharacter character, int dir) {
     for(int i = 0; i < character.getCantTraverseSize(); i++) {

@@ -17,10 +17,6 @@ void Character::setVars(int health, int level, int attack, int defence) {
 
 }
 
-void Character::move(int dir, float timestep) {
-
-}
-
 bool Character::isOnScreen(int screenPosX, int screenPosY) {
     return terrainPosX >= screenPosX
             && terrainPosX <= screenPosX + SCREEN_WIDTH/BLOCK_WIDTH

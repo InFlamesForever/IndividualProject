@@ -14,9 +14,13 @@ class EnemyCharacter: public Character {
 public:
     EnemyCharacter(int playerLevel, bool isBoss, int posX, int posY);
 
+    void chooseMove(int playerPosX, int playerPosY, float timeStep);
+
     void render(int screenPosX, int screenPosY);
 
 private:
+    void move(int dir, float timeStep);
+
     Texture* textures[3];
     enum States {
         Normal,
@@ -24,6 +28,11 @@ private:
         Attack
     };
     int state;
+
+    double movingOffsetY;
+    double movingOffsetX;
+    bool isMoving;
+    int moveSpeed;
 
 protected:
     void setTextures(Texture* texts[3]);

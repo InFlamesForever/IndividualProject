@@ -13,8 +13,6 @@ class Character {
 public:
     Character(int posX, int posY);
 
-    void move(int dir, float timestep);
-
     /*
      * Check whether the character is on the screen before rendering
      */
