@@ -121,10 +121,3 @@ int AStarSearch::findBestNode(vector<shared_ptr<TerrainNode>> unExpNodes, int en
     return place;
 }
 
-AStarSearch::~AStarSearch() {
-    /*
-    for(int i = 0; i < expNodes.size(); i++){
-        delete(expNodes[i]);
-    }*/
-}
-

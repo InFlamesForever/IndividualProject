@@ -18,11 +18,10 @@ using namespace std;
 class AStarSearch {
 public:
     AStarSearch(int **terrain);
-    ~AStarSearch();
 
     /**
- * Finds the route for roads
- */
+     * Finds the route for roads
+     */
     shared_ptr<TerrainNode> aStarSearch(int startX, int startY, int endX, int endY,
                              Character* ch = NULL);
 private:
