@@ -21,7 +21,7 @@ EnemyCharacter::EnemyCharacter(int playerLevel, bool isBoss,
         health = 100 + 10 * level;
         attack = 10 + 5 * level;
         defence = 25 + 5 * level;
-        moveSpeed = 10 + level;
+        moveSpeed = 5 + level;
     }
     setVars(health, level, attack, defence);
 
@@ -54,7 +54,7 @@ void EnemyCharacter::move(float timeStep) {
     if(state == Angry) {
         speed = moveSpeed;
     } else {
-        speed = 5;
+        speed = 2;
     }
     if(isMoving) {
         switch (dir) {
@@ -92,77 +92,72 @@ void EnemyCharacter::move(float timeStep) {
 
 void EnemyCharacter::chooseMove(PlayerCharacter player,
                                 float timeStep, int **terrain) {
-    if (terrainPosX - player.getTerrainPosX() < withinRange 
-        && terrainPosX - player.getTerrainPosX() > -withinRange
-        && terrainPosY - player.getTerrainPosY() < withinRange 
-        && terrainPosY - player.getTerrainPosY() > -withinRange) {
-        if(!isMoving) {
-            if (terrainPosX - player.getTerrainPosX() < withinAttackRange 
-                && terrainPosX - player.getTerrainPosX() > -withinAttackRange
-                && terrainPosY - player.getTerrainPosY() < withinAttackRange 
-                && terrainPosY - player.getTerrainPosY() > -withinAttackRange) {
-                AStarSearch search(terrain);
-                shared_ptr<TerrainNode> temp(search.aStarSearch(
-                        terrainPosX,terrainPosY,
-                        player.getTerrainPosX(), player.getTerrainPosY(),
-                        getCantTraverse(), getCantTraverseSize()));
-                while(temp->getPrevNode()->getPrevNode() != NULL){
-                    temp = temp->getPrevNode();
-                }
+    if(!isMoving) {
+        if (terrainPosX - player.getTerrainPosX() < withinAttackRange
+            && terrainPosX - player.getTerrainPosX() > -withinAttackRange
+            && terrainPosY - player.getTerrainPosY() < withinAttackRange
+            && terrainPosY - player.getTerrainPosY() > -withinAttackRange) {
+            AStarSearch search(terrain);
+            shared_ptr<TerrainNode> temp(search.aStarSearch(
+                    terrainPosX,terrainPosY,
+                    player.getTerrainPosX(), player.getTerrainPosY(),
+                    getCantTraverse(), getCantTraverseSize()));
+            while(temp->getPrevNode()->getPrevNode() != NULL){
+                temp = temp->getPrevNode();
+            }
 
-                if(temp->getX() == terrainPosX - 1
-                   && temp->getY() == terrainPosY){
-                    dir = LEFT;
-                    isMoving = true;
-                } else if(temp->getX() == terrainPosX + 1
-                          && temp->getY() == terrainPosY){
-                    dir = RIGHT;
-                    isMoving = true;
-                } else if(temp->getY() == terrainPosY - 1
-                          && temp->getX() == terrainPosX){
-                    dir = UP;
-                    isMoving = true;
-                } else if(temp->getY() == terrainPosY + 1
-                          && temp->getX() == terrainPosX){
-                    dir = DOWN;
-                    isMoving = true;
-                } else {
-                    isMoving = false;
-                }
-                state = Angry;
-
-            } else {
-                state = Normal;
-                dir = randInteger(0, 3);
+            if(temp->getX() == terrainPosX - 1
+               && temp->getY() == terrainPosY){
+                dir = LEFT;
                 isMoving = true;
+            } else if(temp->getX() == terrainPosX + 1
+                      && temp->getY() == terrainPosY){
+                dir = RIGHT;
+                isMoving = true;
+            } else if(temp->getY() == terrainPosY - 1
+                      && temp->getX() == terrainPosX){
+                dir = UP;
+                isMoving = true;
+            } else if(temp->getY() == terrainPosY + 1
+                      && temp->getX() == terrainPosX){
+                dir = DOWN;
+                isMoving = true;
+            } else {
+                isMoving = false;
+            }
+            state = Angry;
 
-                for(int i = 0; i < getCantTraverseSize(); i++) {
-                    switch (dir) {
-                        case UP:
-                            if (terrain[terrainPosX][terrainPosY - 1] ==
-                                    getCantTraverse()[i]){
-                                isMoving = false;
-                            }
-                            break;
-                        case DOWN:
-                            if (terrain[terrainPosX][terrainPosY + 1] ==
-                                    getCantTraverse()[i]){
-                                isMoving = false;
-                            }
-                            break;
-                        case LEFT:
-                            if (terrain[terrainPosX - 1][terrainPosY] ==
-                                    getCantTraverse()[i]){
-                                isMoving = false;
-                            }
-                            break;
-                        case RIGHT:
-                            if (terrain[terrainPosX + 1][terrainPosY] ==
-                                    getCantTraverse()[i]){
-                                isMoving = false;
-                            }
-                            break;
-                    }
+        } else {
+            state = Normal;
+            dir = randInteger(0, 3);
+            isMoving = true;
+
+            for(int i = 0; i < getCantTraverseSize(); i++) {
+                switch (dir) {
+                    case UP:
+                        if (terrain[terrainPosX][terrainPosY - 1] ==
+                                getCantTraverse()[i]){
+                            isMoving = false;
+                        }
+                        break;
+                    case DOWN:
+                        if (terrain[terrainPosX][terrainPosY + 1] ==
+                                getCantTraverse()[i]){
+                            isMoving = false;
+                        }
+                        break;
+                    case LEFT:
+                        if (terrain[terrainPosX - 1][terrainPosY] ==
+                                getCantTraverse()[i]){
+                            isMoving = false;
+                        }
+                        break;
+                    case RIGHT:
+                        if (terrain[terrainPosX + 1][terrainPosY] ==
+                                getCantTraverse()[i]){
+                            isMoving = false;
+                        }
+                        break;
                 }
             }
         }
@@ -172,25 +167,13 @@ void EnemyCharacter::chooseMove(PlayerCharacter player,
 bool EnemyCharacter::hitDetection(Character enemy) {
     switch(dir){
         case UP:
-            if (enemy.getPosX() == terrainPosX && enemy.getPosY() == terrainPosY - 1){
-                return false;
-            }
-            break;
+            return enemy.getPosX() == terrainPosX && enemy.getPosY() == terrainPosY - 1;
         case DOWN:
-            if (enemy.getPosX() == terrainPosX && enemy.getPosY() == terrainPosY + 1){
-                return false;
-            }
-            break;
+            return enemy.getPosX() == terrainPosX && enemy.getPosY() == terrainPosY + 1;
         case LEFT:
-            if (enemy.getPosX() == terrainPosX - 1 && enemy.getPosY() == terrainPosY){
-                return false;
-            }
-            break;
+             return enemy.getPosX() == terrainPosX - 1 && enemy.getPosY() == terrainPosY;
         case RIGHT:
-            if (enemy.getPosX() == terrainPosX + 1 && enemy.getPosY() == terrainPosY - 1){
-                return false;
-            }
-            break;
+             return enemy.getPosX() == terrainPosX + 1 && enemy.getPosY() == terrainPosY - 1;
     }
     return false;
 }
