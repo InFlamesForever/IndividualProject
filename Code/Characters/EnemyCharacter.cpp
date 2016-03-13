@@ -129,8 +129,10 @@ void EnemyCharacter::chooseMove(PlayerCharacter player,
                 } else {
                     isMoving = false;
                 }
+                state = Angry;
 
             } else {
+                state = Normal;
                 dir = randInteger(0, 3);
                 isMoving = true;
 
@@ -164,6 +166,31 @@ void EnemyCharacter::chooseMove(PlayerCharacter player,
                 }
             }
         }
-        move(timeStep);
     }
+}
+
+bool EnemyCharacter::hitDetection(Character enemy) {
+    switch(dir){
+        case UP:
+            if (enemy.getPosX() == terrainPosX && enemy.getPosY() == terrainPosY - 1){
+                return false;
+            }
+            break;
+        case DOWN:
+            if (enemy.getPosX() == terrainPosX && enemy.getPosY() == terrainPosY + 1){
+                return false;
+            }
+            break;
+        case LEFT:
+            if (enemy.getPosX() == terrainPosX - 1 && enemy.getPosY() == terrainPosY){
+                return false;
+            }
+            break;
+        case RIGHT:
+            if (enemy.getPosX() == terrainPosX + 1 && enemy.getPosY() == terrainPosY - 1){
+                return false;
+            }
+            break;
+    }
+    return false;
 }

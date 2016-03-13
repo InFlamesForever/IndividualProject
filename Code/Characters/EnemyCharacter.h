@@ -25,8 +25,10 @@ public:
     void render(int screenPosX, int screenPosY,
                 int offsetY, int offsetX);
 
-private:
+    bool hitDetection(Character enemy);
+
     void move(float timeStep);
+private:
 
     Texture* textures[3];
     enum States {
