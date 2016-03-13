@@ -32,7 +32,7 @@ public:
 
 private:
     //The dot that will be moving around on the screen
-    PlayerCharacter player;
+    PlayerCharacter* player;
     Background background;
 
     vector<EnemyCharacter> enemies;
