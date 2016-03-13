@@ -23,7 +23,7 @@ public:
      * Finds the route for roads
      */
     shared_ptr<TerrainNode> aStarSearch(int startX, int startY, int endX, int endY,
-                             Character* ch = NULL);
+                             int* cantTraverse = NULL, int cantTraverseSize = 0);
 private:
     /**
  * Finds the best node to move to next for the search

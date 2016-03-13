@@ -10,7 +10,7 @@ AStarSearch::AStarSearch(int **terrain) {
 
 
 shared_ptr<TerrainNode> AStarSearch::aStarSearch(int startX, int startY, int endX,
-                                      int endY, Character* ch) {
+                                      int endY, int* cantTraverse, int cantTraverseSize) {
     vector<shared_ptr<TerrainNode>> unExpNodes;
 
     expNodes.clear();
@@ -43,20 +43,18 @@ shared_ptr<TerrainNode> AStarSearch::aStarSearch(int startX, int startY, int end
 
         for(int i = 0; i < 4; i++) {
             bool createNode = false;
-            shared_ptr<TerrainNode> checkNode = nullptr;
-            if(ch != NULL){
-                for(int j = 0; j < ch->getCantTraverseSize(); j++){
-                    if(terrain[potentialMoves[i][0]][potentialMoves[i][1]]
-                       == ch->getCantTraverse()[i])
-                        break;
+            if(cantTraverse != NULL){
+                for(int j = 0; j < cantTraverseSize; j++){
+                    createNode =
+                            terrain[potentialMoves[i][0]]
+                            [potentialMoves[i][1]] != cantTraverse[i];
                 }
-            } else {
-                createNode = true;
-                checkNode = shared_ptr<TerrainNode>(new TerrainNode(potentialMoves[i][0],
-                                                         potentialMoves[i][1],
-                                                         curNode));
             }
-            if(createNode) {
+            if(createNode){
+                shared_ptr<TerrainNode> checkNode(
+                        new TerrainNode(potentialMoves[i][0],
+                                        potentialMoves[i][1],
+                                        curNode));
                 bool foundUnexp = false;
                 bool foundExp = false;
                 for (int j = 0; j < unExpNodes.size(); j++) {
@@ -75,7 +73,7 @@ shared_ptr<TerrainNode> AStarSearch::aStarSearch(int startX, int startY, int end
                 }
                 if (!foundExp && !foundUnexp) {
                     unExpNodes.push_back(checkNode);
-                };
+                }
             }
         }
     }
