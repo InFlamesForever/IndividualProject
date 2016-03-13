@@ -65,7 +65,7 @@ void Update::moveUpdate(float timeStep) {
         }
     }
     player.updateRender(isMoving, move);
-    enemies[0].chooseMove(player.getTerrainPosX(), player.getTerrainPosY(), timeStep);
+    enemies[0].chooseMove(player, timeStep, background.getMap());
 }
 
 void Update::renderUpdate() {
