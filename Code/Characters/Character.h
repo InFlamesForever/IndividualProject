@@ -26,11 +26,15 @@ public:
     int getPosX();
     int getPosY();
 
+    bool hitDetection(Character enemy);
+
+    void hit(int damage);
+
 private:
-    int health;
+    int healthPts;
     int level;
-    int attack;
-    int defence;
+    int attackPts;
+    int defencePts;
 
     const int cantTraverseSize = 1;
     int cantTraverse[1] = {
@@ -38,10 +42,12 @@ private:
     };
 
 protected:
-    void setVars(int health, int level, int attack, int defence);
+    void setVars(int healthPts, int level, int attackPts, int defencePts);
 
     int terrainPosX;
     int terrainPosY;
+
+    int dir;
 };
 
 

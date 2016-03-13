@@ -9,11 +9,11 @@ Character::Character(int posX, int posY) {
     terrainPosY = posY;
 }
 
-void Character::setVars(int health, int level, int attack, int defence) {
-    this->health = health;
+void Character::setVars(int healthPts, int level, int attackPts, int defencePts) {
+    this->healthPts = healthPts;
     this->level = level;
-    this->attack = attack;
-    this->defence = defence;
+    this->attackPts = attackPts;
+    this->defencePts = defencePts;
 
 }
 
@@ -26,8 +26,8 @@ bool Character::isOnScreen(int screenPosX, int screenPosY) {
 }
 
 void Character::printOut() {
-    cout << "level: " << level << " health: " << health <<
-            " Attack: " << attack << " Defence: " << defence << endl;
+    cout << "level: " << level << " health: " << healthPts <<
+    " Attack: " << attackPts << " Defence: " << defencePts << endl;
 }
 
 int Character::getCantTraverseSize() {
@@ -44,4 +44,23 @@ int Character::getPosX() {
 
 int Character::getPosY() {
     return terrainPosY;
+}
+
+bool Character::hitDetection(Character enemy) {
+    switch(dir){
+        case UP:
+            return enemy.getPosX() == terrainPosX && enemy.getPosY() == terrainPosY - 1;
+        case DOWN:
+            return enemy.getPosX() == terrainPosX && enemy.getPosY() == terrainPosY + 1;
+        case LEFT:
+            return enemy.getPosX() == terrainPosX - 1 && enemy.getPosY() == terrainPosY;
+        case RIGHT:
+            return enemy.getPosX() == terrainPosX + 1 && enemy.getPosY() == terrainPosY;
+    }
+    return false;
+}
+
+void Character::hit(int damage) {
+    healthPts -= damage;
+
 }

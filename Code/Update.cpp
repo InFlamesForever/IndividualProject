@@ -39,6 +39,8 @@ void Update::handleEventUpdate(SDL_Event e) {
                 move = RIGHT;
                 isMoving = true;
                 break;
+            case SDLK_SPACE:
+                enemies[0].attack(*player);
         }
         if(isMoving){
             if(terrainCollision(*player, move)){

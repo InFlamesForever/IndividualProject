@@ -34,7 +34,6 @@ private:
     bool hasMoved;
 
 
-    int dir;
     int lastDir;
 
     Texture* playerStationary[4] = {

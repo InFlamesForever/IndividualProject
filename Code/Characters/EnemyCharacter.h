@@ -25,11 +25,10 @@ public:
     void render(int screenPosX, int screenPosY,
                 int offsetY, int offsetX);
 
-    bool hitDetection(Character enemy);
-
     void move(float timeStep);
-private:
 
+    void attack(Character other);
+private:
     Texture* textures[3];
     enum States {
         Normal,
@@ -43,12 +42,9 @@ private:
     bool isMoving;
     int moveSpeed;
 
-
-    int dir;
-
-    const int withinRange = 50;
     const int withinAttackRange = 20;
 
+    Timer attackTimer;
 protected:
     void setTextures(Texture* texts[3]);
 };

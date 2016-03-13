@@ -39,6 +39,11 @@ void EnemyCharacter::setTextures(Texture **texts) {
 
 void EnemyCharacter::render(int screenPosX, int screenPosY,
                             int offsetX, int offsetY) {
+    if(state == Attack) {
+        if (attackTimer.getTicks() > 100) {
+            state = Angry;
+        }
+    }
     if(isOnScreen(screenPosX, screenPosY)) {
         textures[state]->render(
                 (terrainPosX - screenPosX) * BLOCK_WIDTH -
@@ -51,7 +56,7 @@ void EnemyCharacter::render(int screenPosX, int screenPosY,
 
 void EnemyCharacter::move(float timeStep) {
     int speed;
-    if(state == Angry) {
+    if(state == Angry || state == Attack) {
         speed = moveSpeed;
     } else {
         speed = 2;
@@ -92,34 +97,34 @@ void EnemyCharacter::move(float timeStep) {
 
 void EnemyCharacter::chooseMove(PlayerCharacter player,
                                 float timeStep, int **terrain) {
-    if(!isMoving) {
+    if (!isMoving) {
         if (terrainPosX - player.getPosX() < withinAttackRange
             && terrainPosX - player.getPosX() > -withinAttackRange
             && terrainPosY - player.getPosY() < withinAttackRange
             && terrainPosY - player.getPosY() > -withinAttackRange) {
             AStarSearch search(terrain);
             shared_ptr<TerrainNode> temp(search.aStarSearch(
-                    terrainPosX,terrainPosY,
+                    terrainPosX, terrainPosY,
                     player.getPosX(), player.getPosY(),
                     getCantTraverse(), getCantTraverseSize()));
-            while(temp->getPrevNode()->getPrevNode() != NULL){
+            while (temp->getPrevNode()->getPrevNode() != NULL) {
                 temp = temp->getPrevNode();
             }
 
-            if(temp->getX() == terrainPosX - 1
-               && temp->getY() == terrainPosY){
+            if (temp->getX() == terrainPosX - 1
+                && temp->getY() == terrainPosY) {
                 dir = LEFT;
                 isMoving = true;
-            } else if(temp->getX() == terrainPosX + 1
-                      && temp->getY() == terrainPosY){
+            } else if (temp->getX() == terrainPosX + 1
+                       && temp->getY() == terrainPosY) {
                 dir = RIGHT;
                 isMoving = true;
-            } else if(temp->getY() == terrainPosY - 1
-                      && temp->getX() == terrainPosX){
+            } else if (temp->getY() == terrainPosY - 1
+                       && temp->getX() == terrainPosX) {
                 dir = UP;
                 isMoving = true;
-            } else if(temp->getY() == terrainPosY + 1
-                      && temp->getX() == terrainPosX){
+            } else if (temp->getY() == terrainPosY + 1
+                       && temp->getX() == terrainPosX) {
                 dir = DOWN;
                 isMoving = true;
             } else {
@@ -132,29 +137,29 @@ void EnemyCharacter::chooseMove(PlayerCharacter player,
             dir = randInteger(0, 3);
             isMoving = true;
 
-            for(int i = 0; i < getCantTraverseSize(); i++) {
+            for (int i = 0; i < getCantTraverseSize(); i++) {
                 switch (dir) {
                     case UP:
                         if (terrain[terrainPosX][terrainPosY - 1] ==
-                                getCantTraverse()[i]){
+                            getCantTraverse()[i]) {
                             isMoving = false;
                         }
                         break;
                     case DOWN:
                         if (terrain[terrainPosX][terrainPosY + 1] ==
-                                getCantTraverse()[i]){
+                            getCantTraverse()[i]) {
                             isMoving = false;
                         }
                         break;
                     case LEFT:
                         if (terrain[terrainPosX - 1][terrainPosY] ==
-                                getCantTraverse()[i]){
+                            getCantTraverse()[i]) {
                             isMoving = false;
                         }
                         break;
                     case RIGHT:
                         if (terrain[terrainPosX + 1][terrainPosY] ==
-                                getCantTraverse()[i]){
+                            getCantTraverse()[i]) {
                             isMoving = false;
                         }
                         break;
@@ -164,16 +169,11 @@ void EnemyCharacter::chooseMove(PlayerCharacter player,
     }
 }
 
-bool EnemyCharacter::hitDetection(Character enemy) {
-    switch(dir){
-        case UP:
-            return enemy.getPosX() == terrainPosX && enemy.getPosY() == terrainPosY - 1;
-        case DOWN:
-            return enemy.getPosX() == terrainPosX && enemy.getPosY() == terrainPosY + 1;
-        case LEFT:
-             return enemy.getPosX() == terrainPosX - 1 && enemy.getPosY() == terrainPosY;
-        case RIGHT:
-             return enemy.getPosX() == terrainPosX + 1 && enemy.getPosY() == terrainPosY;
+void EnemyCharacter::attack(Character other) {
+    state = Attack;
+    attackTimer.reset();
+    attackTimer.start();
+    if(hitDetection(other)){
+        other.hit(5);
     }
-    return false;
 }
