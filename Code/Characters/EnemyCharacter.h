@@ -8,15 +8,19 @@
 
 #include "Character.h"
 #include "../utilities/random.h"
+#include <memory>
 #include <bits/shared_ptr.h>
 #include "../terrain/TerrainNode.h"
+#include "../utilities/AStarSearch.h"
+#include "PlayerCharacter.h"
 
 class EnemyCharacter: public Character {
 
 public:
     EnemyCharacter(int playerLevel, bool isBoss, int posX, int posY);
 
-    void chooseMove(int playerPosX, int playerPosY, float timeStep);
+    void chooseMove(PlayerCharacter player,
+                    float timeStep, int **terrain);
 
     void render(int screenPosX, int screenPosY,
                 int offsetY, int offsetX);

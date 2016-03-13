@@ -90,19 +90,78 @@ void EnemyCharacter::move(float timeStep) {
     }
 }
 
-void EnemyCharacter::chooseMove(int playerPosX, int playerPosY, float timeStep) {
-    if (terrainPosX - playerPosX < withinRange && terrainPosX - playerPosX > -withinRange
-        && terrainPosY - playerPosY < withinRange && terrainPosY - playerPosY > -withinRange) {
+void EnemyCharacter::chooseMove(PlayerCharacter player,
+                                float timeStep, int **terrain) {
+    if (terrainPosX - player.getTerrainPosX() < withinRange 
+        && terrainPosX - player.getTerrainPosX() > -withinRange
+        && terrainPosY - player.getTerrainPosY() < withinRange 
+        && terrainPosY - player.getTerrainPosY() > -withinRange) {
         if(!isMoving) {
-            if (terrainPosX - playerPosX < withinAttackRange && terrainPosX - playerPosX > -withinAttackRange
-                && terrainPosY - playerPosY < withinAttackRange && terrainPosY - playerPosY > -withinAttackRange) {
-                shared_ptr<TerrainNode> temp();
+            if (terrainPosX - player.getTerrainPosX() < withinAttackRange 
+                && terrainPosX - player.getTerrainPosX() > -withinAttackRange
+                && terrainPosY - player.getTerrainPosY() < withinAttackRange 
+                && terrainPosY - player.getTerrainPosY() > -withinAttackRange) {
+                AStarSearch search(terrain);
+                shared_ptr<TerrainNode> temp(search.aStarSearch(
+                        terrainPosX,terrainPosY,
+                        player.getTerrainPosX(), player.getTerrainPosY(),
+                        getCantTraverse(), getCantTraverseSize()));
+                while(temp->getPrevNode()->getPrevNode() != NULL){
+                    temp = temp->getPrevNode();
+                }
 
-                dir = LEFT;
-                isMoving = true;
+                if(temp->getX() == terrainPosX - 1
+                   && temp->getY() == terrainPosY){
+                    dir = LEFT;
+                    isMoving = true;
+                } else if(temp->getX() == terrainPosX + 1
+                          && temp->getY() == terrainPosY){
+                    dir = RIGHT;
+                    isMoving = true;
+                } else if(temp->getY() == terrainPosY - 1
+                          && temp->getX() == terrainPosX){
+                    dir = UP;
+                    isMoving = true;
+                } else if(temp->getY() == terrainPosY + 1
+                          && temp->getX() == terrainPosX){
+                    dir = DOWN;
+                    isMoving = true;
+                } else {
+                    isMoving = false;
+                }
+
             } else {
                 dir = randInteger(0, 3);
                 isMoving = true;
+
+                for(int i = 0; i < getCantTraverseSize(); i++) {
+                    switch (dir) {
+                        case UP:
+                            if (terrain[terrainPosX][terrainPosY - 1] ==
+                                    getCantTraverse()[i]){
+                                isMoving = false;
+                            }
+                            break;
+                        case DOWN:
+                            if (terrain[terrainPosX][terrainPosY + 1] ==
+                                    getCantTraverse()[i]){
+                                isMoving = false;
+                            }
+                            break;
+                        case LEFT:
+                            if (terrain[terrainPosX - 1][terrainPosY] ==
+                                    getCantTraverse()[i]){
+                                isMoving = false;
+                            }
+                            break;
+                        case RIGHT:
+                            if (terrain[terrainPosX + 1][terrainPosY] ==
+                                    getCantTraverse()[i]){
+                                isMoving = false;
+                            }
+                            break;
+                    }
+                }
             }
         }
         move(timeStep);
