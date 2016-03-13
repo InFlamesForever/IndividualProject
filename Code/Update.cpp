@@ -15,34 +15,38 @@ Update::Update() {
 }
 
 void Update::handleEventUpdate(SDL_Event e) {
+    bool canChangeMove = !isMoving;
     //If a key is pressed (currently if it is held held down it keeps activating)
-    if (!isMoving && e.type == SDL_KEYDOWN) {
-        //Adjust the velocity
-        switch (e.key.keysym.sym) {
-            case SDLK_w:
-            case SDLK_UP:
+    const Uint8 *keys = SDL_GetKeyboardState(NULL);
+    if (e.type == SDL_KEYDOWN) {
+        if(keys[SDL_SCANCODE_W] || keys[SDL_SCANCODE_UP]){
+            if(canChangeMove){
                 move = UP;
                 isMoving = true;
-                break;
-            case SDLK_s:
-            case SDLK_DOWN:
+            }
+        }
+        if(keys[SDL_SCANCODE_S] || keys[SDL_SCANCODE_DOWN]){
+            if(canChangeMove){
                 move = DOWN;
                 isMoving = true;
-                break;
-            case SDLK_a:
-            case SDLK_LEFT:
+            }
+        }
+        if(keys[SDL_SCANCODE_A] || keys[SDL_SCANCODE_LEFT]){
+            if(canChangeMove){
                 move = LEFT;
                 isMoving = true;
-                break;
-            case SDLK_d:
-            case SDLK_RIGHT:
+            }
+        }
+        if(keys[SDL_SCANCODE_D] || keys[SDL_SCANCODE_RIGHT]){
+            if(canChangeMove){
                 move = RIGHT;
                 isMoving = true;
-                break;
-            case SDLK_SPACE:
-                enemies[0].attack(*player);
+            }
         }
-        if(isMoving){
+        if(keys[SDL_SCANCODE_E]){
+            enemies[0].attack(*player);
+        }
+    if(isMoving){
             if(terrainCollision(*player, move)){
                 isMoving = false;
             }
