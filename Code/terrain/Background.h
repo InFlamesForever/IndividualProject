@@ -41,6 +41,8 @@ public:
     int getPointInTerrainY();
     int getPointInTerrainX();
 
+    int **getMap();
+
 
     //Moves the terrain
     bool move(float timeStep, int xShift, int yShift);

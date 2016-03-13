@@ -213,3 +213,7 @@ int Background::getPointInTerrainY() {
 int Background::getPointInTerrainX() {
     return pointInTerrainX;
 }
+
+int **Background::getMap() {
+    return terrain;
+}
