@@ -12,31 +12,23 @@
 #include "../utilities/constants.h"
 #include "../media/textures.h"
 #include "../utilities/Timer.h"
+#include "Character.h"
 
 //The dot that will move around on the screen
-class PlayerCharacter
+class PlayerCharacter: public Character
 {
 public:
     //Initializes the variables
-    PlayerCharacter();
+    PlayerCharacter(int posX, int posY);
 
     //Shows the dot on the screen
     void render();
 
     void updateRender(bool isMoving, int dir);
 
-    int getTerrainPosX();
-    int getTerrainPosY();
-
-    int getCantTraverseSize();
-    int* getCantTraverse();
-
 private:
     //The position to render the player character
     float screenPosX, screenPosY;
-
-    //The position of the player in the terrain
-    int terrainPosX, terrainPosY;
 
     bool isMoving;
     bool hasMoved;

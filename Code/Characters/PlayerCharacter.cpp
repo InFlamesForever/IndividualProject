@@ -1,11 +1,7 @@
 #include "PlayerCharacter.h"
 
-PlayerCharacter::PlayerCharacter() {
-    //Initialize the position at the middle of the screen and in the middle
-    // of a square
-    terrainPosX = STARTX + ((SCREEN_WIDTH /2) / BLOCK_WIDTH);
-    terrainPosY = STARTY + ((SCREEN_HEIGHT/2) /BLOCK_WIDTH);
-
+PlayerCharacter::PlayerCharacter(int posX, int posY)
+        : Character(posX, posY) {
     screenPosX = (terrainPosX - STARTX) * BLOCK_WIDTH - BLOCK_WIDTH/2;
     screenPosY = (terrainPosY - STARTY - 1) * BLOCK_WIDTH - BLOCK_WIDTH/2;
 
@@ -74,20 +70,4 @@ void PlayerCharacter::updateRender(bool isMoving, int dir) {
     this->isMoving = isMoving;
     this->dir = dir;
 
-}
-
-int PlayerCharacter::getTerrainPosX() {
-    return terrainPosX;
-}
-
-int PlayerCharacter::getTerrainPosY() {
-    return terrainPosY;
-}
-
-int *PlayerCharacter::getCantTraverse() {
-    return cantTraverse;
-}
-
-int PlayerCharacter::getCantTraverseSize() {
-    return cantTraverseSize;
 }
