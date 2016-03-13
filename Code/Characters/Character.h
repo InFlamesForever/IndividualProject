@@ -23,6 +23,9 @@ public:
     int getCantTraverseSize();
     int* getCantTraverse();
 
+    int getPosX();
+    int getPosY();
+
 private:
     int health;
     int level;

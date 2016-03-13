@@ -37,3 +37,11 @@ int Character::getCantTraverseSize() {
 int *Character::getCantTraverse() {
     return cantTraverse;
 }
+
+int Character::getPosX() {
+    return terrainPosX;
+}
+
+int Character::getPosY() {
+    return terrainPosY;
+}
