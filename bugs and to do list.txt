@@ -7,6 +7,18 @@ Get new tree textures
 
 Make enemy's
 
+Fix hit detection on enemies
+
+money
+
+items
+
+towns
+
+quests
+
+final boss
+
 add secret towns
 
 Add rivers
