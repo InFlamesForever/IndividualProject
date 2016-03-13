@@ -45,10 +45,16 @@ shared_ptr<TerrainNode> AStarSearch::aStarSearch(int startX, int startY, int end
             bool createNode = false;
             if(cantTraverse != NULL){
                 for(int j = 0; j < cantTraverseSize; j++){
-                    createNode =
-                            terrain[potentialMoves[i][0]]
-                            [potentialMoves[i][1]] != cantTraverse[i];
+                    if(terrain[potentialMoves[i][0]]
+                       [potentialMoves[i][1]] == cantTraverse[i]){
+                        createNode = false;
+                        break;
+                    } else {
+                        createNode = true;
+                    }
                 }
+            } else {
+                createNode = true;
             }
             if(createNode){
                 shared_ptr<TerrainNode> checkNode(
