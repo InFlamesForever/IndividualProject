@@ -93,14 +93,14 @@ void EnemyCharacter::move(float timeStep) {
 void EnemyCharacter::chooseMove(PlayerCharacter player,
                                 float timeStep, int **terrain) {
     if(!isMoving) {
-        if (terrainPosX - player.getTerrainPosX() < withinAttackRange
-            && terrainPosX - player.getTerrainPosX() > -withinAttackRange
-            && terrainPosY - player.getTerrainPosY() < withinAttackRange
-            && terrainPosY - player.getTerrainPosY() > -withinAttackRange) {
+        if (terrainPosX - player.getPosX() < withinAttackRange
+            && terrainPosX - player.getPosX() > -withinAttackRange
+            && terrainPosY - player.getPosY() < withinAttackRange
+            && terrainPosY - player.getPosY() > -withinAttackRange) {
             AStarSearch search(terrain);
             shared_ptr<TerrainNode> temp(search.aStarSearch(
                     terrainPosX,terrainPosY,
-                    player.getTerrainPosX(), player.getTerrainPosY(),
+                    player.getPosX(), player.getPosY(),
                     getCantTraverse(), getCantTraverseSize()));
             while(temp->getPrevNode()->getPrevNode() != NULL){
                 temp = temp->getPrevNode();
@@ -173,7 +173,7 @@ bool EnemyCharacter::hitDetection(Character enemy) {
         case LEFT:
              return enemy.getPosX() == terrainPosX - 1 && enemy.getPosY() == terrainPosY;
         case RIGHT:
-             return enemy.getPosX() == terrainPosX + 1 && enemy.getPosY() == terrainPosY - 1;
+             return enemy.getPosX() == terrainPosX + 1 && enemy.getPosY() == terrainPosY;
     }
     return false;
 }
