@@ -26,12 +26,19 @@ public:
 
     void updateRender(bool isMoving, int dir);
 
+    bool addExp(int exp);
+
+    int getExp();
+
 private:
     //The position to render the player character
     float screenPosX, screenPosY;
 
     bool isMoving;
     bool hasMoved;
+
+    int exp;
+    const int BASE_LEVEL_UP_LINE = 100;
 
 
     int lastDir;
@@ -47,11 +54,6 @@ private:
             &gStock_Back_Walking1,
             &gStock_Side_Right_Walking,
             &gStock_Side_Right_Walking,
-    };
-
-    const int cantTraverseSize = 1;
-    int cantTraverse[1] = {
-            TerrainTypes::Water_Ocean
     };
 
 };

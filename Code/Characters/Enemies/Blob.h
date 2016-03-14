@@ -14,6 +14,8 @@ class Blob: public EnemyCharacter {
 public:
     Blob(int playerLevel, bool isBoss, int posX, int posY);
 
+    void levelUp();
+
     //Blob& operator=(Blob&& other);
 
 private:

@@ -16,6 +16,19 @@ void Character::setVars(int playerLevel, bool isBoss, int BASE_HEALTH,
                         int BASE_EXP,
                         int MULTIPLIER_HEALTH, int MULTIPLIER_ATTACK,
                         int MULTIPLIER_DEFENCE, int MULTIPLIER_EXP) {
+
+    this->BASE_HEALTH = BASE_HEALTH;
+    this->BASE_ATTACK = BASE_ATTACK;
+    this->BASE_DEFENCE = BASE_DEFENCE;
+    this->BASE_MOVE_SPEED = BASE_MOVE_SPEED;
+    this->BASE_EXP = BASE_EXP;
+
+    this->MULTIPLIER_HEALTH = MULTIPLIER_HEALTH;
+    this->MULTIPLIER_ATTACK = MULTIPLIER_ATTACK;
+    this->MULTIPLIER_DEFENCE = MULTIPLIER_DEFENCE;
+    this->MULTIPLIER_EXP = MULTIPLIER_EXP;
+    
+    
     level = playerLevel + randInteger(-2, 2);
     //Lowest level is 1 and highest is 100
     if(level < 1) {
@@ -156,4 +169,15 @@ Character &Character::operator=(Character &&other) {
     
     return *this;
 }
-*/
+*/int Character::getExpOnDeath() {
+    return expPointsWorth;
+}
+
+void Character::levelUp() {
+    level++;
+
+}
+
+void Character::rebalance(int level) {
+
+}

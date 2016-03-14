@@ -58,10 +58,14 @@ void Update::handleEventUpdate(SDL_Event e) {
                             || player->getAttackTimer()->getTicks() >
                                player->ATTACKDELAY) {
                             enemies[i].hit(player->getAttackPts());
-                            /*
                             if(!enemies[i].getIsAlive()){
-                                enemies.erase(enemies.begin() );
-                            }*/
+                                if(player->addExp(enemies[i].getExpOnDeath())){
+                                    levelUp();
+                                }
+
+                                //To be fixed
+                                //enemies.erase(enemies.begin() );
+                            }
                             player->getAttackTimer()->reset();
                             player->getAttackTimer()->start();
                         }
@@ -214,4 +218,12 @@ void Update::renderUI() {
         drawYouDied();
     }
     renderPlayerStatBar(player);
+}
+
+void Update::levelUp() {
+    for(int i = 0; i < enemies.size(); i++){
+        if(enemies[i].getIsAlive()){
+            enemies[i].rebalance(player->getLevel());
+        }
+    }
 }

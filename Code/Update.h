@@ -38,6 +38,9 @@ private:
 
     void renderUI();
 
+    //Re-balances all of the enemies according to the players level
+    void levelUp();
+
     //The dot that will be moving around on the screen
     PlayerCharacter* player;
     Background background;

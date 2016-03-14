@@ -21,6 +21,12 @@ void renderPlayerStatBar(PlayerCharacter *player) {
 
     drawText(ss.str().c_str(), 120, 10, healthColour, gFont_PlayerUI);
 
+    //Exp
+    ss.str("");
+    ss << "Exp Points: " << player->getExp();
+
+    drawText(ss.str().c_str(), 120, 35, healthColour, gFont_PlayerUI);
+
     //Attack
     ss.str("");
     ss << "Attack: " << player->getAttackPts();

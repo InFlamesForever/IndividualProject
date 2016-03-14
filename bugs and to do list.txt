@@ -1,7 +1,8 @@
 
-http://blog.smartbear.com/c-plus-plus/c11-tutorial-introducing-the-move-constructor-and-the-move-assignment-operator/
 
 TODO:
+fix the deletion of enemies - Use this link for help with this
+        -http://blog.smartbear.com/c-plus-plus/c11-tutorial-introducing-the-move-constructor-and-the-move-assignment-operator/
 
 Fix player attack so it takes account of the direction of the player
 

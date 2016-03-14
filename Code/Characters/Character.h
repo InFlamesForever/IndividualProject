@@ -35,6 +35,8 @@ public:
     int getDefencePts();
     int getAttackPts();
 
+    int getExpOnDeath();
+
     int getMoveSpeed();
 
     Timer* getAttackTimer();
@@ -44,6 +46,8 @@ public:
     bool hitDetection(Character enemy);
 
     bool hit(int damage);
+    
+    void rebalance(int level);
 
     //Move Assignment Operator
     //Character& operator=(Character&& other);
@@ -57,6 +61,18 @@ private:
     int healthPts = 0;
     int expPointsWorth = 0;
 
+    //All of the base stats for the character
+    int BASE_HEALTH;
+    int BASE_ATTACK;
+    int BASE_DEFENCE;
+    int BASE_MOVE_SPEED;
+    int BASE_EXP;
+
+    int MULTIPLIER_HEALTH;
+    int MULTIPLIER_ATTACK;
+    int MULTIPLIER_DEFENCE;
+    int MULTIPLIER_EXP;
+
     int moveSpeed;
 
     //Stores the time since the last attack
@@ -67,7 +83,6 @@ private:
             TerrainTypes::Water_Ocean
     };
 protected:
-
     //Will generate a character from the supplied values
     void setVars(int playerLevel, bool isBoss, int BASE_HEALTH,
                  int BASE_ATTACK, int BASE_DEFENCE, int BASE_MOVE_SPEED,
@@ -77,6 +92,9 @@ protected:
 
     //Character has specified stats
     void setVars(int health, int level, int attack, int defence);
+
+    //Increments the level
+    void levelUp();
 
     int terrainPosX;
     int terrainPosY;

@@ -26,3 +26,7 @@ Blob &Blob::operator=(Blob &&other) {
     return *this;
 }
 */
+
+void Blob::levelUp() {
+
+}
