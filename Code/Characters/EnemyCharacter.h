@@ -29,7 +29,7 @@ public:
 
     void attack(Character* other);
 
-    EnemyCharacter& EnemyCharacter::operator=(EnemyCharacter&& other);
+    EnemyCharacter& operator=(EnemyCharacter&& other);
 private:
     Texture* textures[3];
     enum States {
