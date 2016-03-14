@@ -44,7 +44,6 @@ void Update::handleEventUpdate(SDL_Event e) {
             }
         }
         if(e.button.button == SDL_BUTTON_LEFT){
-            enemies[0].attack(*player);
         }
     if(isMoving){
             if(terrainCollision(*player, move)){
@@ -77,15 +76,18 @@ void Update::moveUpdate(float timeStep) {
         if(!enemies[0].hitDetection(*player)){
             enemies[0].move(timeStep);
         }
+        enemies[0].attack(player);
 
     }
 }
 
 void Update::renderUpdate() {
     background.render();
-    player->render();
     enemies[0].render(background.getPointInTerrainX(), background.getPointInTerrainY(),
                       background.getOffsetX(), background.getOffsetY());
+
+    //Always render the player last out of the characters
+    player->render();
 
 }
 
