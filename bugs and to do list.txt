@@ -3,6 +3,10 @@
 
 TODO:
 
+Fix player attack so it takes account of the direction of the player
+
+level up - ability to, and ui display, and enemys level with you
+
 Get new tree textures
 
 Fix search for water
