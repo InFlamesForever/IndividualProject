@@ -14,6 +14,8 @@ class Slime: public EnemyCharacter {
 public:
     Slime(int playerLevel, bool isBoss, int posX, int posY);
 
+    Slime& Slime::operator=(Slime&& other);
+
 private:
     const int BASE_HEALTH = 50;
     const int BASE_ATTACK = 5;

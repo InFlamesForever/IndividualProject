@@ -19,3 +19,8 @@ Blob::Blob(int playerLevel, bool isBoss, int posX, int posY)
             MULTIPLIER_HEALTH, MULTIPLIER_ATTACK,
             MULTIPLIER_DEFENCE, MULTIPLIER_EXP);
 }
+
+Blob &Blob::operator=(Blob &&other) {
+    EnemyCharacter::operator=(std::move(other));
+    return *this;
+}

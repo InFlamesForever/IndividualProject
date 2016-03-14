@@ -132,3 +132,26 @@ int Character::getIsAlive() {
 int Character::getMoveSpeed() {
     return moveSpeed;
 }
+
+Character &Character::operator=(Character &&other) {
+    if(this != &other) {
+        isAlive = other.isAlive;
+
+        level = other.level;
+        attackPts = other.attackPts;
+        defencePts = other.defencePts;
+        healthPts = other.healthPts;
+        expPointsWorth = other.expPointsWorth;
+
+        moveSpeed = other.moveSpeed;
+
+        //Stores the time since the last attack
+        attackTimer = other.attackTimer;
+
+        terrainPosX = other.terrainPosX;
+        terrainPosY = other.terrainPosY;
+        dir = other.dir;
+    }
+    
+    return *this;
+}

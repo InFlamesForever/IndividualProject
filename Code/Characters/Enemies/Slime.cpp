@@ -19,3 +19,8 @@ Slime::Slime(int playerLevel, bool isBoss, int posX, int posY)
             MULTIPLIER_HEALTH, MULTIPLIER_ATTACK,
             MULTIPLIER_DEFENCE, MULTIPLIER_EXP);
 }
+
+Slime &Slime::operator=(Slime &&other) {
+    EnemyCharacter::operator=(std::move(other));
+    return *this;
+}

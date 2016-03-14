@@ -45,6 +45,9 @@ public:
 
     bool hit(int damage);
 
+    //Move Assignment Operator
+    Character& Character::operator=(Character&& other);
+
 private:
     bool isAlive;
 

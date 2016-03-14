@@ -164,3 +164,20 @@ void EnemyCharacter::attack(Character* other) {
         }
     }
 }
+
+EnemyCharacter &EnemyCharacter::operator=(EnemyCharacter &&other) {
+    Character::operator=(std::move(other));
+    textures[0] = other.textures[0];
+    textures[1] = other.textures[1];
+    textures[2] = other.textures[2];
+
+    state = other.state;
+
+    movingOffsetY = other.movingOffsetY;
+    movingOffsetX = other.movingOffsetX;
+    isMoving = other.isMoving;
+
+    attackAniTimer = other.attackAniTimer;
+
+    return *this;
+}

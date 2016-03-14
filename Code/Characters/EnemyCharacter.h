@@ -28,6 +28,8 @@ public:
     void move(float timeStep);
 
     void attack(Character* other);
+
+    EnemyCharacter& EnemyCharacter::operator=(EnemyCharacter&& other);
 private:
     Texture* textures[3];
     enum States {

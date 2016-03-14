@@ -14,6 +14,8 @@ class Blob: public EnemyCharacter {
 public:
     Blob(int playerLevel, bool isBoss, int posX, int posY);
 
+    Blob& Blob::operator=(Blob&& other);
+
 private:
     const int BASE_HEALTH = 100;
     const int BASE_ATTACK = 10;
