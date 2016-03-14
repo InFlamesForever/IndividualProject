@@ -17,4 +17,7 @@ extern TTF_Font* gCantarell_Bold;
 extern TTF_Font* gCantarell_Oblique;
 extern TTF_Font* gCantarell_Oblique_Bold;
 
+extern TTF_Font* gCantarell_Bold_Large;
+
+
 #endif //INDIVIDUALPROJECT_FONTS_H
