@@ -8,6 +8,8 @@ PlayerCharacter::PlayerCharacter(int posX, int posY)
 
     dir = 0;
     hasMoved = false;
+
+    setVars(100, 1, 20, 20);
 }
 
 void PlayerCharacter::render() {
