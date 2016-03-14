@@ -6,22 +6,19 @@
 
 
 void drawText(string text, int x, int y, SDL_Color color, TTF_Font* font) {
-    stringstream ss;
-    ss.str("");
-    ss << text;
-
     Texture textTexture;
 
     //Use Default Font
     if(font == NULL){
-        if(!textTexture.loadFromRenderedText(ss.str().c_str(),
+        cout << "yu" << endl;
+        if(!textTexture.loadFromRenderedText(text,
                                              color, gCantarell_Regular)) {
-            cout << "Unable to render drawText - texture!" << endl;
+            cout << "Unable to render drawText texture!" << endl;
         }
     } else {
-        if(!textTexture.loadFromRenderedText(ss.str().c_str(),
+        if(!textTexture.loadFromRenderedText(text,
                                              color, font)) {
-            cout << "Unable to render drawText - texture!" << endl;
+            cout << "Unable to render drawText texture!" << endl;
         }
     }
 
