@@ -11,6 +11,7 @@
 #include "Characters/Enemies/Blob.h"
 #include "terrain/Background.h"
 #include "utilities/constants.h"
+#include "UI/loseScreen.h"
 
 class Update {
 public:
