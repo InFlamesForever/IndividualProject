@@ -18,7 +18,7 @@ void Update::handleEventUpdate(SDL_Event e) {
     bool canChangeMove = !isMoving;
     //If a key is pressed (currently if it is held held down it keeps activating)
     const Uint8 *keys = SDL_GetKeyboardState(NULL);
-    if (e.type == SDL_KEYDOWN) {
+    if (e.type == SDL_KEYDOWN || e.type == SDL_MOUSEBUTTONDOWN) {
         if(keys[SDL_SCANCODE_W] || keys[SDL_SCANCODE_UP]){
             if(canChangeMove){
                 move = UP;
@@ -43,7 +43,7 @@ void Update::handleEventUpdate(SDL_Event e) {
                 isMoving = true;
             }
         }
-        if(keys[SDL_SCANCODE_E]){
+        if(e.button.button == SDL_BUTTON_LEFT){
             enemies[0].attack(*player);
         }
     if(isMoving){
@@ -73,7 +73,7 @@ void Update::moveUpdate(float timeStep) {
     }
     player->updateRender(isMoving, move);
     if(enemies[0].isOnScreen(background.getPointInTerrainX(), background.getPointInTerrainY())) {
-        enemies[0].chooseMove(*player, timeStep, background.getMap());
+        enemies[0].chooseMove(*player, background.getMap());
         if(!enemies[0].hitDetection(*player)){
             enemies[0].move(timeStep);
         }
