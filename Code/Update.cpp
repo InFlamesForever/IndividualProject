@@ -66,7 +66,6 @@ void Update::handleEventUpdate(SDL_Event e) {
                         }
                     }
                 }
-
             }
         }
     if(isMoving){
