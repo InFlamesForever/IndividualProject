@@ -18,6 +18,8 @@ file(GLOB SOURCES
         Code/utilities/*.h
         Code/media/*.cpp
         Code/media/*.h
+        Code/UI/*.cpp
+        Code/UI/*.h
         Code/terrain/*.cpp
         Code/terrain/*.h
         Code/*.cpp
