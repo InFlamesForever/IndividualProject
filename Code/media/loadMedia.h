@@ -11,6 +11,7 @@
 #include <string>
 #include "../utilities/constants.h"
 #include "textures.h"
+#include "fonts.h"
 
 //Loads media
 bool loadMedia();
