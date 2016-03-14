@@ -288,7 +288,7 @@ bool loadMedia() {
     //########################## Fonts ########################################
     //-------------------------------------------------------------------------
     //Open the font
-    gCantarell_Regular = TTF_OpenFont( "fonts/cantarell/Cantarell-Regular.ttf", 28 );
+    gCantarell_Regular = TTF_OpenFont( "fonts/cantarell/Cantarell-Regular.ttf", 12 );
     if( gCantarell_Regular == NULL )
     {
         printf( "Failed to load Cantarell Regular font! SDL_ttf Error: %s\n", TTF_GetError() );
@@ -302,7 +302,7 @@ bool loadMedia() {
         return false;
     }
 
-    gCantarell_Oblique = TTF_OpenFont( "fonts/cantarell/Cantarell-Oblique.ttf", 28 );
+    gCantarell_Oblique = TTF_OpenFont( "fonts/cantarell/Cantarell-Oblique.ttf", 12 );
     if( gCantarell_Oblique == NULL )
     {
         printf( "Failed to load Cantarell Oblique font! SDL_ttf Error: %s\n", TTF_GetError() );
