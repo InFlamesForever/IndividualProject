@@ -13,13 +13,8 @@ Background::Background() {
     numTowns = generator.getNumTowns();
 
     //So that the start position can be stored in a file eventually
-    pointInTerrainX = STARTX;
-    pointInTerrainY = STARTY;
-
-    //Initialize moveXTo0 and moveYTo0
-    //These will change with the size of the window
-    int x = 0;
-    int y = 0;
+    pointInTerrainX = 0;
+    pointInTerrainY = 0;
 
     getTerrain();
     composeTerrainToTexture();
@@ -233,4 +228,9 @@ int** Background::getTownPositions() {
 
 int Background::getNumTowns() {
     return numTowns;
+}
+
+void Background::setPointInTerrain(int x, int y) {
+    pointInTerrainX = x;
+    pointInTerrainY = y;
 }

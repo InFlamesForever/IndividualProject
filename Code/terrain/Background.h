@@ -38,8 +38,10 @@ public:
     int getOffsetY();
     int getOffsetX();
 
-    int getPointInTerrainY();
     int getPointInTerrainX();
+    int getPointInTerrainY();
+
+    void setPointInTerrain(int x, int y);
 
     int **getMap();
 
