@@ -4,26 +4,8 @@
 
 #include "EnemyCharacter.h"
 
-EnemyCharacter::EnemyCharacter(int playerLevel, bool isBoss,
-                               int posX, int posY) :
+EnemyCharacter::EnemyCharacter(int posX, int posY) :
         Character (posX, posY) {
-    int level = playerLevel + randInteger(-2, 2);
-    int health;
-    int attack;
-    int defence;
-
-    if(isBoss) {
-        health = 1000 + 100 * level;
-        attack = 100 + 50 * level;
-        defence = 250 + 50 * level;
-        moveSpeed = level;
-    } else {
-        health = 100 + 10 * level;
-        attack = 10 + 5 * level;
-        defence = 25 + 5 * level;
-        moveSpeed = 5 + level;
-    }
-    setVars(health, level, attack, defence);
 
     state = Normal;
     isMoving = false;
@@ -95,8 +77,7 @@ void EnemyCharacter::move(float timeStep) {
     }
 }
 
-void EnemyCharacter::chooseMove(PlayerCharacter player,
-                                float timeStep, int **terrain) {
+void EnemyCharacter::chooseMove(PlayerCharacter player, int **terrain) {
     if (!isMoving) {
         if (terrainPosX - player.getPosX() < withinAttackRange
             && terrainPosX - player.getPosX() > -withinAttackRange
@@ -170,10 +151,10 @@ void EnemyCharacter::chooseMove(PlayerCharacter player,
 }
 
 void EnemyCharacter::attack(Character other) {
-    state = Attack;
-    attackTimer.reset();
-    attackTimer.start();
     if(hitDetection(other)){
-        other.hit(5);
+        other.hit(getAttackPts());
+        state = Attack;
+        attackTimer.reset();
+        attackTimer.start();
     }
 }

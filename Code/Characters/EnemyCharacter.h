@@ -17,10 +17,9 @@
 class EnemyCharacter: public Character {
 
 public:
-    EnemyCharacter(int playerLevel, bool isBoss, int posX, int posY);
+    EnemyCharacter(int posX, int posY);
 
-    void chooseMove(PlayerCharacter player,
-                    float timeStep, int **terrain);
+    void chooseMove(PlayerCharacter player, int **terrain);
 
     void render(int screenPosX, int screenPosY,
                 int offsetY, int offsetX);
@@ -40,12 +39,12 @@ private:
     double movingOffsetY;
     double movingOffsetX;
     bool isMoving;
-    int moveSpeed;
-
     const int withinAttackRange = 20;
 
     Timer attackTimer;
+
 protected:
+    int moveSpeed;
     void setTextures(Texture* texts[3]);
 };
 
