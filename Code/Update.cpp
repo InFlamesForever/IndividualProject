@@ -50,8 +50,20 @@ void Update::handleEventUpdate(SDL_Event e) {
                     isMoving = true;
                 }
             }
-            //Attack
+            //Player attack
             if(e.button.button == SDL_BUTTON_LEFT){
+                for(int i = 0; i < enemies.size(); i++) {
+                    if (player->hitDetection(enemies[i])) {
+                        if (!player->getAttackTimer()->isStarted()
+                            || player->getAttackTimer()->getTicks() >
+                               player->ATTACKDELAY) {
+                            enemies[i].hit(player->getAttackPts());
+                            player->getAttackTimer()->reset();
+                            player->getAttackTimer()->start();
+                        }
+                    }
+                }
+
             }
         }
     if(isMoving){
