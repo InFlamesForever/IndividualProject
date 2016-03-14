@@ -40,7 +40,7 @@ private:
     int numEnemies;
 
     int move = DOWN;
-    bool isMoving = false;
+    bool isMoving;
 };
 
 
