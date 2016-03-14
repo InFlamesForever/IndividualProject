@@ -9,6 +9,7 @@
 #include "../media/Texture.h"
 #include "../media/fonts.h"
 #include "drawTextBox.h"
+#include "drawText.h"
 
 using namespace std;
 
