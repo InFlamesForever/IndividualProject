@@ -10,5 +10,5 @@ void renderHealthBar(int health, int posX, int posY) {
     SDL_Color textColor = { 13, 235, 57, 255 };
     string str = static_cast<ostringstream*>(&(ostringstream() << health))->str();
 
-    drawText(str, x, y, textColor);
+    drawText(str, x, y, textColor, gFont_HealthBar);
 }
