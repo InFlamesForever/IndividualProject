@@ -32,12 +32,13 @@ public:
     bool terrainCollision(PlayerCharacter character, int dir);
 
 private:
+    void generateEnemies(int numEnemies);
+
     //The dot that will be moving around on the screen
     PlayerCharacter* player;
     Background background;
 
     vector<EnemyCharacter> enemies;
-    int numEnemies;
 
     int move = DOWN;
     bool isMoving;

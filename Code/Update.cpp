@@ -3,6 +3,7 @@
 //
 
 #include "Update.h"
+#include "Characters/Enemies/Slime.h"
 
 /*
  * Constructor
@@ -14,11 +15,10 @@ Update::Update() {
     int startY = background.getTownPositions()[0][1];
 
     player = new PlayerCharacter(startX, startY, background.getPointInTerrainX(), background.getPointInTerrainY());
-    cout << player->getIsAlive() << endl;
 
-    Blob temp(1, false, 220, 220);
-    enemies.push_back(temp);
-    numEnemies = 1;
+    int numEnemies = TERRAIN_SIZE/5;
+    enemies.reserve((unsigned long) numEnemies);
+    generateEnemies(numEnemies);
 }
 
 void Update::handleEventUpdate(SDL_Event e) {
@@ -82,23 +82,27 @@ void Update::moveUpdate(float timeStep) {
             }
         }
         player->updateRender(isMoving, move);
-        if (enemies[0].isOnScreen(background.getPointInTerrainX(),
-                                  background.getPointInTerrainY())) {
-            enemies[0].chooseMove(*player, background.getMap());
-            if (!enemies[0].hitDetection(*player)) {
-                enemies[0].move(timeStep);
-            }
-            enemies[0].attack(player);
+        for(int i = 0; i < enemies.size(); i++) {
+            if (enemies[i].isOnScreen(background.getPointInTerrainX(),
+                                      background.getPointInTerrainY())) {
+                enemies[i].chooseMove(*player, background.getMap());
+                if (!enemies[i].hitDetection(*player)) {
+                    enemies[i].move(timeStep);
+                }
+                enemies[i].attack(player);
 
+            }
         }
     }
 }
 
 void Update::renderUpdate() {
     background.render();
-    enemies[0].render(background.getPointInTerrainX(), background.getPointInTerrainY(),
-                      background.getOffsetX(), background.getOffsetY());
-
+    for(int i = 0; i < enemies.size(); i++) {
+        enemies[i].render(background.getPointInTerrainX(),
+                          background.getPointInTerrainY(),
+                          background.getOffsetX(), background.getOffsetY());
+    }
     //Always render the player last out of the characters
     player->render();
     if(!player->getIsAlive()){
@@ -150,4 +154,39 @@ bool Update::terrainCollision(PlayerCharacter character, int dir) {
         }
     }
     return false;
+}
+
+void Update::generateEnemies(int numEnemies) {
+    for(int i = 0; i < numEnemies; i++){
+        bool made = false;
+        while(!made) {
+            int x = randInteger(100, TERRAIN_SIZE - 100);
+            int y = randInteger(100, TERRAIN_SIZE - 100);
+            if(background.getSquare(x,y) != Water_Ocean){
+                switch(background.getSquare(x,y)){
+                    case SandLight:
+                    case SandDark:
+                    case Stone_Gray_VeryLight:
+                    case Stone_Gray_Light:
+                    case Stone_Gray_Medium:
+                    case Stone_Gray_Dark:
+                    case Stone_Gray_VeryDark:
+                        enemies.push_back(Slime(player->getLevel(), false, x, y));
+                        made = true;
+                        break;
+                    case Grass_Dry:
+                    case Grass_Parched:
+                    case Grass_Dying:
+                    case Grass_Dead:
+                    case Grass_LushLight:
+                    case Grass_LushDeep:
+                        enemies.push_back(Blob(player->getLevel(), false, x, y));
+                        made = true;
+                        break;
+                }
+
+            }
+        }
+    }
+
 }
