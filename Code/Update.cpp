@@ -9,8 +9,13 @@
  */
 Update::Update() {
     isMoving = false;
-    isDead = false;
-    player = new PlayerCharacter(STARTX + ((SCREEN_WIDTH /2) / BLOCK_WIDTH), STARTY + ((SCREEN_HEIGHT/2) /BLOCK_WIDTH));
+
+    int startX = background.getTownPositions()[0][0];
+    int startY = background.getTownPositions()[0][1];
+
+    player = new PlayerCharacter(startX, startY, background.getPointInTerrainX(), background.getPointInTerrainY());
+    cout << player->getIsAlive() << endl;
+
     Blob temp(1, false, 220, 220);
     enemies.push_back(temp);
     numEnemies = 1;
@@ -96,8 +101,8 @@ void Update::renderUpdate() {
 
     //Always render the player last out of the characters
     player->render();
-    if(player->getIsAlive()){
-        drawYouDied();
+    if(!player->getIsAlive()){
+       drawYouDied();
     }
 
 }
