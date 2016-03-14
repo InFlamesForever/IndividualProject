@@ -38,8 +38,15 @@ void Character::setVars(int playerLevel, bool isBoss, int BASE_HEALTH,
         defencePts = BASE_DEFENCE + MULTIPLIER_DEFENCE * level;
         moveSpeed = BASE_MOVE_SPEED + level;
     }
-
 }
+
+void Character::setVars(int health, int level, int attack, int defence) {
+    healthPts = health;
+    this->level = level;
+    attackPts = attack;
+    defencePts = defence;
+}
+
 
 bool Character::isOnScreen(int screenPosX, int screenPosY) {
     return terrainPosX >= screenPosX

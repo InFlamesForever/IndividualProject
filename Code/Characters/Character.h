@@ -63,12 +63,16 @@ private:
     };
 protected:
 
+    //Will generate a character from the supplied values
     void setVars(int playerLevel, bool isBoss, int BASE_HEALTH,
                  int BASE_ATTACK, int BASE_DEFENCE, int BASE_MOVE_SPEED,
                  int MULTIPLIER_HEALTH, int MULTIPLIER_ATTACK,
                  int MULTIPLIER_DEFENCE);
-    int terrainPosX;
 
+    //Character has specified stats
+    void setVars(int health, int level, int attack, int defence);
+
+    int terrainPosX;
     int terrainPosY;
     int dir;
 };
