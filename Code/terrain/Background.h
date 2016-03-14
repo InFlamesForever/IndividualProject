@@ -43,7 +43,7 @@ public:
 
     int **getMap();
 
-    int* getTownPositions();
+    int** getTownPositions();
     int getNumTowns();
 
 
@@ -131,7 +131,7 @@ private:
      */
     void renderAboveTerrainDetail(int x, int y, int renX, int renY);
 
-    int* townPositions;
+    int** townPositions;
     int numTowns;
 };
 

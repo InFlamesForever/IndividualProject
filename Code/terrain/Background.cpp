@@ -27,9 +27,23 @@ Background::Background() {
 
 Background::~Background() {
     for(int i = 0; i < TERRAIN_SIZE; i++){
+        for(int j = 0; j < TERRAIN_SIZE; j++){
+            delete[] terrain[i][j];
+            delete[] terrainDetail[i][j];
+        }
         delete[] terrain[i];
+        delete[] terrainDetail[i];
     }
     delete[] terrain;
+    delete[] terrainDetail;
+
+    for(int i = 0; i < 8; i++){
+        for(int j = 0; j < 3; j++){
+            delete[] townPositions[i][j];
+        }
+        delete[] townPositions[i];
+    }
+    delete[] townPositions;
 }
 
 void Background::render() {
@@ -220,7 +234,7 @@ int **Background::getMap() {
     return terrain;
 }
 
-int *Background::getTownPositions() {
+int** Background::getTownPositions() {
     return townPositions;
 }
 
