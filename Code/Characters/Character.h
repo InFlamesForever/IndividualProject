@@ -9,6 +9,7 @@
 #include "../media/Texture.h"
 #include "../media/textures.h"
 #include "../utilities/Timer.h"
+#include "../utilities/random.h"
 
 class Character {
 public:

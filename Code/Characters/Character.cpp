@@ -3,7 +3,6 @@
 //
 
 #include "Character.h"
-#include "../utilities/random.h"
 
 Character::Character(int posX, int posY) {
     terrainPosX = posX;
@@ -90,6 +89,7 @@ bool Character::hitDetection(Character enemy) {
             return enemy.getPosX() == terrainPosX - 1 && enemy.getPosY() == terrainPosY;
         case RIGHT:
             return enemy.getPosX() == terrainPosX + 1 && enemy.getPosY() == terrainPosY;
+        default:break;
     }
     return false;
 }
