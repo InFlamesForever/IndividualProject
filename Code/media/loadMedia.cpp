@@ -276,13 +276,25 @@ bool loadMedia() {
     if (!gTree_Medium.loadFromFile("textures/AboveTerrainElements/Trees/Medium.png")) {
         cout << "Failed to load Tree - Medium texture!" << endl;
         return false;
-    }    if (!gTree_MediumLittle.loadFromFile("textures/AboveTerrainElements/Trees/Little_Medium.png")) {
+    }
+    if (!gTree_MediumLittle.loadFromFile("textures/AboveTerrainElements/Trees/Little_Medium.png")) {
         cout << "Failed to load Tree - Medium little texture!" << endl;
         return false;
-    }    if (!gTree_Light.loadFromFile("textures/AboveTerrainElements/Trees/Light.png")) {
+    }
+    if (!gTree_Light.loadFromFile("textures/AboveTerrainElements/Trees/Light.png")) {
         cout << "Failed to load Tree - Light texture!" << endl;
         return false;
     }
+
+
+    //-----------------------------------------------------------------------------
+    //############# UI Elements ######################
+    //-----------------------------------------------------------------------------
+    if (!gTextBox.loadFromFile("textures/UI_Elements/Text-Box.png")) {
+        cout << "Failed to load UI - Text Box texture!" << endl;
+        return false;
+    }
+
 
     //-------------------------------------------------------------------------
     //########################## Fonts ########################################
