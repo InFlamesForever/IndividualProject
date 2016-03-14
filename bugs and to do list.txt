@@ -1,5 +1,5 @@
 
-
+http://blog.smartbear.com/c-plus-plus/c11-tutorial-introducing-the-move-constructor-and-the-move-assignment-operator/
 
 TODO:
 
