@@ -17,7 +17,7 @@ class TerrainGenerator {
 public:
     TerrainGenerator(int **terrain, int **terrainDetail);
 
-    int* getTownLocations();
+    int** getTownLocations();
     int getNumTowns();
 
 private:
@@ -69,7 +69,7 @@ private:
     //Number of towns on the map, between 4 and 8
     int numTowns;
     //First for x coord, second for y coord, and third for type
-    int townPositions[8][3];
+    int** townPositions = new int*[8];
 
     enum TownType {
         Sand,

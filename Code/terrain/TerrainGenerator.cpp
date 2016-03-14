@@ -9,6 +9,12 @@ TerrainGenerator::TerrainGenerator(int **terrain, int **terrainDetail) {
     this-> terrain = terrain;
     this-> terrainDetail = terrainDetail;
 
+    for(int i = 0; i < 8; i++){
+        townPositions[i] = new int[3];
+        for(int j = 0; j < 3; j++){
+            townPositions[i][j] = -1;
+        }
+    }
     //When secret towns are implemented will use a random number of them
     numTowns = 4; //(int)fRand(4, 9);
 
@@ -369,8 +375,8 @@ void TerrainGenerator::placeWaves() {
     }
 }
 
-int *TerrainGenerator::getTownLocations() {
-    return *townPositions;
+int **TerrainGenerator::getTownLocations() {
+    return townPositions;
 }
 
 int TerrainGenerator::getNumTowns() {
