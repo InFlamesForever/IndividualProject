@@ -40,7 +40,7 @@ void EnemyCharacter::render(int screenPosX, int screenPosY,
 void EnemyCharacter::move(float timeStep) {
     int speed;
     if(state == Angry || state == Attack) {
-        speed = moveSpeed;
+        speed = getMoveSpeed();
     } else {
         speed = 2;
     }

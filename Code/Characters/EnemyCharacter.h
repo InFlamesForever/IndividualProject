@@ -45,7 +45,6 @@ private:
     Timer attackAniTimer;
 
 protected:
-    int moveSpeed;
     void setTextures(Texture* texts[3]);
 };
 
