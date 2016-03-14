@@ -13,6 +13,7 @@
 #include "../terrain/TerrainNode.h"
 #include "../utilities/AStarSearch.h"
 #include "PlayerCharacter.h"
+#include "../UI/healthBar.h"
 
 class EnemyCharacter: public Character {
 

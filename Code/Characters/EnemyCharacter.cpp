@@ -4,6 +4,7 @@
 
 #include "EnemyCharacter.h"
 
+
 EnemyCharacter::EnemyCharacter(int posX, int posY) :
         Character (posX, posY) {
 
@@ -21,18 +22,18 @@ void EnemyCharacter::setTextures(Texture **texts) {
 
 void EnemyCharacter::render(int screenPosX, int screenPosY,
                             int offsetX, int offsetY) {
-    if(state == Attack) {
-        if (attackAniTimer.getTicks() > 100) {
-            state = Angry;
-        }
-    }
     if(isOnScreen(screenPosX, screenPosY)) {
-        textures[state]->render(
-                (terrainPosX - screenPosX) * BLOCK_WIDTH -
-                        BLOCK_WIDTH/2 + (int)movingOffsetX + offsetX,
-                (terrainPosY - screenPosY - 1) * BLOCK_WIDTH -
-                        BLOCK_WIDTH/2 + (int)movingOffsetY + offsetY
-        );
+        if(state == Attack) {
+            if (attackAniTimer.getTicks() > 100) {
+                state = Angry;
+            }
+        }
+        int x = (terrainPosX - screenPosX) * BLOCK_WIDTH -
+                BLOCK_WIDTH/2 + (int)movingOffsetX + offsetX;
+        int y = (terrainPosY - screenPosY - 1) * BLOCK_WIDTH -
+                BLOCK_WIDTH/2 + (int)movingOffsetY + offsetY;
+        textures[state]->render(x,y);
+        renderHealthBar(getHealthPts(), x, y);
     }
 }
 
