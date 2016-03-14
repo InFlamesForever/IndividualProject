@@ -24,7 +24,8 @@ public:
     //Loads image at specified path
     bool loadFromFile(std::string path);
 
-    bool loadFromRenderedText( std::string textureText, SDL_Color textColor, TTF_Font* gFont );
+    bool loadFromRenderedText(std::string textureText, SDL_Color textColor,
+                              TTF_Font *gFont);
 
     //Creates blank texture
     bool createBlank(int width, int height,
