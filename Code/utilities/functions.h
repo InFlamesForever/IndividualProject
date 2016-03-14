@@ -11,6 +11,7 @@
 #include <string>
 #include "constants.h"
 #include "../media/textures.h"
+#include "../media/fonts.h"
 
 //Starts up SDL and creates window
 bool init();

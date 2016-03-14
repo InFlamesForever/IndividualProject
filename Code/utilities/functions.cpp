@@ -51,6 +51,13 @@ bool init() {
 
                     return false;
                 }
+
+                //Initialize SDL_ttf
+                if( TTF_Init() == -1 )
+                {
+                    printf( "SDL_ttf could not initialize! SDL_ttf Error: %s\n", TTF_GetError() );
+                    return false;
+                }
             }
         }
     }
@@ -152,4 +159,21 @@ void free() {
     gTree_Medium.free();
     gTree_MediumLittle.free();
     gTree_Light.free();
+
+    //-------------------------------------------------------------------------
+    //#################### Close Fonts ########################################
+    //-------------------------------------------------------------------------
+    //Free global fonts
+    TTF_CloseFont(gCantarell_Regular);
+    gCantarell_Regular = NULL;
+
+    TTF_CloseFont(gCantarell_Bold);
+    gCantarell_Bold = NULL;
+
+    TTF_CloseFont(gCantarell_Oblique);
+    gCantarell_Oblique = NULL;
+
+    TTF_CloseFont(gCantarell_Oblique_Bold);
+    gCantarell_Oblique_Bold = NULL;
+
 }
