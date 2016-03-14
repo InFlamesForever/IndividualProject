@@ -26,7 +26,7 @@ public:
 
     void updateRender(bool isMoving, int dir);
 
-    bool addExp(int exp);
+    void addExp(int exp);
 
     int getExp();
 
@@ -40,7 +40,7 @@ private:
     bool hasMoved;
 
     int exp;
-    const int BASE_LEVEL_UP_LINE = 100;
+    const int BASE_LEVEL_UP_LINE = 10;
 
 
     int lastDir;
@@ -59,7 +59,7 @@ private:
     };
 
     Timer healthRenegerator;
-    const int REGENERATOR_DELAY = 1000;
+    const int REGENERATOR_DELAY = 2000;
     int regenerationAmount;
 
 };

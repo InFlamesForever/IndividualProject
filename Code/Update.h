@@ -14,6 +14,7 @@
 #include "UI/loseScreen.h"
 #include "Characters/Enemies/Slime.h"
 #include "UI/renderPlayerStatBar.h"
+#include "UI/Quest.h"
 
 class Update {
 public:
@@ -49,6 +50,8 @@ private:
 
     int move = DOWN;
     bool isMoving;
+
+    Quest quest;
 };
 
 

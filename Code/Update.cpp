@@ -18,6 +18,9 @@ Update::Update() {
     int numEnemies = TERRAIN_SIZE/5;
     enemies.reserve((unsigned long) numEnemies);
     generateEnemies(numEnemies);
+
+    quest.killEnemiesInit(100);
+    quest.findTownsInit(background.getTownPositions(), 4);
 }
 
 void Update::handleEventUpdate(SDL_Event e) {
@@ -53,21 +56,22 @@ void Update::handleEventUpdate(SDL_Event e) {
             //Player attack
             if(e.button.button == SDL_BUTTON_LEFT){
                 for(int i = 0; i < enemies.size(); i++) {
-                    if (player->hitDetection(enemies[i])) {
-                        if (!player->getAttackTimer()->isStarted()
-                            || player->getAttackTimer()->getTicks() >
-                               player->ATTACKDELAY) {
-                            enemies[i].hit(player->getAttackPts());
-                            if(!enemies[i].getIsAlive()){
-                                if(player->addExp(enemies[i].getExpOnDeath())){
-                                    levelUp();
-                                }
+                    if(enemies[i].getIsAlive()){
+                        if (player->hitDetection(enemies[i])) {
+                            if (!player->getAttackTimer()->isStarted()
+                                || player->getAttackTimer()->getTicks() >
+                                   player->ATTACKDELAY) {
+                                enemies[i].hit(player->getAttackPts());
+                                if (!enemies[i].getIsAlive()) {
+                                    player->addExp(enemies[i].getExpOnDeath());
+                                    quest.enemyKilled();
 
-                                //To be fixed
-                                //enemies.erase(enemies.begin() );
+                                    //To be fixed
+                                    //enemies.erase(enemies.begin() );
+                                }
+                                player->getAttackTimer()->reset();
+                                player->getAttackTimer()->start();
                             }
-                            player->getAttackTimer()->reset();
-                            player->getAttackTimer()->start();
                         }
                     }
                 }
@@ -101,6 +105,7 @@ void Update::moveUpdate(float timeStep) {
             }
         }
         player->updateRender(isMoving, move);
+        quest.foundTown(player->getPosX(), player->getPosY());
         for(int i = 0; i < enemies.size(); i++) {
             if (enemies[i].getIsAlive()) {
                 if (enemies[i].isOnScreen(background.getPointInTerrainX(),
@@ -219,6 +224,8 @@ void Update::renderUI() {
         drawYouDied();
     }
     renderPlayerStatBar(player);
+    string temp = "Go there \n do this";
+    quest.currentQuests();
 }
 
 void Update::levelUp() {

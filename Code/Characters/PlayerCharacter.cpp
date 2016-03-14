@@ -30,7 +30,7 @@ PlayerCharacter::PlayerCharacter(int posX, int posY, int screenPosX, int screenP
             MULTIPLIER_HEALTH, MULTIPLIER_ATTACK,
             MULTIPLIER_DEFENCE, MULTIPLIER_EXP);
 
-    regenerationAmount = getHealthPts()/10;
+    regenerationAmount = 5;
 }
 
 void PlayerCharacter::render() {
@@ -95,13 +95,11 @@ void PlayerCharacter::updateRender(bool isMoving, int dir) {
 
 }
 
-bool PlayerCharacter::addExp(int exp) {
+void PlayerCharacter::addExp(int exp) {
     this->exp += exp;
-    if(exp >= BASE_LEVEL_UP_LINE * (getLevel()*3)){
+    if(this->exp >= BASE_LEVEL_UP_LINE * (getLevel()*3)){
         levelUp();
-        return true;
     }
-    return false;
 }
 
 int PlayerCharacter::getExp() {
