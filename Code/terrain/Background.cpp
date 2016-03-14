@@ -13,8 +13,8 @@ Background::Background() {
     numTowns = generator.getNumTowns();
 
     //So that the start position can be stored in a file eventually
-    pointInTerrainX = 0;
-    pointInTerrainY = 0;
+    pointInTerrainX = townPositions[0][0] - ((SCREEN_WIDTH /2) / BLOCK_WIDTH);
+    pointInTerrainY = townPositions[0][1] - ((SCREEN_HEIGHT/2) /BLOCK_WIDTH);
 
     getTerrain();
     composeTerrainToTexture();
