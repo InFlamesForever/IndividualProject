@@ -14,8 +14,9 @@ Character::Character(int posX, int posY) {
 
 void Character::setVars(int playerLevel, bool isBoss, int BASE_HEALTH,
                         int BASE_ATTACK, int BASE_DEFENCE, int BASE_MOVE_SPEED,
+                        int BASE_EXP,
                         int MULTIPLIER_HEALTH, int MULTIPLIER_ATTACK,
-                        int MULTIPLIER_DEFENCE) {
+                        int MULTIPLIER_DEFENCE, int MULTIPLIER_EXP) {
     level = playerLevel + randInteger(-2, 2);
     //Lowest level is 1 and highest is 100
     if(level < 1) {
@@ -31,11 +32,13 @@ void Character::setVars(int playerLevel, bool isBoss, int BASE_HEALTH,
         healthPts = BASE_HEALTH * 10 + MULTIPLIER_HEALTH * 10 * level;
         attackPts = BASE_ATTACK * 10 + MULTIPLIER_ATTACK * 10 * level;
         defencePts = BASE_DEFENCE * 10 + MULTIPLIER_DEFENCE * 10 * level;
+        expPointsWorth = BASE_EXP * 10 + MULTIPLIER_EXP * 10 * level;
         moveSpeed = level;
     } else {
         healthPts = BASE_HEALTH + MULTIPLIER_HEALTH * level;
         attackPts = BASE_ATTACK + MULTIPLIER_ATTACK * level;
         defencePts = BASE_DEFENCE + MULTIPLIER_DEFENCE * level;
+        expPointsWorth = BASE_EXP + MULTIPLIER_EXP * level;
         moveSpeed = BASE_MOVE_SPEED + level;
     }
 }

@@ -51,6 +51,7 @@ private:
     int attackPts = 0;
     int defencePts = 0;
     int healthPts = 0;
+    int expPointsWorth = 0;
 
     int moveSpeed;
 
@@ -66,8 +67,9 @@ protected:
     //Will generate a character from the supplied values
     void setVars(int playerLevel, bool isBoss, int BASE_HEALTH,
                  int BASE_ATTACK, int BASE_DEFENCE, int BASE_MOVE_SPEED,
+                 int BASE_EXP,
                  int MULTIPLIER_HEALTH, int MULTIPLIER_ATTACK,
-                 int MULTIPLIER_DEFENCE);
+                 int MULTIPLIER_DEFENCE, int MULTIPLIER_EXP);
 
     //Character has specified stats
     void setVars(int health, int level, int attack, int defence);
