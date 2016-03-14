@@ -5,9 +5,7 @@ TODO:
 
 Get new tree textures
 
-Make enemy's
-
-Fix hit detection on enemies
+Fix search for water
 
 money
 
