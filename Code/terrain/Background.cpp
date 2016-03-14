@@ -9,6 +9,8 @@ Background::Background() {
      }
 
     TerrainGenerator generator(terrain, terrainDetail);
+    townPositions = generator.getTownLocations();
+    numTowns = generator.getNumTowns();
 
     //So that the start position can be stored in a file eventually
     pointInTerrainX = STARTX;
@@ -216,4 +218,12 @@ int Background::getPointInTerrainX() {
 
 int **Background::getMap() {
     return terrain;
+}
+
+int *Background::getTownPositions() {
+    return townPositions;
+}
+
+int Background::getNumTowns() {
+    return numTowns;
 }

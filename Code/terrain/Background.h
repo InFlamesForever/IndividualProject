@@ -43,6 +43,9 @@ public:
 
     int **getMap();
 
+    int* getTownPositions();
+    int getNumTowns();
+
 
     //Moves the terrain
     bool move(float timeStep, int xShift, int yShift);
@@ -127,6 +130,9 @@ private:
      * the size of the texture
      */
     void renderAboveTerrainDetail(int x, int y, int renX, int renY);
+
+    int* townPositions;
+    int numTowns;
 };
 
 

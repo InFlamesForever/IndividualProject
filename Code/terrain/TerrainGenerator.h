@@ -17,6 +17,9 @@ class TerrainGenerator {
 public:
     TerrainGenerator(int **terrain, int **terrainDetail);
 
+    int* getTownLocations();
+    int getNumTowns();
+
 private:
     void generateTerrain();
 

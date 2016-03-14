@@ -368,3 +368,11 @@ void TerrainGenerator::placeWaves() {
         }
     }
 }
+
+int *TerrainGenerator::getTownLocations() {
+    return *townPositions;
+}
+
+int TerrainGenerator::getNumTowns() {
+    return numTowns;
+}
