@@ -15,6 +15,7 @@ Blob::Blob(int playerLevel, bool isBoss, int posX, int posY)
 
     setVars(playerLevel, isBoss, BASE_HEALTH,
             BASE_ATTACK, BASE_DEFENCE, BASE_MOVE_SPEED,
+            BASE_EXP,
             MULTIPLIER_HEALTH, MULTIPLIER_ATTACK,
-            MULTIPLIER_DEFENCE);
+            MULTIPLIER_DEFENCE, MULTIPLIER_EXP);
 }

@@ -5,9 +5,11 @@
 #ifndef INDIVIDUALPROJECT_BLOB_H
 #define INDIVIDUALPROJECT_BLOB_H
 
-
 #include "../EnemyCharacter.h"
 
+/*
+ * Blob is an all round medium enemy
+ */
 class Blob: public EnemyCharacter {
 public:
     Blob(int playerLevel, bool isBoss, int posX, int posY);
@@ -17,10 +19,12 @@ private:
     const int BASE_ATTACK = 10;
     const int BASE_DEFENCE = 20;
     const int BASE_MOVE_SPEED = 5;
+    const int BASE_EXP = 15;
 
     const int MULTIPLIER_HEALTH = 10;
     const int MULTIPLIER_ATTACK = 5;
     const int MULTIPLIER_DEFENCE = 5;
+    const int MULTIPLIER_EXP = 10;
 };
 
 
