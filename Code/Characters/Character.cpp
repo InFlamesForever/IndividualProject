@@ -7,6 +7,8 @@
 Character::Character(int posX, int posY) {
     terrainPosX = posX;
     terrainPosY = posY;
+
+    isAlive = true;
 }
 
 void Character::setVars(int healthPts, int level, int attackPts, int defencePts) {
@@ -62,7 +64,9 @@ bool Character::hitDetection(Character enemy) {
 
 void Character::hit(int damage) {
     healthPts -= (damage - defencePts / 2);
-    cout << healthPts << endl;
+    if(healthPts <= 0){
+        isAlive = false;
+    }
 
 }
 
@@ -84,4 +88,8 @@ int Character::getAttackPts() {
 
 Timer *Character::getAttackTimer() {
     return &attackTimer;
+}
+
+int Character::getIsAlive() {
+    return isAlive;
 }

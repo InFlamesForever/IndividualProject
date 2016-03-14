@@ -27,6 +27,8 @@ public:
     int getPosX();
     int getPosY();
 
+    int getIsAlive();
+
     int getHealthPts();
     int getLevel();
     int getDefencePts();
@@ -41,6 +43,8 @@ public:
     void hit(int damage);
 
 private:
+    int isAlive;
+
     int level = 0;
     int attackPts = 0;
     int defencePts = 0;
