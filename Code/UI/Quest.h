@@ -9,6 +9,7 @@
 #include <sstream>
 #include <vector>
 #include "drawText.h"
+#include "../utilities/Timer.h"
 
 using namespace std;
 
@@ -26,6 +27,7 @@ public:
 
 private:
     vector<string> questsText;
+    vector<string> questsStartText;
     int numQuests;
 
     int numTownsRemaining;
@@ -34,6 +36,8 @@ private:
 
     int enemiesRemaining;
     int enemyQuestPlaceInQuests;
+
+    Timer questStartTimer;
 };
 
 

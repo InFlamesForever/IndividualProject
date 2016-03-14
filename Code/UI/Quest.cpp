@@ -6,16 +6,26 @@
 
 Quest::Quest() {
     numQuests = 0;
+    questStartTimer.start();
 }
 
 void Quest::currentQuests() {
     SDL_Color textColour = {13, 235, 57, 255 };
 
     stringstream ss;
-    for(int i = 0; i < numQuests; i++){
-        ss.str("");
-        ss << questsText[i];
-        drawText(ss.str().c_str(),10, SCREEN_HEIGHT - 200 + i * 25, textColour, gFont_PlayerUI);
+    if(questStartTimer.isStarted() && questStartTimer.getTicks() < 10000){
+        for(int i = 0; i < numQuests; i++){
+            ss.str("");
+            ss << questsStartText[i];
+            drawText(ss.str().c_str(),10, SCREEN_HEIGHT - 200 + i * 25, textColour, gFont_PlayerUI);
+        }
+    } else {
+        questStartTimer.stop();
+        for(int i = 0; i < numQuests; i++){
+            ss.str("");
+            ss << questsText[i];
+            drawText(ss.str().c_str(),10, SCREEN_HEIGHT - 200 + i * 25, textColour, gFont_PlayerUI);
+        }
     }
 }
 
@@ -31,6 +41,9 @@ void Quest::findTownsInit(int** towns, int numTowns) {
     ss.str("");
     ss << numTowns << " towns remaining to find!";
     questsText.push_back(ss.str().c_str());
+    ss.str("");
+    ss << "Your quest is to find all " << numTowns << " towns on this map that are connected by road";
+    questsStartText.push_back(ss.str().c_str());
 }
 
 bool Quest::foundTown(int x, int y) {
@@ -54,8 +67,11 @@ void Quest::killEnemiesInit(int numEnemies) {
     enemiesRemaining = numEnemies;
     stringstream ss;
     ss.str("");
-    ss << enemiesRemaining << " enemies to kill!";
+    ss << numEnemies << " enemies to kill!";
     questsText.push_back(ss.str().c_str());
+    ss.str("");
+    ss << "Your quest is to find and kill " << numEnemies << " without dying!";
+    questsStartText.push_back(ss.str().c_str());
 }
 
 bool Quest::enemyKilled() {
