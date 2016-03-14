@@ -300,10 +300,16 @@ bool loadMedia() {
     //########################## Fonts ########################################
     //-------------------------------------------------------------------------
     //Open the font
-    gCantarell_Regular = TTF_OpenFont( "fonts/cantarell/Cantarell-Regular.ttf", 12 );
-    if( gCantarell_Regular == NULL )
+    gFont_HealthBar = TTF_OpenFont("fonts/cantarell/Cantarell-Regular.ttf", 12 );
+    if(gFont_HealthBar == NULL )
     {
-        printf( "Failed to load Cantarell Regular font! SDL_ttf Error: %s\n", TTF_GetError() );
+        printf( "Failed to load Health Bar font! SDL_ttf Error: %s\n", TTF_GetError() );
+        return false;
+    }
+    gFont_PlayerUI = TTF_OpenFont("fonts/cantarell/Cantarell-Regular.ttf", 18 );
+    if(gFont_PlayerUI == NULL )
+    {
+        printf( "Failed to load Player UI font! SDL_ttf Error: %s\n", TTF_GetError() );
         return false;
     }
 
@@ -328,8 +334,8 @@ bool loadMedia() {
         return false;
     }
 
-    gCantarell_Bold_Large = TTF_OpenFont( "fonts/cantarell/Cantarell-Bold.ttf", SCREEN_WIDTH/2 * 0.2 );
-    if( gCantarell_Bold_Large == NULL )
+    gFont_YouDied = TTF_OpenFont("fonts/cantarell/Cantarell-Bold.ttf", SCREEN_WIDTH / 2 * 0.2 );
+    if(gFont_YouDied == NULL )
     {
         printf( "Failed to load Cantarell Bold large font! SDL_ttf Error: %s\n", TTF_GetError() );
         return false;

@@ -4,9 +4,12 @@
 
 #include "fonts.h"
 
-TTF_Font* gCantarell_Regular;
+TTF_Font* gFont_HealthBar;
+TTF_Font* gFont_PlayerUI;
+
+
 TTF_Font* gCantarell_Bold;
 TTF_Font* gCantarell_Oblique;
 TTF_Font* gCantarell_Oblique_Bold;
 
-TTF_Font* gCantarell_Bold_Large;
+TTF_Font* gFont_YouDied;

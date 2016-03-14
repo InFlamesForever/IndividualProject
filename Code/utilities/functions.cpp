@@ -164,8 +164,8 @@ void free() {
     //#################### Close Fonts ########################################
     //-------------------------------------------------------------------------
     //Free global fonts
-    TTF_CloseFont(gCantarell_Regular);
-    gCantarell_Regular = NULL;
+    TTF_CloseFont(gFont_HealthBar);
+    gFont_HealthBar = NULL;
 
     TTF_CloseFont(gCantarell_Bold);
     gCantarell_Bold = NULL;
