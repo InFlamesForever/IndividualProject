@@ -328,5 +328,12 @@ bool loadMedia() {
         return false;
     }
 
+    gCantarell_Bold_Large = TTF_OpenFont( "fonts/cantarell/Cantarell-Bold.ttf", SCREEN_WIDTH/2 * 0.2 );
+    if( gCantarell_Bold_Large == NULL )
+    {
+        printf( "Failed to load Cantarell Bold large font! SDL_ttf Error: %s\n", TTF_GetError() );
+        return false;
+    }
+
     return true;
 }
