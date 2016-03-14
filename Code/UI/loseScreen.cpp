@@ -6,10 +6,10 @@
 #include "loseScreen.h"
 #include "drawText.h"
 
-void drawYouLose() {
+void drawYouDied() {
     //Red
     SDL_Color color = { 255, 0, 0, 255 };
 
-    drawText("You Lose!", SCREEN_WIDTH/4, SCREEN_HEIGHT/4, color, gCantarell_Bold);
+    drawText("You Died!", SCREEN_WIDTH/4, SCREEN_HEIGHT/4, color, gCantarell_Bold);
 
 }

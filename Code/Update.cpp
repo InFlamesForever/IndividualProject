@@ -89,7 +89,7 @@ void Update::renderUpdate() {
     //Always render the player last out of the characters
     player->render();
     if(player->getHealthPts() <= 0){
-        drawYouLose();
+        drawYouDied();
     }
 
 }

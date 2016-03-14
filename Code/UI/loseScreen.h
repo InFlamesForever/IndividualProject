@@ -8,6 +8,6 @@
 #include <SDL_pixels.h>
 #include <string>
 
-void drawYouLose();
+void drawYouDied();
 
 #endif //INDIVIDUALPROJECT_LOSESCREEN_H
