@@ -19,7 +19,7 @@ class PlayerCharacter: public Character
 {
 public:
     //Initializes the variables
-    PlayerCharacter(int posX, int posY);
+    PlayerCharacter(int posX, int posY, int screenPosX, int screenPosY);
 
     //Shows the dot on the screen
     void render();

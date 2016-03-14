@@ -1,9 +1,9 @@
 #include "PlayerCharacter.h"
 
-PlayerCharacter::PlayerCharacter(int posX, int posY)
+PlayerCharacter::PlayerCharacter(int posX, int posY, int screenPosX, int screenPosY)
         : Character(posX, posY) {
-    screenPosX = (terrainPosX - STARTX) * BLOCK_WIDTH - BLOCK_WIDTH/2;
-    screenPosY = (terrainPosY - STARTY - 1) * BLOCK_WIDTH - BLOCK_WIDTH/2;
+    this->screenPosX = (terrainPosX - screenPosX) * BLOCK_WIDTH - BLOCK_WIDTH/2;
+    this->screenPosY = (terrainPosY - screenPosY - 1) * BLOCK_WIDTH - BLOCK_WIDTH/2;
 
 
     dir = 0;
