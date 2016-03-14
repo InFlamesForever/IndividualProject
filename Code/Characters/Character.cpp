@@ -63,7 +63,9 @@ bool Character::hitDetection(Character enemy) {
 }
 
 void Character::hit(int damage) {
-    healthPts -= (damage - defencePts / 2);
+    int d = (damage - defencePts / 2);
+    if(d < 5) d = 5;
+    healthPts -= d;
     if(healthPts <= 0){
         isAlive = false;
     }
