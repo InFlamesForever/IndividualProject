@@ -41,7 +41,7 @@ private:
     bool isMoving;
     const int withinAttackRange = 20;
 
-    Timer attackTimer;
+    Timer attackAniTimer;
 
 protected:
     int moveSpeed;

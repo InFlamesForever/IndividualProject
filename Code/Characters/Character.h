@@ -8,6 +8,7 @@
 
 #include "../media/Texture.h"
 #include "../media/textures.h"
+#include "../utilities/Timer.h"
 
 class Character {
 public:
@@ -31,6 +32,10 @@ public:
     int getDefencePts();
     int getAttackPts();
 
+    Timer* getAttackTimer();
+    //Time between attacks in milliseconds
+    const int ATTACKDELAY = 500;
+
     bool hitDetection(Character enemy);
 
     void hit(int damage);
@@ -40,6 +45,9 @@ private:
     int attackPts = 0;
     int defencePts = 0;
     int healthPts = 0;
+
+    //Stores the time since the last attack
+    Timer attackTimer;
 
     const int cantTraverseSize = 1;
     int cantTraverse[1] = {

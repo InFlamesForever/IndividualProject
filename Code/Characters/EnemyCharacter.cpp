@@ -22,7 +22,7 @@ void EnemyCharacter::setTextures(Texture **texts) {
 void EnemyCharacter::render(int screenPosX, int screenPosY,
                             int offsetX, int offsetY) {
     if(state == Attack) {
-        if (attackTimer.getTicks() > 100) {
+        if (attackAniTimer.getTicks() > 100) {
             state = Angry;
         }
     }
@@ -152,9 +152,14 @@ void EnemyCharacter::chooseMove(PlayerCharacter player, int **terrain) {
 
 void EnemyCharacter::attack(Character* other) {
     if(hitDetection(*other)){
-        other->hit(getAttackPts());
-        state = Attack;
-        attackTimer.reset();
-        attackTimer.start();
+        if(!getAttackTimer()->isStarted()
+           || getAttackTimer()->getTicks() > ATTACKDELAY){
+            other->hit(getAttackPts());
+            state = Attack;
+            attackAniTimer.reset();
+            attackAniTimer.start();
+            getAttackTimer()->reset();
+            getAttackTimer()->start();
+        }
     }
 }

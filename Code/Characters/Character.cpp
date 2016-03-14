@@ -81,3 +81,7 @@ int Character::getDefencePts() {
 int Character::getAttackPts() {
     return attackPts;
 }
+
+Timer *Character::getAttackTimer() {
+    return &attackTimer;
+}
