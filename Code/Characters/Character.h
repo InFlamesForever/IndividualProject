@@ -34,6 +34,8 @@ public:
     int getDefencePts();
     int getAttackPts();
 
+    int getMoveSpeed();
+
     Timer* getAttackTimer();
     //Time between attacks in milliseconds
     const int ATTACKDELAY = 500;
@@ -50,20 +52,24 @@ private:
     int defencePts = 0;
     int healthPts = 0;
 
+    int moveSpeed;
+
     //Stores the time since the last attack
     Timer attackTimer;
-
     const int cantTraverseSize = 1;
+
     int cantTraverse[1] = {
             TerrainTypes::Water_Ocean
     };
-
 protected:
-    void setVars(int healthPts, int level, int attackPts, int defencePts);
 
+    void setVars(int playerLevel, bool isBoss, int BASE_HEALTH,
+                 int BASE_ATTACK, int BASE_DEFENCE, int BASE_MOVE_SPEED,
+                 int MULTIPLIER_HEALTH, int MULTIPLIER_ATTACK,
+                 int MULTIPLIER_DEFENCE);
     int terrainPosX;
-    int terrainPosY;
 
+    int terrainPosY;
     int dir;
 };
 

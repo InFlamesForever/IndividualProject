@@ -3,6 +3,7 @@
 //
 
 #include "Character.h"
+#include "../utilities/random.h"
 
 Character::Character(int posX, int posY) {
     terrainPosX = posX;
@@ -11,11 +12,32 @@ Character::Character(int posX, int posY) {
     isAlive = true;
 }
 
-void Character::setVars(int healthPts, int level, int attackPts, int defencePts) {
-    this->healthPts = healthPts;
-    this->level = level;
-    this->attackPts = attackPts;
-    this->defencePts = defencePts;
+void Character::setVars(int playerLevel, bool isBoss, int BASE_HEALTH,
+                        int BASE_ATTACK, int BASE_DEFENCE, int BASE_MOVE_SPEED,
+                        int MULTIPLIER_HEALTH, int MULTIPLIER_ATTACK,
+                        int MULTIPLIER_DEFENCE) {
+    level = playerLevel + randInteger(-2, 2);
+    //Lowest level is 1 and highest is 100
+    if(level < 1) {
+        level = 1;
+    } else if(level > 100){
+        level = 100;
+    }
+    healthPts;
+    attackPts;
+    defencePts;
+
+    if(isBoss) {
+        healthPts = BASE_HEALTH * 10 + MULTIPLIER_HEALTH * 10 * level;
+        attackPts = BASE_ATTACK * 10 + MULTIPLIER_ATTACK * 10 * level;
+        defencePts = BASE_DEFENCE * 10 + MULTIPLIER_DEFENCE * 10 * level;
+        moveSpeed = level;
+    } else {
+        healthPts = BASE_HEALTH + MULTIPLIER_HEALTH * level;
+        attackPts = BASE_ATTACK + MULTIPLIER_ATTACK * level;
+        defencePts = BASE_DEFENCE + MULTIPLIER_DEFENCE * level;
+        moveSpeed = BASE_MOVE_SPEED + level;
+    }
 
 }
 
@@ -94,4 +116,8 @@ Timer *Character::getAttackTimer() {
 
 int Character::getIsAlive() {
     return isAlive;
+}
+
+int Character::getMoveSpeed() {
+    return moveSpeed;
 }
