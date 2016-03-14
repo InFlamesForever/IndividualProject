@@ -15,7 +15,7 @@
 
 using namespace std;
 
-void drawText(string text, int x, int y, SDL_Color, TTF_Font* font = NULL);
+void drawText(string text, int x, int y, SDL_Color, TTF_Font* font);
 
 
 #endif //INDIVIDUALPROJECT_DRAWTEXT_H
