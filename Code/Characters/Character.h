@@ -26,15 +26,20 @@ public:
     int getPosX();
     int getPosY();
 
+    int getHealthPts();
+    int getLevel();
+    int getDefencePts();
+    int getAttackPts();
+
     bool hitDetection(Character enemy);
 
     void hit(int damage);
 
 private:
-    int healthPts;
-    int level;
-    int attackPts;
-    int defencePts;
+    int healthPts = 0;
+    int level = 0;
+    int attackPts = 0;
+    int defencePts = 0;
 
     const int cantTraverseSize = 1;
     int cantTraverse[1] = {

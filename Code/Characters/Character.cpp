@@ -62,5 +62,22 @@ bool Character::hitDetection(Character enemy) {
 
 void Character::hit(int damage) {
     healthPts -= damage;
+    cout << healthPts << endl;
 
+}
+
+int Character::getHealthPts() {
+    return healthPts;
+}
+
+int Character::getLevel() {
+    return level;
+}
+
+int Character::getDefencePts() {
+    return defencePts;
+}
+
+int Character::getAttackPts() {
+    return attackPts;
 }
