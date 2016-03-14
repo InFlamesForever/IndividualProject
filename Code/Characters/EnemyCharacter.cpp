@@ -150,9 +150,9 @@ void EnemyCharacter::chooseMove(PlayerCharacter player, int **terrain) {
     }
 }
 
-void EnemyCharacter::attack(Character other) {
-    if(hitDetection(other)){
-        other.hit(getAttackPts());
+void EnemyCharacter::attack(Character* other) {
+    if(hitDetection(*other)){
+        other->hit(getAttackPts());
         state = Attack;
         attackTimer.reset();
         attackTimer.start();

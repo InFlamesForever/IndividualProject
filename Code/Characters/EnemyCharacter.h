@@ -26,7 +26,7 @@ public:
 
     void move(float timeStep);
 
-    void attack(Character other);
+    void attack(Character* other);
 private:
     Texture* textures[3];
     enum States {
