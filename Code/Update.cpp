@@ -3,7 +3,6 @@
 //
 
 #include "Update.h"
-#include "Characters/Enemies/Slime.h"
 
 /*
  * Constructor
@@ -79,6 +78,7 @@ void Update::moveUpdate(float timeStep) {
                 case RIGHT:
                     isMoving = background.move(timeStep, -BLOCK_WIDTH, 0);
                     break;
+                default:break;
             }
         }
         player->updateRender(isMoving, move);
@@ -105,10 +105,7 @@ void Update::renderUpdate() {
     }
     //Always render the player last out of the characters
     player->render();
-    if(!player->getIsAlive()){
-       drawYouDied();
-    }
-
+    renderUI();
 }
 
 /*
@@ -151,6 +148,7 @@ bool Update::terrainCollision(PlayerCharacter character, int dir) {
                     return true;
                 }
                 break;
+            default:break;
         }
     }
     return false;
@@ -183,10 +181,18 @@ void Update::generateEnemies(int numEnemies) {
                         enemies.push_back(Blob(player->getLevel(), false, x, y));
                         made = true;
                         break;
+                    default:break;
                 }
 
             }
         }
     }
 
+}
+
+void Update::renderUI() {
+    if(!player->getIsAlive()){
+        drawYouDied();
+    }
+    renderPlayerStatBar(player);
 }

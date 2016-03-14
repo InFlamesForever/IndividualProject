@@ -12,6 +12,8 @@
 #include "terrain/Background.h"
 #include "utilities/constants.h"
 #include "UI/loseScreen.h"
+#include "Characters/Enemies/Slime.h"
+#include "UI/renderPlayerStatBar.h"
 
 class Update {
 public:
@@ -33,6 +35,8 @@ public:
 
 private:
     void generateEnemies(int numEnemies);
+
+    void renderUI();
 
     //The dot that will be moving around on the screen
     PlayerCharacter* player;
