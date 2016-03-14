@@ -35,7 +35,6 @@ void Quest::findTownsInit(int** towns, int numTowns) {
     numTownsRemaining = numTowns;
     for(int i = 0; i < numTowns; i++){
         townPos.push_back(towns[i]);
-        cout << townPos[i][0] << " " << townPos[i][1] << endl;
     }
     stringstream ss;
     ss.str("");
