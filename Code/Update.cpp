@@ -58,6 +58,9 @@ void Update::handleEventUpdate(SDL_Event e) {
                             || player->getAttackTimer()->getTicks() >
                                player->ATTACKDELAY) {
                             enemies[i].hit(player->getAttackPts());
+                            if(!enemies[i].getIsAlive()){
+                                enemies.erase(enemies.begin() );
+                            }
                             player->getAttackTimer()->reset();
                             player->getAttackTimer()->start();
                         }
