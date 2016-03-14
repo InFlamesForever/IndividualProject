@@ -14,7 +14,7 @@ class Blob: public EnemyCharacter {
 public:
     Blob(int playerLevel, bool isBoss, int posX, int posY);
 
-    Blob& operator=(Blob&& other);
+    //Blob& operator=(Blob&& other);
 
 private:
     const int BASE_HEALTH = 100;

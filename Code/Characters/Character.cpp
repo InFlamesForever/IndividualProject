@@ -133,6 +133,7 @@ int Character::getMoveSpeed() {
     return moveSpeed;
 }
 
+/*
 Character &Character::operator=(Character &&other) {
     if(this != &other) {
         isAlive = other.isAlive;
@@ -155,3 +156,4 @@ Character &Character::operator=(Character &&other) {
     
     return *this;
 }
+*/

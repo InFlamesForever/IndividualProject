@@ -20,7 +20,9 @@ Slime::Slime(int playerLevel, bool isBoss, int posX, int posY)
             MULTIPLIER_DEFENCE, MULTIPLIER_EXP);
 }
 
+/*
 Slime &Slime::operator=(Slime &&other) {
     EnemyCharacter::operator=(std::move(other));
     return *this;
 }
+*/

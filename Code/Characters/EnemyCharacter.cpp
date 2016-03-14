@@ -164,6 +164,7 @@ void EnemyCharacter::attack(Character* other) {
         }
     }
 }
+/*
 
 EnemyCharacter &EnemyCharacter::operator=(EnemyCharacter &&other) {
     Character::operator=(std::move(other));
@@ -181,3 +182,4 @@ EnemyCharacter &EnemyCharacter::operator=(EnemyCharacter &&other) {
 
     return *this;
 }
+*/

@@ -46,7 +46,7 @@ public:
     bool hit(int damage);
 
     //Move Assignment Operator
-    Character& operator=(Character&& other);
+    //Character& operator=(Character&& other);
 
 private:
     bool isAlive;

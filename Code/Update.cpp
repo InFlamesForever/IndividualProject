@@ -58,9 +58,10 @@ void Update::handleEventUpdate(SDL_Event e) {
                             || player->getAttackTimer()->getTicks() >
                                player->ATTACKDELAY) {
                             enemies[i].hit(player->getAttackPts());
+                            /*
                             if(!enemies[i].getIsAlive()){
                                 enemies.erase(enemies.begin() );
-                            }
+                            }*/
                             player->getAttackTimer()->reset();
                             player->getAttackTimer()->start();
                         }
@@ -97,14 +98,16 @@ void Update::moveUpdate(float timeStep) {
         }
         player->updateRender(isMoving, move);
         for(int i = 0; i < enemies.size(); i++) {
-            if (enemies[i].isOnScreen(background.getPointInTerrainX(),
-                                      background.getPointInTerrainY())) {
-                enemies[i].chooseMove(*player, background.getMap());
-                if (!enemies[i].hitDetection(*player)) {
-                    enemies[i].move(timeStep);
-                }
-                enemies[i].attack(player);
+            if (enemies[i].getIsAlive()) {
+                if (enemies[i].isOnScreen(background.getPointInTerrainX(),
+                                          background.getPointInTerrainY())) {
+                    enemies[i].chooseMove(*player, background.getMap());
+                    if (!enemies[i].hitDetection(*player)) {
+                        enemies[i].move(timeStep);
+                    }
+                    enemies[i].attack(player);
 
+                }
             }
         }
     }
@@ -113,9 +116,11 @@ void Update::moveUpdate(float timeStep) {
 void Update::renderUpdate() {
     background.render();
     for(int i = 0; i < enemies.size(); i++) {
-        enemies[i].render(background.getPointInTerrainX(),
-                          background.getPointInTerrainY(),
-                          background.getOffsetX(), background.getOffsetY());
+        if (enemies[i].getIsAlive()) {
+            enemies[i].render(background.getPointInTerrainX(),
+                              background.getPointInTerrainY(),
+                              background.getOffsetX(), background.getOffsetY());
+        }
     }
     //Always render the player last out of the characters
     player->render();
