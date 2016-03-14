@@ -61,7 +61,7 @@ bool Character::hitDetection(Character enemy) {
 }
 
 void Character::hit(int damage) {
-    healthPts -= damage;
+    healthPts -= (damage - defencePts / 2);
     cout << healthPts << endl;
 
 }

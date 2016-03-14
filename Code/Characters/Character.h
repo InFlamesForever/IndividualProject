@@ -36,10 +36,10 @@ public:
     void hit(int damage);
 
 private:
-    int healthPts = 0;
     int level = 0;
     int attackPts = 0;
     int defencePts = 0;
+    int healthPts = 0;
 
     const int cantTraverseSize = 1;
     int cantTraverse[1] = {
