@@ -27,10 +27,6 @@ Background::Background() {
 
 Background::~Background() {
     for(int i = 0; i < TERRAIN_SIZE; i++){
-        for(int j = 0; j < TERRAIN_SIZE; j++){
-            delete[] terrain[i][j];
-            delete[] terrainDetail[i][j];
-        }
         delete[] terrain[i];
         delete[] terrainDetail[i];
     }
@@ -38,9 +34,6 @@ Background::~Background() {
     delete[] terrainDetail;
 
     for(int i = 0; i < 8; i++){
-        for(int j = 0; j < 3; j++){
-            delete[] townPositions[i][j];
-        }
         delete[] townPositions[i];
     }
     delete[] townPositions;
