@@ -8,6 +8,7 @@
 #include <iostream>
 #include "../utilities/globals.h"
 #include "../utilities/constants.h"
+#include <SDL_ttf.h>
 
 using namespace std;
 
@@ -22,6 +23,8 @@ public:
 
     //Loads image at specified path
     bool loadFromFile(std::string path);
+
+    bool loadFromRenderedText( std::string textureText, SDL_Color textColor, TTF_Font* gFont );
 
     //Creates blank texture
     bool createBlank(int width, int height,
