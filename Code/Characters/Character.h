@@ -42,10 +42,10 @@ public:
 
     bool hitDetection(Character enemy);
 
-    void hit(int damage);
+    bool hit(int damage);
 
 private:
-    int isAlive;
+    bool isAlive;
 
     int level = 0;
     int attackPts = 0;
