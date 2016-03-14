@@ -111,5 +111,9 @@ extern Texture gTree_Medium;
 extern Texture gTree_MediumLittle;
 extern Texture gTree_Light;
 
+//-----------------------------------------------------------------------------
+//############# UI Elements ######################
+//-----------------------------------------------------------------------------
+extern Texture gTextBox;
 
 #endif //INDIVIDUALPROJECT_TEXTURES_H

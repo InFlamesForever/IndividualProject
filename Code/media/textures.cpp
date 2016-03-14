@@ -79,3 +79,4 @@ Texture gTree_Medium;
 Texture gTree_MediumLittle;
 Texture gTree_Light;
 
+Texture gTextBox;
