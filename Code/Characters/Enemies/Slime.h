@@ -17,7 +17,7 @@ public:
    // Slime& operator=(Slime&& other);
 
 private:
-    const int BASE_HEALTH = 50;
+    const int BASE_HEALTH = 45;
     const int BASE_ATTACK = 5;
     const int BASE_DEFENCE = 30;
     const int BASE_MOVE_SPEED = 1;

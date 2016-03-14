@@ -47,7 +47,7 @@ public:
 
     bool hit(int damage);
     
-    void rebalance(int level);
+    void rebalance();
 
     //Move Assignment Operator
     //Character& operator=(Character&& other);
@@ -73,7 +73,11 @@ private:
     int MULTIPLIER_DEFENCE;
     int MULTIPLIER_EXP;
 
+    int maxHealth;
+
     int moveSpeed;
+
+    bool isBoss;
 
     //Stores the time since the last attack
     Timer attackTimer;
@@ -84,7 +88,8 @@ private:
     };
 protected:
     //Will generate a character from the supplied values
-    void setVars(int playerLevel, bool isBoss, int BASE_HEALTH,
+    void setVars(bool isPlayer,
+                 int playerLevel, bool isBoss, int BASE_HEALTH,
                  int BASE_ATTACK, int BASE_DEFENCE, int BASE_MOVE_SPEED,
                  int BASE_EXP,
                  int MULTIPLIER_HEALTH, int MULTIPLIER_ATTACK,
@@ -95,6 +100,8 @@ protected:
 
     //Increments the level
     void levelUp();
+
+    void regenerateAmount(int amount);
 
     int terrainPosX;
     int terrainPosY;

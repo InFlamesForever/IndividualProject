@@ -7,9 +7,30 @@ PlayerCharacter::PlayerCharacter(int posX, int posY, int screenPosX, int screenP
 
 
     dir = 0;
+    exp = 0;
     hasMoved = false;
 
-    setVars(100, 1, 20, 20);
+    int playerLevel = 1;
+    bool isBoss = false;
+    int BASE_HEALTH = 180;
+    int BASE_ATTACK = 20;
+    int BASE_DEFENCE = 20;
+    int BASE_MOVE_SPEED = 10;
+    int BASE_EXP = 0;
+
+    int MULTIPLIER_HEALTH = 20;
+    int MULTIPLIER_ATTACK = 10;
+    int MULTIPLIER_DEFENCE = 10;
+    int MULTIPLIER_EXP = 0;
+
+    setVars(true,
+            playerLevel, isBoss, BASE_HEALTH,
+            BASE_ATTACK, BASE_DEFENCE, BASE_MOVE_SPEED,
+            BASE_EXP,
+            MULTIPLIER_HEALTH, MULTIPLIER_ATTACK,
+            MULTIPLIER_DEFENCE, MULTIPLIER_EXP);
+
+    regenerationAmount = getHealthPts()/10;
 }
 
 void PlayerCharacter::render() {
@@ -85,4 +106,13 @@ bool PlayerCharacter::addExp(int exp) {
 
 int PlayerCharacter::getExp() {
     return exp;
+}
+
+void PlayerCharacter::regenerate() {
+    if(!healthRenegerator.isStarted()
+       || healthRenegerator.getTicks() > REGENERATOR_DELAY){
+        regenerateAmount(regenerationAmount);
+        healthRenegerator.reset();
+        healthRenegerator.start();
+    }
 }

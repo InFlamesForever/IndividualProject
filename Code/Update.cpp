@@ -114,6 +114,7 @@ void Update::moveUpdate(float timeStep) {
                 }
             }
         }
+        player->regenerate();
     }
 }
 
@@ -223,7 +224,7 @@ void Update::renderUI() {
 void Update::levelUp() {
     for(int i = 0; i < enemies.size(); i++){
         if(enemies[i].getIsAlive()){
-            enemies[i].rebalance(player->getLevel());
+            enemies[i].rebalance();
         }
     }
 }

@@ -30,6 +30,8 @@ public:
 
     int getExp();
 
+    void regenerate();
+
 private:
     //The position to render the player character
     float screenPosX, screenPosY;
@@ -55,6 +57,10 @@ private:
             &gStock_Side_Right_Walking,
             &gStock_Side_Right_Walking,
     };
+
+    Timer healthRenegerator;
+    const int REGENERATOR_DELAY = 1000;
+    int regenerationAmount;
 
 };
 

@@ -19,7 +19,7 @@ public:
     //Blob& operator=(Blob&& other);
 
 private:
-    const int BASE_HEALTH = 100;
+    const int BASE_HEALTH = 90;
     const int BASE_ATTACK = 10;
     const int BASE_DEFENCE = 20;
     const int BASE_MOVE_SPEED = 5;

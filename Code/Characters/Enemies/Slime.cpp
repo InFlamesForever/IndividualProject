@@ -13,7 +13,8 @@ Slime::Slime(int playerLevel, bool isBoss, int posX, int posY)
     };
     setTextures(texts);
 
-    setVars(playerLevel, isBoss, BASE_HEALTH,
+    setVars(false,
+            playerLevel, isBoss, BASE_HEALTH,
             BASE_ATTACK, BASE_DEFENCE, BASE_MOVE_SPEED,
             BASE_EXP,
             MULTIPLIER_HEALTH, MULTIPLIER_ATTACK,
