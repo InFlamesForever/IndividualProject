@@ -95,10 +95,13 @@ void PlayerCharacter::updateRender(bool isMoving, int dir) {
 
 }
 
-void PlayerCharacter::addExp(int exp) {
+bool PlayerCharacter::addExp(int exp) {
     this->exp += exp;
     if(this->exp >= BASE_LEVEL_UP_LINE * (getLevel()*3)){
         levelUp();
+        return true;
+    } else {
+        return false;
     }
 }
 

@@ -4,8 +4,6 @@ TODO:
 fix the deletion of enemies - Use this link for help with this
         -http://blog.smartbear.com/c-plus-plus/c11-tutorial-introducing-the-move-constructor-and-the-move-assignment-operator/
 
-level up - ability to, and ui display, and enemys level with you
-
 Get new tree textures
 
 Fix search for water

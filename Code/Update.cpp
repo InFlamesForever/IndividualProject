@@ -63,7 +63,9 @@ void Update::handleEventUpdate(SDL_Event e) {
                                    player->ATTACKDELAY) {
                                 enemies[i].hit(player->getAttackPts());
                                 if (!enemies[i].getIsAlive()) {
-                                    player->addExp(enemies[i].getExpOnDeath());
+                                    if(player->addExp(enemies[i].getExpOnDeath())){ //If the player levels up, level up all the enemies
+                                        levelUp();
+                                    }
                                     quest.enemyKilled();
 
                                     //To be fixed
@@ -224,7 +226,6 @@ void Update::renderUI() {
         drawYouDied();
     }
     renderPlayerStatBar(player);
-    string temp = "Go there \n do this";
     quest.currentQuests();
 }
 

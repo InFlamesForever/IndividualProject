@@ -26,7 +26,7 @@ public:
 
     void updateRender(bool isMoving, int dir);
 
-    void addExp(int exp);
+    bool addExp(int exp);
 
     int getExp();
 
