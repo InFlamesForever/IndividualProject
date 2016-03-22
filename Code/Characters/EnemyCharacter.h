@@ -46,6 +46,8 @@ private:
 
     int playerLastPosX, playerLastPosY;
 
+    shared_ptr<TerrainNode> movementPath;
+
     Timer attackAniTimer;
 
 protected:

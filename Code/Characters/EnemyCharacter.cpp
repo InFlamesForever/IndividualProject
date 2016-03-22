@@ -81,77 +81,86 @@ void EnemyCharacter::move(float timeStep) {
 }
 
 void EnemyCharacter::chooseMove(PlayerCharacter player, int **terrain) {
-    if(playerLastPosX != player.getPosX()
-       && playerLastPosY != player.getPosY()) {
-        playerLastPosX = player.getPosX();
-        playerLastPosY = player.getPosY();
-        if (!isMoving) {
-            if (terrainPosX - player.getPosX() < withinAttackRange
-                && terrainPosX - player.getPosX() > -withinAttackRange
-                && terrainPosY - player.getPosY() < withinAttackRange
-                && terrainPosY - player.getPosY() > -withinAttackRange) {
+    if (!isMoving) {
+        if (terrainPosX - player.getPosX() < withinAttackRange
+            && terrainPosX - player.getPosX() > -withinAttackRange
+            && terrainPosY - player.getPosY() < withinAttackRange
+            && terrainPosY - player.getPosY() > -withinAttackRange) {
+            if(playerLastPosX != player.getPosX() && 
+                    playerLastPosY != player.getPosY()) {
+                
+                //Set the players last position
+                playerLastPosX = player.getPosX();
+                playerLastPosY = player.getPosY();
+                
+                //Search for the best path
                 AStarSearch search(terrain);
-                shared_ptr<TerrainNode> temp(search.aStarSearch(
+                movementPath = search.aStarSearch(
                         terrainPosX, terrainPosY,
                         player.getPosX(), player.getPosY(),
-                        getCantTraverse(), getCantTraverseSize()));
-                while (temp->getPrevNode()->getPrevNode() != NULL) {
-                    temp = temp->getPrevNode();
-                }
-
-                if (temp->getX() == terrainPosX - 1
-                    && temp->getY() == terrainPosY) {
-                    dir = LEFT;
-                    isMoving = true;
-                } else if (temp->getX() == terrainPosX + 1
-                           && temp->getY() == terrainPosY) {
-                    dir = RIGHT;
-                    isMoving = true;
-                } else if (temp->getY() == terrainPosY - 1
-                           && temp->getX() == terrainPosX) {
-                    dir = UP;
-                    isMoving = true;
-                } else if (temp->getY() == terrainPosY + 1
-                           && temp->getX() == terrainPosX) {
-                    dir = DOWN;
-                    isMoving = true;
-                } else {
-                    isMoving = false;
-                }
-                state = Angry;
-
-            } else {
-                state = Normal;
-                dir = randInteger(0, 3);
+                        getCantTraverse(), getCantTraverseSize());
+            }
+            //Go to the second to last node, which is the next move for the 
+            // character
+            shared_ptr<TerrainNode> secondToLastNode = movementPath;
+            while (secondToLastNode->getPrevNode()->getPrevNode()->getPrevNode() != NULL) {
+                secondToLastNode = secondToLastNode->getPrevNode();
+            }
+            shared_ptr<TerrainNode> lastNode = secondToLastNode->getPrevNode();
+            if (lastNode->getX() == terrainPosX - 1
+                && lastNode->getY() == terrainPosY) {
+                dir = LEFT;
                 isMoving = true;
+            } else if (lastNode->getX() == terrainPosX + 1
+                       && lastNode->getY() == terrainPosY) {
+                dir = RIGHT;
+                isMoving = true;
+            } else if (lastNode->getY() == terrainPosY - 1
+                       && lastNode->getX() == terrainPosX) {
+                dir = UP;
+                isMoving = true;
+            } else if (lastNode->getY() == terrainPosY + 1
+                       && lastNode->getX() == terrainPosX) {
+                dir = DOWN;
+                isMoving = true;
+            } else {
+                isMoving = false;
+            }
+            state = Angry;
+            secondToLastNode->setPreNodeToNULL();
 
-                for (int i = 0; i < getCantTraverseSize(); i++) {
-                    switch (dir) {
-                        case UP:
-                            if (terrain[terrainPosX][terrainPosY - 1] ==
-                                getCantTraverse()[i]) {
-                                isMoving = false;
-                            }
-                            break;
-                        case DOWN:
-                            if (terrain[terrainPosX][terrainPosY + 1] ==
-                                getCantTraverse()[i]) {
-                                isMoving = false;
-                            }
-                            break;
-                        case LEFT:
-                            if (terrain[terrainPosX - 1][terrainPosY] ==
-                                getCantTraverse()[i]) {
-                                isMoving = false;
-                            }
-                            break;
-                        case RIGHT:
-                            if (terrain[terrainPosX + 1][terrainPosY] ==
-                                getCantTraverse()[i]) {
-                                isMoving = false;
-                            }
-                            break;
-                    }
+        } else {
+            state = Normal;
+            dir = randInteger(0, 3);
+            isMoving = true;
+
+            for (int i = 0; i < getCantTraverseSize(); i++) {
+                switch (dir) {
+                    case UP:
+                        if (terrain[terrainPosX][terrainPosY - 1] ==
+                            getCantTraverse()[i]) {
+                            isMoving = false;
+                        }
+                        break;
+                    case DOWN:
+                        if (terrain[terrainPosX][terrainPosY + 1] ==
+                            getCantTraverse()[i]) {
+                            isMoving = false;
+                        }
+                        break;
+                    case LEFT:
+                        if (terrain[terrainPosX - 1][terrainPosY] ==
+                            getCantTraverse()[i]) {
+                            isMoving = false;
+                        }
+                        break;
+                    case RIGHT:
+                        if (terrain[terrainPosX + 1][terrainPosY] ==
+                            getCantTraverse()[i]) {
+                            isMoving = false;
+                        }
+                        break;
+                    default:break;
                 }
             }
         }
