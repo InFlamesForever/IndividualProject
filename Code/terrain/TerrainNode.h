@@ -21,6 +21,7 @@ public:
     int getY();
     int getDistFromStart();
     shared_ptr<TerrainNode> getPrevNode();
+    void setPreNodeToNULL();
 private:
     int x;
     int y;

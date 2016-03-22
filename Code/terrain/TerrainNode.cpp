@@ -34,3 +34,7 @@ TerrainNode::~TerrainNode() {
 int TerrainNode::getDistFromStart() {
     return disFromStart;
 }
+
+void TerrainNode::setPreNodeToNULL() {
+    previousNode = NULL;
+}
