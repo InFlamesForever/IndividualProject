@@ -82,6 +82,13 @@ void Update::handleEventUpdate(SDL_Event e) {
     if(isMoving){
             if(terrainCollision(*player, move)){
                 isMoving = false;
+            } else {
+                for(int i = 0; i < enemies.size(); i++){
+                    if(player->hitDetection(enemies[i], &move)){
+                        isMoving = false;
+                        break;
+                    }
+                }
             }
         }
     }
