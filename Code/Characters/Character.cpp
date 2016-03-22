@@ -99,8 +99,14 @@ int Character::getPosY() {
     return terrainPosY;
 }
 
-bool Character::hitDetection(Character enemy) {
-    switch(dir){
+bool Character::hitDetection(Character enemy, int *checkDir) {
+    int direction;
+    if(checkDir != NULL){
+        direction = *checkDir;
+    } else {
+        direction = dir;
+    }
+    switch(direction){
         case UP:
             return enemy.getPosX() == terrainPosX && enemy.getPosY() == terrainPosY - 1;
         case DOWN:

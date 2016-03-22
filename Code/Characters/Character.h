@@ -43,7 +43,7 @@ public:
     //Time between attacks in milliseconds
     const int ATTACKDELAY = 500;
 
-    bool hitDetection(Character enemy);
+    bool hitDetection(Character enemy, int *checkDir = NULL);
 
     bool hit(int damage);
     
