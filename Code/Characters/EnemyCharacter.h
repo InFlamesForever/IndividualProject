@@ -44,6 +44,8 @@ private:
     bool isMoving;
     const int withinAttackRange = 20;
 
+    int playerLastPosX, playerLastPosY;
+
     Timer attackAniTimer;
 
 protected:

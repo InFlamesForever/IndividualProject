@@ -7,10 +7,12 @@
 
 EnemyCharacter::EnemyCharacter(int posX, int posY) :
         Character (posX, posY) {
-
     state = Normal;
     isMoving = false;
     dir = LEFT;
+
+    playerLastPosX = -1;
+    playerLastPosY = -1;
 }
 
 void EnemyCharacter::setTextures(Texture **texts) {
@@ -79,72 +81,77 @@ void EnemyCharacter::move(float timeStep) {
 }
 
 void EnemyCharacter::chooseMove(PlayerCharacter player, int **terrain) {
-    if (!isMoving) {
-        if (terrainPosX - player.getPosX() < withinAttackRange
-            && terrainPosX - player.getPosX() > -withinAttackRange
-            && terrainPosY - player.getPosY() < withinAttackRange
-            && terrainPosY - player.getPosY() > -withinAttackRange) {
-            AStarSearch search(terrain);
-            shared_ptr<TerrainNode> temp(search.aStarSearch(
-                    terrainPosX, terrainPosY,
-                    player.getPosX(), player.getPosY(),
-                    getCantTraverse(), getCantTraverseSize()));
-            while (temp->getPrevNode()->getPrevNode() != NULL) {
-                temp = temp->getPrevNode();
-            }
+    if(playerLastPosX != player.getPosX()
+       && playerLastPosY != player.getPosY()) {
+        playerLastPosX = player.getPosX();
+        playerLastPosY = player.getPosY();
+        if (!isMoving) {
+            if (terrainPosX - player.getPosX() < withinAttackRange
+                && terrainPosX - player.getPosX() > -withinAttackRange
+                && terrainPosY - player.getPosY() < withinAttackRange
+                && terrainPosY - player.getPosY() > -withinAttackRange) {
+                AStarSearch search(terrain);
+                shared_ptr<TerrainNode> temp(search.aStarSearch(
+                        terrainPosX, terrainPosY,
+                        player.getPosX(), player.getPosY(),
+                        getCantTraverse(), getCantTraverseSize()));
+                while (temp->getPrevNode()->getPrevNode() != NULL) {
+                    temp = temp->getPrevNode();
+                }
 
-            if (temp->getX() == terrainPosX - 1
-                && temp->getY() == terrainPosY) {
-                dir = LEFT;
-                isMoving = true;
-            } else if (temp->getX() == terrainPosX + 1
-                       && temp->getY() == terrainPosY) {
-                dir = RIGHT;
-                isMoving = true;
-            } else if (temp->getY() == terrainPosY - 1
-                       && temp->getX() == terrainPosX) {
-                dir = UP;
-                isMoving = true;
-            } else if (temp->getY() == terrainPosY + 1
-                       && temp->getX() == terrainPosX) {
-                dir = DOWN;
-                isMoving = true;
+                if (temp->getX() == terrainPosX - 1
+                    && temp->getY() == terrainPosY) {
+                    dir = LEFT;
+                    isMoving = true;
+                } else if (temp->getX() == terrainPosX + 1
+                           && temp->getY() == terrainPosY) {
+                    dir = RIGHT;
+                    isMoving = true;
+                } else if (temp->getY() == terrainPosY - 1
+                           && temp->getX() == terrainPosX) {
+                    dir = UP;
+                    isMoving = true;
+                } else if (temp->getY() == terrainPosY + 1
+                           && temp->getX() == terrainPosX) {
+                    dir = DOWN;
+                    isMoving = true;
+                } else {
+                    isMoving = false;
+                }
+                state = Angry;
+
             } else {
-                isMoving = false;
-            }
-            state = Angry;
+                state = Normal;
+                dir = randInteger(0, 3);
+                isMoving = true;
 
-        } else {
-            state = Normal;
-            dir = randInteger(0, 3);
-            isMoving = true;
-
-            for (int i = 0; i < getCantTraverseSize(); i++) {
-                switch (dir) {
-                    case UP:
-                        if (terrain[terrainPosX][terrainPosY - 1] ==
-                            getCantTraverse()[i]) {
-                            isMoving = false;
-                        }
-                        break;
-                    case DOWN:
-                        if (terrain[terrainPosX][terrainPosY + 1] ==
-                            getCantTraverse()[i]) {
-                            isMoving = false;
-                        }
-                        break;
-                    case LEFT:
-                        if (terrain[terrainPosX - 1][terrainPosY] ==
-                            getCantTraverse()[i]) {
-                            isMoving = false;
-                        }
-                        break;
-                    case RIGHT:
-                        if (terrain[terrainPosX + 1][terrainPosY] ==
-                            getCantTraverse()[i]) {
-                            isMoving = false;
-                        }
-                        break;
+                for (int i = 0; i < getCantTraverseSize(); i++) {
+                    switch (dir) {
+                        case UP:
+                            if (terrain[terrainPosX][terrainPosY - 1] ==
+                                getCantTraverse()[i]) {
+                                isMoving = false;
+                            }
+                            break;
+                        case DOWN:
+                            if (terrain[terrainPosX][terrainPosY + 1] ==
+                                getCantTraverse()[i]) {
+                                isMoving = false;
+                            }
+                            break;
+                        case LEFT:
+                            if (terrain[terrainPosX - 1][terrainPosY] ==
+                                getCantTraverse()[i]) {
+                                isMoving = false;
+                            }
+                            break;
+                        case RIGHT:
+                            if (terrain[terrainPosX + 1][terrainPosY] ==
+                                getCantTraverse()[i]) {
+                                isMoving = false;
+                            }
+                            break;
+                    }
                 }
             }
         }
