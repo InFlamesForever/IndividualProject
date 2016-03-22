@@ -4,9 +4,10 @@ TODO:
 fix the deletion of enemies - Use this link for help with this
         -http://blog.smartbear.com/c-plus-plus/c11-tutorial-introducing-the-move-constructor-and-the-move-assignment-operator/
 
-Get new tree textures
+Zoom out function **Priority
 
 Fix search for water
+Additionally make it more efficient with enemies so that they only search again when the player has moved position.
 
 money
 
@@ -22,3 +23,6 @@ add secret towns
 
 Add rivers
 
+Add in tutorial for how to play the game
+
+Add menus
