@@ -86,48 +86,35 @@ void EnemyCharacter::chooseMove(PlayerCharacter player, int **terrain) {
             && terrainPosX - player.getPosX() > -withinAttackRange
             && terrainPosY - player.getPosY() < withinAttackRange
             && terrainPosY - player.getPosY() > -withinAttackRange) {
-            if(playerLastPosX != player.getPosX() && 
-                    playerLastPosY != player.getPosY()) {
-                
-                //Set the players last position
-                playerLastPosX = player.getPosX();
-                playerLastPosY = player.getPosY();
-                
-                //Search for the best path
-                AStarSearch search(terrain);
-                movementPath = search.aStarSearch(
-                        terrainPosX, terrainPosY,
-                        player.getPosX(), player.getPosY(),
-                        getCantTraverse(), getCantTraverseSize());
+
+            AStarSearch search(terrain);
+            shared_ptr<TerrainNode> temp(search.aStarSearch(
+                    terrainPosX, terrainPosY,
+                    player.getPosX(), player.getPosY(),
+                    getCantTraverse(), getCantTraverseSize()));
+            while (temp->getPrevNode()->getPrevNode() != NULL) {
+                temp = temp->getPrevNode();
             }
-            //Go to the second to last node, which is the next move for the 
-            // character
-            shared_ptr<TerrainNode> secondToLastNode = movementPath;
-            while (secondToLastNode->getPrevNode()->getPrevNode()->getPrevNode() != NULL) {
-                secondToLastNode = secondToLastNode->getPrevNode();
-            }
-            shared_ptr<TerrainNode> lastNode = secondToLastNode->getPrevNode();
-            if (lastNode->getX() == terrainPosX - 1
-                && lastNode->getY() == terrainPosY) {
+            if (temp->getX() == terrainPosX - 1
+                && temp->getY() == terrainPosY) {
                 dir = LEFT;
                 isMoving = true;
-            } else if (lastNode->getX() == terrainPosX + 1
-                       && lastNode->getY() == terrainPosY) {
+            } else if (temp->getX() == terrainPosX + 1
+                       && temp->getY() == terrainPosY) {
                 dir = RIGHT;
                 isMoving = true;
-            } else if (lastNode->getY() == terrainPosY - 1
-                       && lastNode->getX() == terrainPosX) {
+            } else if (temp->getY() == terrainPosY - 1
+                       && temp->getX() == terrainPosX) {
                 dir = UP;
                 isMoving = true;
-            } else if (lastNode->getY() == terrainPosY + 1
-                       && lastNode->getX() == terrainPosX) {
+            } else if (temp->getY() == terrainPosY + 1
+                       && temp->getX() == terrainPosX) {
                 dir = DOWN;
                 isMoving = true;
             } else {
                 isMoving = false;
             }
             state = Angry;
-            secondToLastNode->setPreNodeToNULL();
 
         } else {
             state = Normal;
@@ -160,7 +147,8 @@ void EnemyCharacter::chooseMove(PlayerCharacter player, int **terrain) {
                             isMoving = false;
                         }
                         break;
-                    default:break;
+                    default:
+                        break;
                 }
             }
         }
