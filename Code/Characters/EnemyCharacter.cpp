@@ -57,6 +57,7 @@ void EnemyCharacter::move(float timeStep) {
             case RIGHT:
                 movingOffsetX += BLOCK_WIDTH * speed * timeStep;
                 break;
+            default:break;
         }
         if (movingOffsetX >= BLOCK_WIDTH || movingOffsetX <= -BLOCK_WIDTH
             || movingOffsetY >= BLOCK_WIDTH || movingOffsetY <= -BLOCK_WIDTH) {
