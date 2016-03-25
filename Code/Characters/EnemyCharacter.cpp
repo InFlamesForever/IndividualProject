@@ -10,9 +10,6 @@ EnemyCharacter::EnemyCharacter(int posX, int posY) :
     state = Normal;
     isMoving = false;
     dir = LEFT;
-
-    playerLastPosX = -1;
-    playerLastPosY = -1;
 }
 
 void EnemyCharacter::setTextures(Texture **texts) {
