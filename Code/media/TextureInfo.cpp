@@ -10,10 +10,11 @@ TextureInfo::TextureInfo() {
     y = 0;
 }
 
-void TextureInfo::setUp(int tex, int x, int y) {
-    texture = tex;
+void TextureInfo::setUp(int texture, int x, int y, int width) {
+    this->texture = texture;
     this->x = x;
     this->y = y;
+    this->width = width;
 
 }
 
@@ -27,4 +28,8 @@ int TextureInfo::getX() {
 
 int TextureInfo::getY() {
     return y;
+}
+
+int TextureInfo::getWidth() {
+    return width;
 }

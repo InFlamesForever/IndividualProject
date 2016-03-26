@@ -13,7 +13,7 @@ class TextureInfo {
 public:
     TextureInfo();
 
-    void setUp(int tex, int x, int y);
+    void setUp(int texture, int x, int y, int width);
 
     int getTexture();
 
@@ -21,9 +21,13 @@ public:
 
     int getY();
 
+    int getWidth();
+
 
 private:
     int texture;
+
+    int width;
 
     //2.5d Coords
     int x;
