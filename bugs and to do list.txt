@@ -4,8 +4,6 @@ TODO:
 fix the deletion of enemies - Use this link for help with this
         -http://blog.smartbear.com/c-plus-plus/c11-tutorial-introducing-the-move-constructor-and-the-move-assignment-operator/
 
-Zoom out function **Priority
-add clip to all tiles as atm it only looks like the zoom out is working
 
 Fix search for water
 Additionally make it more efficient with enemies so that they only search again when the player has moved position.
