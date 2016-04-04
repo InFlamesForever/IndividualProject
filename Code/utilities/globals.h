@@ -9,4 +9,7 @@ extern SDL_Window *gWindow;
 //The window renderer
 extern SDL_Renderer *gRenderer;
 
+//Block width
+extern int BLOCK_WIDTH;
+
 #endif

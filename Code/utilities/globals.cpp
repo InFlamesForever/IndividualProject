@@ -6,3 +6,5 @@ SDL_Window *gWindow = NULL;
 //The window renderer
 SDL_Renderer *gRenderer = NULL;
 
+int BLOCK_WIDTH = 16;
+
