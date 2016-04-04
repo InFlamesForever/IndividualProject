@@ -99,7 +99,7 @@ void Background::getTerrain() {
             if(pointX < 0 || pointY < 0 ||
                     pointX + i > TERRAIN_SIZE - 1||
                     pointY + j > TERRAIN_SIZE - 1){
-                onScreenTerrain.push_back(TileInfo(TerrainTypes::Water_Ocean, 
+                onScreenTerrain.push_back(TileInfo(TerrainTypes::Water_Ocean,
                                                    pointX, pointY, i, j));
             } else {
                 onScreenTerrain.push_back(TileInfo(terrain[pointX][pointY],
@@ -168,20 +168,20 @@ void Background::composeTerrainToTexture() {
     SDL_Rect rect;
     rect.x = 0;
     rect.y = 0;
+    rect.h = BLOCK_WIDTH;
+    rect.w = BLOCK_WIDTH;
     for(int i = 0; i < onScreenTerrain.size(); i++) {
-        rect.h = BLOCK_WIDTH;
-        rect.w = BLOCK_WIDTH;
         terrainChooser[onScreenTerrain[i].getTexture()]
-                ->render(onScreenTerrain[i].getXOnScreen() * BLOCK_WIDTH, 
-                         onScreenTerrain[i].getYOnScreen() * BLOCK_WIDTH, 
+                ->render(onScreenTerrain[i].getXOnScreen() * BLOCK_WIDTH,
+                         onScreenTerrain[i].getYOnScreen() * BLOCK_WIDTH,
                          &rect);
-    
+
     }
     //Secondary for loop required otherwise the larger textures are written over
     for(int i = 0; i < onScreenTerrain.size(); i++){
         renderAboveTerrainDetail(onScreenTerrain[i].getXInTerrain(),
                                  onScreenTerrain[i].getYInTerrain(),
-                                 onScreenTerrain[i].getXOnScreen() * BLOCK_WIDTH, 
+                                 onScreenTerrain[i].getXOnScreen() * BLOCK_WIDTH,
                                  onScreenTerrain[i].getYOnScreen() * BLOCK_WIDTH);
     }
     //Return the render target to the window
