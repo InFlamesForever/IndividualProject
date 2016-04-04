@@ -52,6 +52,8 @@ private:
     bool isMoving;
 
     Quest quest;
+
+    int zoom = 0;
 };
 
 

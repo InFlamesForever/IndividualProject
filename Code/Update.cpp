@@ -53,6 +53,19 @@ void Update::handleEventUpdate(SDL_Event e) {
                     isMoving = true;
                 }
             }
+            //Change perspective
+            if(keys[SDL_SCANCODE_Z]){
+                if(zoom == 0 || zoom == 1) {
+                    BLOCK_WIDTH = BLOCK_WIDTH/2;
+                    zoom++;
+                } else {
+                    BLOCK_WIDTH = 16;
+                    zoom = 0;
+                }
+                player->changeZoom(background.getPointInTerrainX(), background.getPointInTerrainY());
+                background.getTerrain();
+                background.composeTerrainToTexture();
+            }
             //Player attack
             if(e.button.button == SDL_BUTTON_LEFT){
                 for(int i = 0; i < enemies.size(); i++) {
