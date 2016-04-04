@@ -12,7 +12,7 @@
 #include "../utilities/constants.h"
 #include "../media/textures.h"
 #include "vector"
-#include "../media/TextureInfo.h"
+#include "../media/TileInfo.h"
 #include "math.h"
 #include "../Characters/PlayerCharacter.h"
 
@@ -21,7 +21,12 @@ public:
     Background();
     ~Background();
 
-    //Compiles all of the textures for the terrain to reduce rendering
+    /**
+     * Compiles all of the textures for the terrain to reduce rendering
+     * First it clears the texture, then loops through all of the terrain tiles
+     * and then loops through all of the above terrain details and finally
+     * returns the render target to the main window
+    */
     void composeTerrainToTexture();
 
     /**
@@ -55,7 +60,7 @@ public:
     void render();
 
 private:
-    TextureInfo onScreenTerrain[SCREEN_WIDTH/BLOCK_WIDTH][SCREEN_HEIGHT/BLOCK_WIDTH];
+    vector<TileInfo> onScreenTerrain; //[SCREEN_WIDTH/BLOCK_WIDTH][SCREEN_HEIGHT/BLOCK_WIDTH];
 
     int **terrain = new int*[TERRAIN_SIZE];
     int **terrainDetail = new int*[TERRAIN_SIZE];

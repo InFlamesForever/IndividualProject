@@ -1,5 +1,6 @@
 #include "Background.h"
 #include "TerrainGenerator.h"
+#include "../media/TileInfo.h"
 
 Background::Background() {
     //Create and initialise terrain
@@ -82,6 +83,7 @@ void Background::renderTile(int terX, int terY, int renX, int renY){
 }
 
 void Background::getTerrain() {
+    onScreenTerrain.clear();
     int pointX = pointInTerrainX;
     int pointY = pointInTerrainY;
     int i = 0;
@@ -97,12 +99,11 @@ void Background::getTerrain() {
             if(pointX < 0 || pointY < 0 ||
                     pointX + i > TERRAIN_SIZE - 1||
                     pointY + j > TERRAIN_SIZE - 1){
-                onScreenTerrain[i][j].setUp(
-                        TerrainTypes::Water_Ocean, pointX, pointY);
+                onScreenTerrain.push_back(TileInfo(TerrainTypes::Water_Ocean, 
+                                                   pointX, pointY, i, j));
             } else {
-                onScreenTerrain[i][j].setUp(
-                        terrain[pointX][pointY],
-                        pointX, pointY);
+                onScreenTerrain.push_back(TileInfo(terrain[pointX][pointY],
+                                                   pointX, pointY, i, j));
             }
         }
 
@@ -164,26 +165,33 @@ void Background::composeTerrainToTexture() {
 
     //Go through the onScreenTerrain vector and render all textures to the
     //terrain texture
-    for(int i = 0; i < numOfTilesWidth; i++) {
-        for (int j = 0; j < numOfTilesHeight; j++) {
-            terrainChooser[onScreenTerrain[i][j].getTexture()]
-                    ->render(i * BLOCK_WIDTH, j * BLOCK_WIDTH);
-
-        }
+    SDL_Rect rect;
+    rect.x = 0;
+    rect.y = 0;
+    for(int i = 0; i < onScreenTerrain.size(); i++) {
+        rect.h = BLOCK_WIDTH;
+        rect.w = BLOCK_WIDTH;
+        terrainChooser[onScreenTerrain[i].getTexture()]
+                ->render(onScreenTerrain[i].getXOnScreen() * BLOCK_WIDTH, 
+                         onScreenTerrain[i].getYOnScreen() * BLOCK_WIDTH, 
+                         &rect);
+    
     }
     //Secondary for loop required otherwise the larger textures are written over
-    for(int i = 0; i < numOfTilesWidth; i++){
-        for(int j = 0; j < numOfTilesHeight; j++){
-            renderAboveTerrainDetail(onScreenTerrain[i][j].getX(),
-                                     onScreenTerrain[i][j].getY(),
-                                     i * BLOCK_WIDTH, j * BLOCK_WIDTH);
-        }
+    for(int i = 0; i < onScreenTerrain.size(); i++){
+        renderAboveTerrainDetail(onScreenTerrain[i].getXInTerrain(),
+                                 onScreenTerrain[i].getYInTerrain(),
+                                 onScreenTerrain[i].getXOnScreen() * BLOCK_WIDTH, 
+                                 onScreenTerrain[i].getYOnScreen() * BLOCK_WIDTH);
     }
     //Return the render target to the window
     SDL_SetRenderTarget(gRenderer, NULL);
 }
 
 void Background::renderAboveTerrainDetail(int x, int y, int renX, int renY) {
+    SDL_Rect rect;
+    rect.x = 0;
+    rect.y = 0;
     //Check if in bounds of map
     if(x >= 0 && x < TERRAIN_SIZE - 1
        && y >= 0 && y < TERRAIN_SIZE - 1
@@ -191,9 +199,13 @@ void Background::renderAboveTerrainDetail(int x, int y, int renX, int renY) {
        && terrainDetail[x][y] < INT32_MAX) {
         Texture *tex = aboveTerrainChooser[terrainDetail[x][y]];
         if (tex->getHeight() == 16) {
-            tex->render(renX, renY);
+            rect.w = BLOCK_WIDTH;
+            rect.h = BLOCK_WIDTH;
+            tex->render(renX, renY, &rect);
         } else {
-            tex->render(renX - BLOCK_WIDTH / 2, renY - BLOCK_WIDTH);
+            rect.w = BLOCK_WIDTH * 2;
+            rect.h = BLOCK_WIDTH * 2;
+            tex->render(renX - BLOCK_WIDTH / 2, renY - BLOCK_WIDTH, &rect);
         }
     }
 }
