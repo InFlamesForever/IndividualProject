@@ -4,8 +4,8 @@
 
 #include "TileInfo.h"
 
-TileInfo::TileInfo(int texture, int xInTerrain, int yInTerrain, int xOnScreen,
-                   int yOnScreen) {
+TileInfo::TileInfo(int texture,int xInTerrain, int yInTerrain,
+                   int xOnScreen, int yOnScreen) {
     this->texture = texture;
     this->xInTerrain = xInTerrain;
     this->yInTerrain = yInTerrain;

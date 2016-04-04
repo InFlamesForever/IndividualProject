@@ -5,12 +5,9 @@
 #ifndef INDIVIDUALPROJECT_TEXTUREINFO_H
 #define INDIVIDUALPROJECT_TEXTUREINFO_H
 
-
-#include <stdint.h>
-
 class TileInfo {
 public:
-    TileInfo(int texture = INT32_MAX,int xInTerrain = 0, int yInTerrain = 0,
+    TileInfo(int texture,int xInTerrain, int yInTerrain,
              int xOnScreen, int yOnScreen);
 
     int getTexture();
