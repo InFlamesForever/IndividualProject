@@ -154,6 +154,8 @@ void Texture::render(int x, int y,
     if (clip != NULL) {
         renderQuad.w = clip->w;
         renderQuad.h = clip->h;
+        clip->w = mWidth;
+        clip->h = mHeight;
     }
 
     //Render to screen
