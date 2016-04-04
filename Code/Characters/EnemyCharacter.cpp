@@ -31,7 +31,12 @@ void EnemyCharacter::render(int screenPosX, int screenPosY,
                 BLOCK_WIDTH/2 + (int)movingOffsetX + offsetX;
         int y = (terrainPosY - screenPosY - 1) * BLOCK_WIDTH -
                 BLOCK_WIDTH/2 + (int)movingOffsetY + offsetY;
-        textures[state]->render(x,y);
+        SDL_Rect rect;
+        rect.x = 0;
+        rect.y = 0;
+        rect.w = BLOCK_WIDTH * 2;
+        rect.h = BLOCK_WIDTH * 2;
+        textures[state]->render(x,y, &rect);
         renderHealthBar(getHealthPts(), x, y);
     }
 }
