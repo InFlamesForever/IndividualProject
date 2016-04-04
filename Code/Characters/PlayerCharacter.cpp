@@ -122,3 +122,8 @@ void PlayerCharacter::regenerate() {
         healthRenegerator.start();
     }
 }
+
+void PlayerCharacter::changeZoom(int screenPosX, int screenPosY) {
+    this->screenPosX = (terrainPosX - screenPosX) * BLOCK_WIDTH - BLOCK_WIDTH/2;
+    this->screenPosY = (terrainPosY - screenPosY - 1) * BLOCK_WIDTH - BLOCK_WIDTH/2;
+}

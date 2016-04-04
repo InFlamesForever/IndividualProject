@@ -32,6 +32,8 @@ public:
 
     void regenerate();
 
+    void changeZoom(int screenPosX, int screenPosY);
+
 private:
     //The position to render the player character
     float screenPosX, screenPosY;
