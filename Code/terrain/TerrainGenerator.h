@@ -7,7 +7,7 @@
 
 #include <memory>
 #include <bits/shared_ptr.h>
-#include "../media/TextureInfo.h"
+#include "../media/TileInfo.h"
 #include "../media/textures.h"
 #include "PerlinNoise.h"
 #include "TerrainNode.h"
