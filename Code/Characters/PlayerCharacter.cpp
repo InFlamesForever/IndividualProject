@@ -34,14 +34,19 @@ PlayerCharacter::PlayerCharacter(int posX, int posY, int screenPosX, int screenP
 }
 
 void PlayerCharacter::render() {
+    SDL_Rect rect;
+    rect.x = 0;
+    rect.y = 0;
+    rect.w = BLOCK_WIDTH * 2;
+    rect.h = BLOCK_WIDTH * 2;
     if(isMoving){
         hasMoved = true;
         lastDir = dir;
         //Flips the texture when moving left
         if(dir == LEFT){
-            playerMoving[dir]->render((int) screenPosX, (int) screenPosY, NULL, 0.0, NULL, SDL_FLIP_HORIZONTAL);
+            playerMoving[dir]->render((int) screenPosX, (int) screenPosY, &rect, 0.0, NULL, SDL_FLIP_HORIZONTAL);
         } else {
-            playerMoving[dir]->render((int) screenPosX, (int) screenPosY);
+            playerMoving[dir]->render((int) screenPosX, (int) screenPosY, &rect);
         }
     } else {
         //For walking animation
@@ -81,9 +86,9 @@ void PlayerCharacter::render() {
         }
         //Flips the texture when moving left
         if(dir == LEFT){
-            playerStationary[dir]->render((int) screenPosX, (int) screenPosY, NULL, 0.0, NULL, SDL_FLIP_HORIZONTAL);
+            playerStationary[dir]->render((int) screenPosX, (int) screenPosY, &rect, 0.0, NULL, SDL_FLIP_HORIZONTAL);
         } else {
-            playerStationary[dir]->render((int) screenPosX, (int) screenPosY);
+            playerStationary[dir]->render((int) screenPosX, (int) screenPosY, &rect);
         }
     }
 
