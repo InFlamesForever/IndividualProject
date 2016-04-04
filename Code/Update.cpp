@@ -108,7 +108,7 @@ void Update::handleEventUpdate(SDL_Event e) {
 }
 
 void Update::moveUpdate(float timeStep) {
-    if(player->getIsAlive()) {
+    if(player->getIsAlive() && zoom == 0) {
         if (isMoving) {
             switch (move) {
                 case UP:
