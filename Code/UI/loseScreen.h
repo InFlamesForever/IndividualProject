@@ -7,6 +7,7 @@
 
 #include <SDL_pixels.h>
 #include <string>
+#include "drawText.h"
 
 void drawYouDied();
 

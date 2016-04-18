@@ -4,7 +4,6 @@
 
 
 #include "loseScreen.h"
-#include "drawText.h"
 
 void drawYouDied() {
     //Red
