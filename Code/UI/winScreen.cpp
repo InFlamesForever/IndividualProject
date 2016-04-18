@@ -4,7 +4,7 @@
 
 #include "winScreen.h"
 
-void drawYouDied() {
+void drawYouWin() {
     //Red
     SDL_Color color = { 0, 255, 0, 255 };
 
