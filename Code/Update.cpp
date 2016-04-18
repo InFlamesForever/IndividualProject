@@ -20,8 +20,8 @@ Update::Update() {
     enemies.reserve((unsigned long) numEnemies);
     generateEnemies(numEnemies);
 
+    quest.findTownsInit(background.getTownPositions(), 4);
     quest.killEnemiesInit(5);
-    quest.findTownsInit(background.getTownPositions(), 2);
 }
 
 void Update::handleEventUpdate(SDL_Event e) {
