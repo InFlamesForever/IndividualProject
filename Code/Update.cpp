@@ -19,7 +19,7 @@ Update::Update() {
     enemies.reserve((unsigned long) numEnemies);
     generateEnemies(numEnemies);
 
-    quest.killEnemiesInit(100);
+    quest.killEnemiesInit(10);
     quest.findTownsInit(background.getTownPositions(), 4);
 }
 
