@@ -249,7 +249,6 @@ void Update::renderUI() {
     renderPlayerStatBar(player);
     if(quest.currentQuests()){
         drawYouWin();
-        cout << "yes" << endl;
     }
 }
 

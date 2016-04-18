@@ -30,7 +30,6 @@ bool Quest::currentQuests() {
             }
         }
     }
-    cout << numQuests << endl;
     return numQuests == 0;
 }
 
