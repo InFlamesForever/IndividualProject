@@ -4,6 +4,7 @@
 
 #include "Update.h"
 
+
 /*
  * Constructor
  */
@@ -19,8 +20,8 @@ Update::Update() {
     enemies.reserve((unsigned long) numEnemies);
     generateEnemies(numEnemies);
 
-    quest.killEnemiesInit(10);
-    quest.findTownsInit(background.getTownPositions(), 4);
+    quest.killEnemiesInit(5);
+    quest.findTownsInit(background.getTownPositions(), 2);
 }
 
 void Update::handleEventUpdate(SDL_Event e) {
@@ -246,7 +247,10 @@ void Update::renderUI() {
         drawYouDied();
     }
     renderPlayerStatBar(player);
-    quest.currentQuests();
+    if(quest.currentQuests()){
+        drawYouWin();
+        cout << "yes" << endl;
+    }
 }
 
 void Update::levelUp() {

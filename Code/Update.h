@@ -15,6 +15,7 @@
 #include "Characters/Enemies/Slime.h"
 #include "UI/renderPlayerStatBar.h"
 #include "UI/Quest.h"
+#include "UI/winScreen.h"
 
 class Update {
 public:
