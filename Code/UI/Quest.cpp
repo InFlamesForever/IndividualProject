@@ -22,9 +22,12 @@ void Quest::currentQuests() {
     } else {
         questStartTimer.stop();
         for(int i = 0; i < numQuests; i++){
-            ss.str("");
-            ss << questsText[i];
-            drawText(ss.str().c_str(),10, SCREEN_HEIGHT - 200 + i * 25, textColour, gFont_PlayerUI);
+            if(questsText[i] != "") {
+                ss.str("");
+                ss << questsText[i];
+                drawText(ss.str().c_str(), 10, SCREEN_HEIGHT - 200 + i * 25,
+                         textColour, gFont_PlayerUI);
+            }
         }
     }
 }
@@ -46,16 +49,21 @@ void Quest::findTownsInit(int** towns, int numTowns) {
 }
 
 bool Quest::foundTown(int x, int y) {
+    bool returnVal = false;
     for(int i = 0; i < townPos.size(); i++){
         if(x == townPos[i][0] && y == townPos[i][1]){
             townPos.erase(townPos.begin() + i);
             numTownsRemaining--;
-            stringstream ss;
-            ss.str("");
-            ss << numTownsRemaining << " towns remaining to find!";
-            questsText[townPlaceInQuests] = ss.str().c_str();
-            return true;
+            returnVal = true;
         }
+    }
+    if(returnVal){
+        stringstream ss;
+        ss.str("");
+        if(numTownsRemaining != 0){
+            ss << numTownsRemaining << " towns remaining to find!";
+        }
+        questsText[townPlaceInQuests] = ss.str().c_str();
     }
     return false;
 }
@@ -77,7 +85,9 @@ bool Quest::enemyKilled() {
     enemiesRemaining--;
     stringstream ss;
     ss.str("");
-    ss << enemiesRemaining << " enemies to kill!";
+    if(enemiesRemaining != 0){
+        ss << enemiesRemaining << " enemies to kill!";
+    }
     questsText[enemyQuestPlaceInQuests] = ss.str().c_str();
     return enemiesRemaining <= 0;
 }
