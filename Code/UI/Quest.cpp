@@ -9,7 +9,7 @@ Quest::Quest() {
     questStartTimer.start();
 }
 
-void Quest::currentQuests() {
+bool Quest::currentQuests() {
     SDL_Color textColour = {13, 235, 57, 255 };
 
     stringstream ss;
@@ -30,6 +30,8 @@ void Quest::currentQuests() {
             }
         }
     }
+    cout << numQuests << endl;
+    return numQuests == 0;
 }
 
 void Quest::findTownsInit(int** towns, int numTowns) {
@@ -62,6 +64,8 @@ bool Quest::foundTown(int x, int y) {
         ss.str("");
         if(numTownsRemaining != 0){
             ss << numTownsRemaining << " towns remaining to find!";
+        } else {
+            numQuests--;
         }
         questsText[townPlaceInQuests] = ss.str().c_str();
     }
@@ -77,7 +81,7 @@ void Quest::killEnemiesInit(int numEnemies) {
     ss << numEnemies << " enemies to kill!";
     questsText.push_back(ss.str().c_str());
     ss.str("");
-    ss << "Your quest is to find and kill " << numEnemies << " without dying!";
+    ss << "Your quest is to find and kill " << numEnemies << " enemies without dying!";
     questsStartText.push_back(ss.str().c_str());
 }
 
@@ -87,6 +91,8 @@ bool Quest::enemyKilled() {
     ss.str("");
     if(enemiesRemaining != 0){
         ss << enemiesRemaining << " enemies to kill!";
+    } else {
+        numQuests--;
     }
     questsText[enemyQuestPlaceInQuests] = ss.str().c_str();
     return enemiesRemaining <= 0;

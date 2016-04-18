@@ -23,7 +23,7 @@ public:
     void killEnemiesInit(int numEnemies);
     bool enemyKilled();
 
-    void currentQuests();
+    bool currentQuests();
 
 private:
     vector<string> questsText;
