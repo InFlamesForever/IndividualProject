@@ -98,9 +98,11 @@ void Update::handleEventUpdate(SDL_Event e) {
                 isMoving = false;
             } else {
                 for(int i = 0; i < enemies.size(); i++){
-                    if(player->hitDetection(enemies[i], &move)){
-                        isMoving = false;
-                        break;
+                    if(enemies[i].getIsAlive()) {
+                        if (player->hitDetection(enemies[i], &move)) {
+                            isMoving = false;
+                            break;
+                        }
                     }
                 }
             }
@@ -253,6 +255,7 @@ void Update::renderUI() {
 }
 
 void Update::levelUp() {
+    player->rebalance();
     for(int i = 0; i < enemies.size(); i++){
         if(enemies[i].getIsAlive()){
             enemies[i].rebalance();
