@@ -5,10 +5,10 @@
 const int SCREEN_WIDTH = 1280;
 const int SCREEN_HEIGHT = 720;
 
-const int TERRAIN_SIZE = 2000;
+const int TERRAIN_SIZE = 1000;
 
 //Speed multiplier for movement
-static int const MOVE_SPEED = 100;
+static int const MOVE_SPEED = 10;
 
 enum TerrainTypes {
     SandLight, SandDark,
