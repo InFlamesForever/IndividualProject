@@ -12,12 +12,14 @@
 
 using namespace std;
 
-//Texture wrapper class
 /*  
     The following code has been adapted to suit this programs needs 
     and is no longer identical to the original, however This piece 
     of code was originally from Lazy Foo' Productions
     (http://lazyfoo.net/)
+    
+    This class is a texture wrapper class for the SDL2 library 
+    texture object.
 */
 class Texture {
 public:
@@ -30,6 +32,7 @@ public:
     //Loads image at specified path
     bool loadFromFile(std::string path);
 
+    //Creates a texture from a string of text and a font type
     bool loadFromRenderedText(std::string textureText, SDL_Color textColor,
                               TTF_Font *gFont);
 
@@ -60,7 +63,6 @@ public:
 
     //Gets image dimensions
     int getWidth();
-
     int getHeight();
 
     //Pixel manipulators
