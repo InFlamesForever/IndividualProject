@@ -13,7 +13,7 @@
 using namespace std;
 
 /*  
-    The following code has been adapted to suit this programs needs 
+    The following code has been adapted and added to, to suit this programs needs 
     and is no longer identical to the original, however This piece 
     of code was originally from Lazy Foo' Productions
     (http://lazyfoo.net/)
