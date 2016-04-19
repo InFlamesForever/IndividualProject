@@ -13,6 +13,12 @@
 using namespace std;
 
 //Texture wrapper class
+/*  
+    The following code has been adapted to suit this programs needs 
+    and is no longer identical to the original, however This piece 
+    of code was originally from Lazy Foo' Productions
+    (http://lazyfoo.net/)
+*/
 class Texture {
 public:
     //Initializes variables
