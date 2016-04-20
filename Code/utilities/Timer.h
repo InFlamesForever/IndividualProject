@@ -7,7 +7,12 @@
 
 /*
  * Last Updated 05/12/15
+    The following code has been adapted and added to, to suit this programs needs 
+    and is no longer identical to the original, however this piece 
+    of code was originally from Lazy Foo' Productions
+    (http://lazyfoo.net/)
  */
+
 class Timer {
 public:
     Timer();
